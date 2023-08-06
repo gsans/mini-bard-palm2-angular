@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PredictComponent } from './predict/predict.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PredictComponent
   ],
   imports: [
     BrowserModule,
