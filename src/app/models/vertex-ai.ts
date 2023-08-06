@@ -3,33 +3,78 @@
 // Date: 6-Aug-2023
 // Source: https://cloud.google.com/vertex-ai/docs/generative-ai
 
-export interface RequestText {
-  instances: Instance[];
+// Text API
+export interface TextRequest {
+  instances: TextInstance[];
   parameters: Parameters;
 }
 
-export interface Parameters {
-  temperature: number;
-  maxOutputTokens: number;
-  topP: number;
-  topK: number;
-}
-
-export interface Instance {
+export interface TextInstance {
   prompt: string;
 }
 
-export interface ResponseText {
-  predictions: PredictionText[];
-}
-export interface ResponseChat {
-  predictions: PredictionChat[];
-}
-export interface ResponseCode {
-  predictions: PredictionCode[];
+export interface TextResponse {
+  predictions: TextPrediction[];
 }
 
-export interface ResponseImagen {
+export interface TextPrediction {
+  content: string;
+  citationMetadata: CitationMetadata;
+  safetyAttributes: SafetyAttributes;
+}
+
+
+// Chat API  
+export interface ChatRequest {
+  instances: ChatInstance[];
+  parameters: Parameters;
+}
+
+export interface ChatInstance {
+  prompt: string;
+}
+
+export interface ChatResponse {
+  predictions: ChatPrediction[];
+}
+
+export interface ChatPrediction {
+  candidates: Candidate[];
+  citationMetadata: CitationMetadata;
+  safetyAttributes: SafetyAttributes;
+}
+
+
+// Code API
+export interface CodeRequest {
+  instances: CodeInstance[];
+  parameters: Parameters;
+}
+
+export interface CodeInstance {
+  prompt: string;
+}
+
+export interface CodeResponse {
+  predictions: CodePrediction[];
+}
+
+export interface CodePrediction {
+  candidates: Candidate[];
+  citationMetadata: CitationMetadata;
+  safetyAttributes: SafetyAttributes;
+}
+
+// Imagen API
+export interface ImagenRequest {
+  instances: ImagenInstance[];
+}
+
+export interface ImagenInstance {
+  prompt: string;
+}
+
+export interface ImagenResponse {
   predictions: string[];
   deployedModelId?: string;
   model?: string;
@@ -37,8 +82,12 @@ export interface ResponseImagen {
   modelVersionId?: string;
 }
 
-export interface PredictionText {
-  content: string;
+// Shared types
+export interface Parameters {
+  temperature: number;
+  maxOutputTokens: number;
+  topP: number;
+  topK: number;
 }
 
 interface PredictionChat {
@@ -47,11 +96,6 @@ interface PredictionChat {
 
 interface PredictionCode {
   candidates: Candidate[] | undefined;
-}
-
-export interface PredictionBase extends PredictionText, PredictionChat, PredictionCode {
-  citationMetadata: CitationMetadata;
-  safetyAttributes: SafetyAttributes;
 }
 
 export interface SafetyAttributes {
