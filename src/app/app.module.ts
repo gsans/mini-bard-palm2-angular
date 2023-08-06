@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PredictComponent } from './predict/predict.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PredictComponent } from './predict/predict.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,6 @@ import { PredictComponent } from './predict/predict.component';
     BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [PredictComponent]
 })
 export class AppModule { }

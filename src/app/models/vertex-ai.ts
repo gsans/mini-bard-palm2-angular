@@ -15,6 +15,7 @@ export interface TextInstance {
 
 export interface TextResponse {
   predictions: TextPrediction[];
+  metadata: Metadata;
 }
 
 export interface TextPrediction {
@@ -36,6 +37,7 @@ export interface ChatInstance {
 
 export interface ChatResponse {
   predictions: ChatPrediction[];
+  metadata: Metadata;
 }
 
 export interface ChatPrediction {
@@ -57,6 +59,7 @@ export interface CodeInstance {
 
 export interface CodeResponse {
   predictions: CodePrediction[];
+  metadata: Metadata;
 }
 
 export interface CodePrediction {
@@ -105,4 +108,18 @@ export interface SafetyAttributes {
   categories: string[];
   blocked: boolean;
   scores: number[];
+}
+
+export interface Metadata {
+  tokenMetadata: TokenMetadata;
+}
+
+export interface TokenMetadata {
+  inputTokenCount: InputTokenCount;
+  outputTokenCount: InputTokenCount;
+}
+
+export interface InputTokenCount {
+  totalBillableCharacters: number;
+  totalTokens: number;
 }
