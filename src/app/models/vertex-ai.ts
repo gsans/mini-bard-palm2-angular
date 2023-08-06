@@ -24,7 +24,7 @@ export interface TextPrediction {
 }
 
 
-// Chat API  
+// Chat API
 export interface ChatRequest {
   instances: ChatInstance[];
   parameters: Parameters;
@@ -45,7 +45,7 @@ export interface ChatPrediction {
 }
 
 
-// Code API
+// Code API  
 export interface CodeRequest {
   instances: CodeInstance[];
   parameters: Parameters;
@@ -65,6 +65,7 @@ export interface CodePrediction {
   safetyAttributes: SafetyAttributes;
 }
 
+
 // Imagen API
 export interface ImagenRequest {
   instances: ImagenInstance[];
@@ -82,6 +83,7 @@ export interface ImagenResponse {
   modelVersionId?: string;
 }
 
+
 // Shared types
 export interface Parameters {
   temperature: number;
@@ -90,25 +92,17 @@ export interface Parameters {
   topK: number;
 }
 
-interface PredictionChat {
-  candidates: Candidate[] | undefined;
-}
-
-interface PredictionCode {
-  candidates: Candidate[] | undefined;
-}
-
-export interface SafetyAttributes {
-  categories: string[];
-  blocked: boolean;
-  scores: number[];
+export interface Candidate {
+  author: string;
+  content: string;
 }
 
 export interface CitationMetadata {
   citations: any[];
 }
 
-interface Candidate {
-  author: string;
-  content: string;
+export interface SafetyAttributes {
+  categories: string[];
+  blocked: boolean;
+  scores: number[];
 }
