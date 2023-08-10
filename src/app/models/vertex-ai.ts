@@ -3,6 +3,29 @@
 // Date: 6-Aug-2023
 // Source: https://cloud.google.com/vertex-ai/docs/generative-ai
 
+export function createPrompt(
+  prompt: string = "What is the largest number with a name?",
+  temperature: number = 0,
+  maxOutputTokens: number = 100,
+  topP: number = 0.70,
+  topK: number = 40
+): TextRequest {
+  const request : TextRequest = {
+    "instances": [
+      {
+        "prompt": `${prompt}`
+      }
+    ],
+    "parameters": {
+      "temperature": temperature,
+      "maxOutputTokens": maxOutputTokens,
+      "topP": topP,
+      "topK": topK
+    }
+  }
+  return request;
+}  
+
 // Text API
 export interface TextRequest {
   instances: TextInstance[];
