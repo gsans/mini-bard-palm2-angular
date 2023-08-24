@@ -27,11 +27,11 @@ import { environment } from '../environments/environment.development';
     NbSpinnerModule,
     BrowserAnimationsModule,
     VertexModule.forRoot({
-      projectID: environment.PROJECT_ID,
+      projectId: environment.PROJECT_ID,
       accessToken: environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN,
+      version: "v1"
     })
   ],
-  providers: [],
   bootstrap: [PredictComponent]
 })
 export class AppModule { }
