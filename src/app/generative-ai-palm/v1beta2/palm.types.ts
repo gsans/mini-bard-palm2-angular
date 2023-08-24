@@ -1,229 +1,255 @@
-// Source: https://cloud.google.com/vertex-ai/docs/generative-ai
+// Source: https://developers.generativeai.google/api/rest/generativelanguage/models
 
-export function createPrompt(
-  prompt: string = "What is the largest number with a name?",
-  temperature: number = 0,
-  maxOutputTokens: number = 100,
-  topP: number = 0.70,
-  topK: number = 40
-): TextRequest {
-  const request : TextRequest = {
-    "instances": [
-      {
-        "prompt": `${prompt}`
-      }
-    ],
-    "parameters": {
-      "temperature": temperature,
-      "maxOutputTokens": maxOutputTokens,
-      "topP": topP,
-      "topK": topK
-    }
-  }
-  return request;
-}  
-
-// Text API
-export interface TextRequest {
-  instances: TextInstance[];
-  parameters: Parameters;
+export interface CitationMetadata {
+  citationSources?: CitationSource[];
 }
 
-export interface TextInstance {
-  prompt: string;
+export interface CitationSource {
+  startIndex?: number;
+  endIndex?: number;
+  uri?: string;
+  license?: string;
+}
+
+export enum HarmCategory {
+  HARM_CATEGORY_UNSPECIFIED = 0,
+  HARM_CATEGORY_DEROGATORY = 1,
+  HARM_CATEGORY_TOXICITY = 2,
+  HARM_CATEGORY_VIOLENCE = 3,
+  HARM_CATEGORY_SEXUAL = 4,
+  HARM_CATEGORY_MEDICAL = 5,
+  HARM_CATEGORY_DANGEROUS = 6
+}
+
+export interface ContentFilter {
+  reason?: ContentFilter.BlockedReason;
+  message?: string;
+}
+
+export namespace ContentFilter {
+  export enum BlockedReason {
+    BLOCKED_REASON_UNSPECIFIED = 0,
+    SAFETY = 1,
+    OTHER = 2
+  }
+}
+
+export interface SafetyFeedback {
+  rating?: SafetyRating;
+  setting?: SafetySetting;
+}
+
+export interface SafetyRating {
+  category: HarmCategory;
+  probability: SafetyRating.HarmProbability;
+}
+
+export namespace SafetyRating {
+  export enum HarmProbability {
+    HARM_PROBABILITY_UNSPECIFIED = 0,
+    NEGLIGIBLE = 1,
+    LOW = 2,
+    MEDIUM = 3,
+    HIGH = 4
+  }
+}
+
+export interface SafetySetting {
+  category: HarmCategory;
+  threshold: SafetySetting.HarmBlockThreshold;
+}
+
+export namespace SafetySetting {
+  export enum HarmBlockThreshold {
+    HARM_BLOCK_THRESHOLD_UNSPECIFIED = 0,
+    BLOCK_LOW_AND_ABOVE = 1,
+    BLOCK_MEDIUM_AND_ABOVE = 2,
+    BLOCK_ONLY_HIGH = 3
+  }
+}
+
+export interface TextRequest {
+  model: string;
+  prompt?: TextPrompt;
+  temperature?: number;
+  candidateCount?: number;
+  maxOutputTokens?: number;
+  topP?: number;
+  topK?: number;
+  safetySettings?: SafetySetting[];
+  stopSequences?: string[];
 }
 
 export interface TextResponse {
-  predictions: TextPrediction[];
-  metadata: Metadata;
+  candidates?: TextCompletion[];
+  filters?: ContentFilter[];
+  safetyFeedback?: SafetyFeedback[];
 }
 
-export interface TextPrediction {
-  content: string;
-  citationMetadata: CitationMetadata;
-  safetyAttributes: SafetyAttributes;
+export interface TextPrompt {
+  text: string;
 }
 
-
-// Chat API
-export interface ChatRequest {
-  instances: ChatInstance[];
-  parameters: Parameters;
+export interface TextCompletion {
+  output?: string;
+  safetyRatings?: SafetyRating[];
+  citationMetadata?: CitationMetadata;
 }
 
-export interface ChatInstance {
-  prompt: string;
+export interface EmbedTextRequest {
+  model: string;
+  text: string;
 }
 
-export interface ChatResponse {
-  predictions: ChatPrediction[];
-  metadata: Metadata;
+export interface EmbedTextResponse {
+  embedding?: Embedding;
 }
 
-export interface ChatPrediction {
-  candidates: Candidate[];
-  citationMetadata: CitationMetadata;
-  safetyAttributes: SafetyAttributes;
+export interface Embedding {
+  value?: number[];
 }
 
-
-// Code API  
-export interface CodeRequest {
-  instances: CodeInstance[];
-  parameters: Parameters;
+export interface Model {
+  name: string;
+  baseModelId: string;
+  version: string;
+  displayName?: string;
+  description?: string;
+  inputTokenLimit?: number;
+  outputTokenLimit?: number;
+  supportedGenerationMethods?: string[];
+  temperature?: number;
+  topP?: number;
+  topK?: number;
 }
 
-export interface CodeInstance {
-  prompt: string;
+export interface GetModelRequest {
+  name: string;
 }
 
-export interface CodeResponse {
-  predictions: CodePrediction[];
-  metadata: Metadata;
+export interface ListModelsRequest {
+  pageSize?: number;
+  pageToken?: string;
 }
 
-export interface CodePrediction {
-  candidates: Candidate[];
-  citationMetadata: CitationMetadata;
-  safetyAttributes: SafetyAttributes;
-}
-
-
-// Imagen API
-export interface ImagenRequest {
-  instances: ImagenInstance[];
-}
-
-export interface ImagenInstance {
-  prompt: string;
-}
-
-export interface ImagenResponse {
-  predictions: string[];
-  deployedModelId?: string;
-  model?: string;
-  modelDisplayName?: string;
-  modelVersionId?: string;
-}
-
-
-// Shared types
-export interface Parameters {
-  temperature: number;
-  maxOutputTokens: number;
-  topP: number;
-  topK: number;
-}
-
-export interface Candidate {
-  author: string;
-  content: string;
-}
-
-export interface CitationMetadata {
-  citations: any[];
-}
-
-export interface SafetyAttributes {
-  categories: string[];
-  blocked: boolean;
-  scores: number[];
-}
-
-export interface Metadata {
-  tokenMetadata: TokenMetadata;
-}
-
-export interface TokenMetadata {
-  inputTokenCount: InputTokenCount;
-  outputTokenCount: InputTokenCount;
-}
-
-export interface InputTokenCount {
-  totalBillableCharacters: number;
-  totalTokens: number;
-}
-
-/// Chat
-
-export interface Prompt {
-  context?: string;
-  examples?: PromptExample[];
-  messages: PromptMessage[];
-}
-
-export interface PromptExample {
-  input: { content: string };
-  output: { content: string };
-}
-
-export interface PromptMessage {
-  content: string;
+export interface ListModelsResponse {
+  models?: Model[];
+  nextPageToken?: string;
 }
 
 export interface MessageRequest {
   model: string;
+  prompt: MessagePrompt;
   temperature?: number;
   candidateCount?: number;
-  prompt: Prompt;
+  topP?: number;
+  topK?: number;
 }
 
-export function createMessage(
-  model: string,
-  text: string = "What is the largest number with a name?",
-  temperature: number = 0.5,
+export interface MessageResponse {
+  candidates?: Message[];
+  messages?: Message[];
+  filters?: ContentFilter[];
+}
+
+export interface Message {
+  author?: string;
+  content: string;
+  citationMetadata?: CitationMetadata;
+}
+
+export interface MessagePrompt {
+  context?: string;
+  examples?: Example[];
+  messages: Message[];
+}
+
+export interface Example {
+  input: Message;
+  output: Message;
+}
+
+export interface CountMessageTokensRequest {
+  model: string;
+  prompt: MessagePrompt;
+}
+
+export interface CountMessageTokensResponse {
+  tokenCount: number;
+}
+
+
+export function createTextRequest(
+  model: string = "text-bison-001",
+  text: string,
+  temperature: number = 0,
   candidateCount: number = 1,
-  context?: string,
-  examples?: PromptExample[],
-): MessageRequest {
-  const request: MessageRequest = {
-    model: model,
-    temperature: temperature, 
-    candidateCount: candidateCount,
-    prompt: {
-      messages: [{ content: text }],
-    }
-  };
-  if (context) {
-    request.prompt.context = context;
+  maxOutputTokens: number = 100,
+  topP: number = 0.70,
+  topK: number = 40,
+  safetySettings?: SafetySetting[],
+  stopSequences?: string[],
+): TextRequest {
+  const request: TextRequest = {
+    model,
+    "prompt": {
+      "text": text
+    },
+    temperature,
+    candidateCount,
+    maxOutputTokens,
+    topP,
+    topK
   }
-  if (examples) {
-    request.prompt.examples = examples;
+  /// Example [{ "category": "HARM_CATEGORY_DEROGATORY", "threshold": 1 }, { "category": "HARM_CATEGORY_TOXICITY", "threshold": 1 }, { "category": "HARM_CATEGORY_VIOLENCE", "threshold": 2 }, { "category": "HARM_CATEGORY_SEXUAL", "threshold": 2 }, { "category": "HARM_CATEGORY_MEDICAL", "threshold": 2 }, { "category": "HARM_CATEGORY_DANGEROUS", "threshold": 2 }]
+  if (safetySettings) {
+    request.safetySettings = safetySettings
+  }
+  if (stopSequences) {
+    request.stopSequences = stopSequences
   }
   return request;
 }
 
-
-export interface Message {
-  author: string;
-  content: string;
+function createMessagePrompt(text: string, context?: string, examples?: Example[]): MessagePrompt {
+  let prompt = {
+    messages: [{ content: text }],
+    ...(context && { context }),
+    ...(examples && { examples }),
+  };
+  return prompt;
 }
 
-export interface MessageResponse {
-  candidates: Candidate[];
-  messages: Message[];
+export function createMessage(
+  model: string = "text-bison-001",
+  text: string,
+  temperature: number = 0.5,
+  candidateCount: number = 1,
+  topP: number = 0.70,
+  topK: number = 40,
+  context?: string,
+  examples?: Example[],
+): MessageRequest {
+  const prompt = createMessagePrompt(text, context, examples);
+  const request: MessageRequest = {
+    model,
+    prompt,
+    temperature,
+    topK,
+    topP,
+    candidateCount,
+  };
+
+  return request;
 }
 
-
-/// Embeddings
-
-export interface EmbeddingRequest {
-  model: string,
-  text: string;
-}
 export function createEmbedding(
-  model: string,
-  text: string = "What is the largest number with a name?",
-): EmbeddingRequest {
-  const request: EmbeddingRequest = {
+  model: string = "text-bison-001",
+  text: string,
+): EmbedTextRequest {
+  const request: EmbedTextRequest = {
     "model": model,
     "text": text
   }
   return request;
-}
-
-export interface EmbeddingResponse {
-  embedding: {
-    value: number[];
-  };
 }

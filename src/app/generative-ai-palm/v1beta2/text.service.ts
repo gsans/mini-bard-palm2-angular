@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { MakerSuiteCredentials } from '../types';
-import { createPrompt, TextRequest, TextResponse } from './palm.types';
+import { createTextRequest, TextRequest, TextResponse } from './palm.types';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class TextServiceClient {
 
   async generateText(text: string, model: string = "text-bison-001") {
     let endpoint = this.buildEndpointUrlApiKey(model);
-    let prompt: TextRequest = createPrompt(text);
+    let prompt: TextRequest = createTextRequest(model, text);
 
     return firstValueFrom(
       this.http.post<TextResponse>(endpoint, prompt)

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { MakerSuiteCredentials } from '../types';
-import { createEmbedding, EmbeddingResponse } from './palm.types';
+import { createEmbedding, EmbedTextResponse } from './palm.types';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ModelServiceClient {
     let endpoint = this.buildEndpointUrl(model);
 
     return firstValueFrom(
-      this.http.post<EmbeddingResponse>(endpoint, prompt)
+      this.http.post<EmbedTextResponse>(endpoint, prompt)
     );
   }
 

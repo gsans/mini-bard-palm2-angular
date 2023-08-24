@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { MakerSuiteCredentials } from '../types';
-import { createMessage, MessageResponse } from './palm.types';
+import { createMessage, MessageRequest, MessageResponse } from './palm.types';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class DiscussServiceClient {
 
   async generateMessage(text: string, model: string = "text-bison-001") {
     let endpoint = this.buildEndpointUrl(model);
-    let prompt = createMessage(model, text);
+    let prompt: MessageRequest = createMessage(model, text);
 
     return firstValueFrom(
       this.http.post<MessageResponse>(endpoint, prompt)

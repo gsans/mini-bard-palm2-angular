@@ -9,6 +9,7 @@ import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@n
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { PalmModule } from './generative-ai-palm/palm.module';
 import { VertexModule } from './generative-ai-vertex/vertex.module';
 import { environment } from '../environments/environment.development';
 
@@ -26,10 +27,13 @@ import { environment } from '../environments/environment.development';
     NbChatModule,
     NbSpinnerModule,
     BrowserAnimationsModule,
-    VertexModule.forRoot({
-      projectId: environment.PROJECT_ID,
-      accessToken: environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN,
-      version: "v1"
+    // VertexModule.forRoot({
+    //   projectId: environment.PROJECT_ID,
+    //   accessToken: environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN,
+    //   version: "v1"
+    // })
+    PalmModule.forRoot({
+      apiKEY: environment.API_KEY
     })
   ],
   bootstrap: [PredictComponent]
