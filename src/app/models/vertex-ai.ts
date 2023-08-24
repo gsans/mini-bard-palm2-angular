@@ -1,6 +1,3 @@
-// Author: @gerardsans
-// version: 1.0
-// Date: 6-Aug-2023
 // Source: https://cloud.google.com/vertex-ai/docs/generative-ai
 
 export function createPrompt(
