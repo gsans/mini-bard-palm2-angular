@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
-  { path: 'chat', component: ChatComponent },
+  { path: 'chat', component: ChatComponent, data: { title: 'Chat' } },
   { path: '', redirectTo: '/chat', pathMatch: 'full' }
 ];
 

@@ -1,17 +1,27 @@
 <div>
-  <mat-sidenav-container>
-    <mat-sidenav #snav [mode]="'side'">
+  <mat-sidenav-container autosize="true">
+    <mat-sidenav #snav 
+    mode="side" opened="true" [class.sidenav]="isExpanded"
+    fixedInViewport="true">
       <mat-nav-list>
-        Option 1
+        <mat-list-item>
+          <button mat-icon-button (click)="isExpanded = !isExpanded">
+            <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
+            <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-icon-button>
+            <mat-icon svgIcon="palm"></mat-icon>
+            <div class="option" *ngIf="isExpanded">PaLM for Chat</div>
+          </button>
+        </mat-list-item>  
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content [style.margin-left.px]="!isExpanded ? 80 : 250">
       <mat-toolbar color="primary">
-        <button mat-icon-button (click)="snav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <h1>MyApp</h1>
+        <h1>{{title}}</h1>
       </mat-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
