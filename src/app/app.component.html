@@ -1,36 +1,19 @@
-<nb-layout>
+<div>
+  <mat-sidenav-container>
+    <mat-sidenav #snav [mode]="'side'">
+      <mat-nav-list>
+        Option 1
+      </mat-nav-list>
+    </mat-sidenav>
 
-  <nb-layout-header fixed>
-  <!-- Insert header here -->
-  </nb-layout-header>
-
-  <nb-layout-column>
-    <nb-layout>
-      <nb-layout-column>
-    
-        <nb-chat title="Conversation with a Bot">
-          <nb-chat-message *ngFor="let msg of messages" type="text" [message]="msg.text" [reply]="msg.reply"
-            [sender]="msg.sender" [date]="msg.date" [avatar]="msg.avatar">
-          </nb-chat-message>
-    
-          <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text"
-            avatar="/assets/bot.jpeg" message="...">
-          </nb-chat-message>
-    
-          <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true">
-          </nb-chat-form>
-        </nb-chat>
-    
-      </nb-layout-column>
-    </nb-layout>
-    
-    
-    
-    <router-outlet></router-outlet>
-  </nb-layout-column>
-
-  <nb-layout-footer fixed>
-  <!-- Insert footer here -->
-  </nb-layout-footer>
-
-</nb-layout>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1>MyApp</h1>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

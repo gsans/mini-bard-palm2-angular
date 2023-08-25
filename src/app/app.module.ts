@@ -12,11 +12,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PalmModule } from './generative-ai-palm/palm.module';
 import { VertexModule } from './generative-ai-vertex/vertex.module';
 import { environment } from '../environments/environment.development';
+import { ChatComponent } from './chat/chat.component';
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PredictComponent
+    PredictComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +43,13 @@ import { environment } from '../environments/environment.development';
     PalmModule.forRoot({
       apiKey: environment.API_KEY,
       version: "v1beta2" // options: v1beta2
-    })
+    }),
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
-  bootstrap: [PredictComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
