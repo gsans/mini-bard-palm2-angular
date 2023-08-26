@@ -4,15 +4,23 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map } from "rxjs/operators";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
+import { hideAnimation, leftAnimation } from './hide.animation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [hideAnimation, leftAnimation]
 })
 export class AppComponent {
   title: string = "";
   isExpanded: boolean = false;
+  state = this.isExpanded ? 'opened' : 'closed';
+
+  toggleState() {
+    this.isExpanded = !this.isExpanded;
+    this.state = this.isExpanded ? 'opened' : 'closed';
+  }
 
   constructor(
     private router: Router, 

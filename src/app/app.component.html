@@ -1,11 +1,12 @@
 <div>
   <mat-sidenav-container autosize="true">
     <mat-sidenav #snav 
-    mode="side" opened="true" [class.sidenav]="isExpanded"
+    [@hideAnimation]="state"
+    mode="side" opened="true"
     fixedInViewport="true">
       <mat-nav-list>
         <mat-list-item>
-          <button mat-icon-button (click)="isExpanded = !isExpanded">
+          <button mat-icon-button (click)="toggleState()">
             <mat-icon *ngIf="!isExpanded">chevron_right</mat-icon>
             <mat-icon *ngIf="isExpanded">chevron_left</mat-icon>
           </button>
@@ -19,8 +20,8 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content [style.margin-left.px]="!isExpanded ? 80 : 250">
-      <mat-toolbar color="custom-theme" class="fixed-toolbar" [style.left.px]="!isExpanded ? 80 : 250">
+    <mat-sidenav-content [@leftAnimation]="state">
+      <mat-toolbar color="custom-theme" class="fixed-toolbar">
         <h1>{{title}}</h1>
       </mat-toolbar>
       <router-outlet></router-outlet>
