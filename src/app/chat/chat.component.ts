@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit {
   private async addUserMessage(text: string) {
     this.messages.push({
       text,
-      sender: 'You',
+      sender: '@gerardsans',
       date: new Date(),
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     } as any);
@@ -57,7 +57,7 @@ export class ChatComponent implements OnInit {
     this.palmMessages.push({ content: text }); // add robot response
     this.messages.push({
       text,
-      sender: 'Bot',
+      sender: '@palm-models',
       reply: true,
       date: new Date()
     });
