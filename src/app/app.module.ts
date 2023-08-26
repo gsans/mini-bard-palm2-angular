@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PredictComponent } from './predict/predict.component';
 
-import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule, NbChatCustomMessageDirective } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule, NbButtonModule, NbIconModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -26,7 +27,7 @@ import { MarkdownModule } from 'ngx-markdown';
   declarations: [
     AppComponent,
     PredictComponent,
-    ChatComponent
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +37,8 @@ import { MarkdownModule } from 'ngx-markdown';
     NbEvaIconsModule,
     NbChatModule,
     NbSpinnerModule,
+    NbButtonModule,
+    NbIconModule,
 
     BrowserAnimationsModule,
     // VertexModule.forRoot({
@@ -52,6 +55,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
+    MatFormFieldModule,
 
     MarkdownModule.forRoot(),
   ],

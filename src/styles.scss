@@ -25,3 +25,12 @@ code:not([class*=language-]) {
   padding: 0 6px 2px;
   overflow-wrap: break-word;
 }
+
+// ngx-markdown sample
+.post-preview ::ng-deep h1 {
+  xcolor: blue;
+}
+
+.nb-custom-message-not-reply, .nb-custom-message-reply {
+  background-color: #f7f9fc;
+}
