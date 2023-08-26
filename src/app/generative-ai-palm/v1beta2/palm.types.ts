@@ -211,9 +211,9 @@ export function createTextRequest(
   return request;
 }
 
-function createMessagePrompt(text: string, context?: string, examples?: Example[]): MessagePrompt {
+function createMessagePrompt(text: string, messages: Message[], context?: string, examples?: Example[]): MessagePrompt {
   let prompt = {
-    messages: [{ content: text }],
+    messages: [...messages, ...[{ content: text }]],
     ...(context && { context }),
     ...(examples && { examples }),
   };
@@ -223,6 +223,7 @@ function createMessagePrompt(text: string, context?: string, examples?: Example[
 export function createMessage(
   model: string = "text-bison-001",
   text: string,
+  messages: Message[],
   temperature: number = 0.5,
   candidateCount: number = 1,
   topP: number = 0.70,
@@ -230,7 +231,7 @@ export function createMessage(
   context?: string,
   examples?: Example[],
 ): MessageRequest {
-  const prompt = createMessagePrompt(text, context, examples);
+  const prompt = createMessagePrompt(text, messages, context, examples);
   const request: MessageRequest = {
     model,
     prompt,
