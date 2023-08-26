@@ -15,3 +15,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body::-webkit-scrollbar {
   display: none;
 }
+
+@import "assets/prism-vs.css"; //"~prismjs/themes/prism.css";
+
+code:not([class*=language-]) {
+  background: rgba(0, 0, 0, .07);
+  border-radius: 3px;
+  font-size: .94em;
+  padding: 0 6px 2px;
+  overflow-wrap: break-word;
+}

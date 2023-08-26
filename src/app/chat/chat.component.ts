@@ -44,8 +44,8 @@ export class ChatComponent implements OnInit {
     } as any);
 
     this.loading = true;
-    let response = await this.client.generateMessage(text, this.palmMessages);
-    let answer = this.extractMessageResponse(response);
+    //let response = await this.client.generateMessage(text, this.palmMessages);
+    let answer = "hey"; //this.extractMessageResponse(response);
     if (answer) {
       this.palmMessages.push({ content: text }); // add user after call
       this.addBotMessage(answer);

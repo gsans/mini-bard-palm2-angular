@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PredictComponent } from './predict/predict.component';
 
-import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule, NbChatCustomMessageDirective } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     NbEvaIconsModule,
     NbChatModule,
     NbSpinnerModule,
+
     BrowserAnimationsModule,
     // VertexModule.forRoot({
     //   projectId: environment.PROJECT_ID,
@@ -48,7 +51,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+
+    MarkdownModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })

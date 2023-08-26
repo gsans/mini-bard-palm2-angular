@@ -1,4 +1,13 @@
 <div class="frame">
+  <markdown ngPreserveWhitespaces>
+    Inline `code` has `back-ticks around` it.
+    
+    ```javascript
+    var s = "JavaScript syntax highlighting";
+    alert(s);
+    ```
+  </markdown>
+
   <nb-layout>
     <nb-layout-column class="fix">
 
@@ -7,8 +16,11 @@
           [sender]="msg.sender" [date]="msg.date" [avatar]="msg.avatar">
         </nb-chat-message>
 
-        <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text"
-          message="...">
+<!--         <div *nbCustomMessage="'ngx-markdown-type'; let data">
+
+        </div> -->
+
+        <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text" message="...">
         </nb-chat-message>
 
         <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true">
