@@ -12,7 +12,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class AppComponent {
   title: string = "";
-  isExpanded: boolean = true;
+  isExpanded: boolean = false;
 
   constructor(
     private router: Router, 
@@ -44,7 +44,7 @@ export class AppComponent {
       })
     ).subscribe((data: any) => {
       if (data) {
-        this.title = `Generative AI with Angular: ${data}`;
+        this.title = `Generative AI using Angular: ${data}`;
         this.titleService.setTitle(this.title);
       }
     });

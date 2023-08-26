@@ -1,38 +1,20 @@
-<div>
+<div class="frame">
   <nb-layout>
+    <nb-layout-column class="fix">
 
-    <nb-layout-header>
-      <!-- Insert header here -->
-    </nb-layout-header>
+      <nb-chat title="Conversation">
+        <nb-chat-message *ngFor="let msg of messages" type="text" [message]="msg.text" [reply]="msg.reply"
+          [sender]="msg.sender" [date]="msg.date" [avatar]="msg.avatar">
+        </nb-chat-message>
 
-    <nb-layout-column>
-      <nb-layout>
-        <nb-layout-column>
+        <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text"
+          message="...">
+        </nb-chat-message>
 
-          <nb-chat title="Conversation with a Bot">
-            <nb-chat-message *ngFor="let msg of messages" type="text" [message]="msg.text" [reply]="msg.reply"
-              [sender]="msg.sender" [date]="msg.date" [avatar]="msg.avatar">
-            </nb-chat-message>
-
-            <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text"
-              avatar="/assets/bot.jpeg" message="...">
-            </nb-chat-message>
-
-            <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true">
-            </nb-chat-form>
-          </nb-chat>
-
-        </nb-layout-column>
-      </nb-layout>
-
-
-
+        <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true">
+        </nb-chat-form>
+      </nb-chat>
 
     </nb-layout-column>
-
-    <nb-layout-footer fixed>
-      <!-- Insert footer here -->
-    </nb-layout-footer>
-
   </nb-layout>
 </div>

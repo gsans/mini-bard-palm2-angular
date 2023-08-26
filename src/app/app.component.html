@@ -20,7 +20,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content [style.margin-left.px]="!isExpanded ? 80 : 250">
-      <mat-toolbar color="primary">
+      <mat-toolbar color="custom-theme" class="fixed-toolbar" [style.left.px]="!isExpanded ? 80 : 250">
         <h1>{{title}}</h1>
       </mat-toolbar>
       <router-outlet></router-outlet>

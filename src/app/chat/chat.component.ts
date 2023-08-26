@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, Inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
+
+import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
+import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
+import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
 
 @Component({
   selector: 'app-chat',
@@ -10,69 +13,61 @@ import { environment } from '../../environments/environment.development';
 export class ChatComponent implements OnInit {
   title = 'vertex-ai-palm2-angular';
   messages = <any>[];
+  palmMessages: Array<Message> = [];
   loading = false;
 
-  // Random ID to maintain session with server
-  sessionId = Math.random().toString(36).slice(-5);
-
-  constructor(public http: HttpClient) {
-  }
+  constructor(
+    @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
+  ) { }
 
   ngOnInit(): void {
-    this.addBotMessage('Human presence detected �. How can I help you? ');
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN}`);
-    const options = {
-      "headers": headers,
-    }
-
-    const body = {
-      "instances": [
-        {
-          "prompt": "Write a recipe for a chocolate cake."
-        }
-      ],
-      "parameters": {
-        "temperature": 0.2,
-        "maxOutputTokens": 100,
-        "topP": 0.95,
-        "topK": 40
-      }
-    };
-    const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${environment.PROJECT_ID}/locations/us-central1/publishers/google/models/text-bison:predict`;
-    // this.http.post(url, body, options).subscribe(Response => {
-    //   console.log(Response)
-    // });
+    //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
   }
-
 
   handleUserMessage(event: any) {
-    console.log(event);
-    const text = event.message;
-    this.addUserMessage(text);
-
-    this.loading = true;
-
-    // Make an HTTP Request
-    this.addBotMessage("Done!");
-    this.loading = false;
+    this.addUserMessage(event.message);
   }
+
+  private extractMessageResponse(response: MessageResponse): string {
+    let answer = response.candidates?.[0]?.content ?? "";
+    if (!answer) throw("Error");
+    return answer;
+  }
+
   // Helpers
-  addUserMessage(text: string) {
+  private async addUserMessage(text: string) {
     this.messages.push({
       text,
       sender: 'You',
-      reply: true,
-      date: new Date()
+      date: new Date(),
+      avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     } as any);
+
+    this.loading = true;
+    let response = await this.client.generateMessage(text, this.palmMessages);
+    let answer = this.extractMessageResponse(response);
+    if (answer) {
+      this.palmMessages.push({ content: text }); // add user after call
+      this.addBotMessage(answer);
+    }
+    this.loading = false;
   }
 
-  addBotMessage(text: string) {
+  private addBotMessage(text: string) {
+    this.palmMessages.push({ content: text }); // add robot response
     this.messages.push({
       text,
       sender: 'Bot',
+      reply: true,
+      date: new Date()
+    });
+  }
+
+  private addBotMessageLocal(text: string) {
+    this.messages.push({
+      text,
+      sender: 'Bot',
+      reply: true,
       date: new Date()
     });
   }
