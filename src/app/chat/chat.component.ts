@@ -75,9 +75,8 @@ export class ChatComponent implements OnInit {
     this.messages.push({
       type: 'md',
       customMessageData: text,
-      sender: '@palm-models',
-      reply: true,
-      date: new Date()
+      reply: false,
+      avatar: "/assets/sparkle_resting.gif",
     });
     this.scrollToBottom();
   }

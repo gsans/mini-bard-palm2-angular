@@ -1,13 +1,80 @@
 .frame {
   margin-top: 50px;
 }
+.frame ::ng-deep * {
+  font-size: 16px !important;
+}
 
 nb-layout-column.fix {
   padding-bottom: 100px !important;
-  padding-left: 25% !important;
-  padding-right: 25% !important;
+  padding-left: 15% !important;
+  padding-right: 15% !important;
 }
 
 ::ng-deep nb-chat input {
   font-weight: 400 !important;
+}
+
+::ng-deep nb-chat-message nb-chat-message-text .sender {
+  display: none;
+}
+
+::ng-deep nb-chat-message .avatar {
+  background-color: transparent;
+}
+
+::ng-deep nb-chat-message[ng-reflect-reply] .avatar {
+  background-size: 80%;
+}
+
+
+
+::ng-deep .nb-custom-message-not-reply,
+::ng-deep .nb-custom-message-reply {
+  background-color: #f7f9fc;
+  width: calc(100% + 40px);
+  margin-left: 5px;
+}
+
+::ng-deep nb-chat .header::after {
+  content: "Conversation";
+}
+
+::ng-deep .no-messages::before {
+  content: "No messages yet!";
+  visibility: visible;
+}
+::ng-deep .no-messages {
+  visibility: collapse;
+}
+
+::ng-deep [nbInput].size-medium {
+  font-size: 16px !important;
+  padding: 7px 20px 7px 20px !important;
+}
+
+
+::ng-deep nb-chat-form .message-row {
+  padding: 10px;
+}
+::ng-deep nb-chat-form .message-row input {
+  height: 60px;
+}
+
+::ng-deep [nbButton].appearance-filled.status-primary,
+::ng-deep [nbButton].appearance-filled.status-primary[nbButtonToggle],
+::ng-deep [nbButton].appearance-filled.status-primary:active,
+::ng-deep .appearance-filled.status-primary[nbButtonToggle]:active,
+::ng-deep [nbButton].appearance-filled.status-primary:hover,
+::ng-deep .appearance-filled.status-primary[nbButtonToggle]:hover,
+::ng-deep [nbButton].appearance-filled.status-primary,
+::ng-deep .appearance-filled.status-primary[nbButtonToggle] 
+{
+  background-color: #222b45;
+  border-color: #222b45;
+}
+
+::ng-deep [nbInput].status-basic:focus {
+  background-color: #edf1f7;
+  border-color: #edf1f7;
 }

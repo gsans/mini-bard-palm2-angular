@@ -2,7 +2,7 @@
   <nb-layout>
     <nb-layout-column class="fix">
 
-      <nb-chat>
+      <nb-chat [attr.data-after-content]="'Conversation'">
         <div *nbCustomMessage="'md'; let text">
           <markdown ngPreserveWhitespaces>
             {{ text }}
@@ -17,7 +17,7 @@
         <nb-chat-message *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="info" type="text" message="...">
         </nb-chat-message>
 
-        <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true">
+        <nb-chat-form (send)="handleUserMessage($event)" [dropFiles]="true" messagePlaceholder="Enter a prompt here">
         </nb-chat-form>
         
       </nb-chat>
