@@ -1,9 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
 import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
 import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
+
+declare global {
+  interface Window {
+    scrollIntoView?: any;
+  }
+}
 
 @Component({
   selector: 'app-chat',
@@ -11,6 +17,8 @@ import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.typ
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('bottom') bottom!: ElementRef;
+
   title = 'vertex-ai-palm2-angular';
   messages = <any>[];
   palmMessages: Array<Message> = [];
@@ -59,6 +67,7 @@ export class ChatComponent implements OnInit {
       this.addBotMessage(answer);
     }
     this.loading = false;
+   this.scrollToBottom();
   }
 
   private addBotMessage(text: string) {
@@ -70,6 +79,7 @@ export class ChatComponent implements OnInit {
       reply: true,
       date: new Date()
     });
+    this.scrollToBottom();
   }
 
   private addBotMessageLocal(text: string) {
@@ -79,6 +89,12 @@ export class ChatComponent implements OnInit {
       sender: 'Bot',
       reply: true,
       date: new Date()
+    });
+  }
+
+  private scrollToBottom(){
+    requestAnimationFrame(() => {
+      this.bottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
     });
   }
 }
