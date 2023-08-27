@@ -16,10 +16,21 @@ export class AppComponent {
   title: string = "";
   isExpanded: boolean = false;
   state = this.isExpanded ? 'opened' : 'closed';
+  selection = {
+    chat: true,
+    text: false,
+    config: false
+  }
 
   toggleState() {
     this.isExpanded = !this.isExpanded;
     this.state = this.isExpanded ? 'opened' : 'closed';
+  }
+
+  select(option:string) {
+    this.selection.chat = option == "chat";
+    this.selection.text = option == "text";
+    this.selection.text = option == "config";
   }
 
   constructor(
@@ -33,6 +44,10 @@ export class AppComponent {
     this.matIconRegistry.addSvgIcon( 
       `palm`, 
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/palm.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `angular`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/angular.svg")
     );
     
     this.router.events.pipe(
@@ -52,7 +67,7 @@ export class AppComponent {
       })
     ).subscribe((data: any) => {
       if (data) {
-        this.title = `Generative AI using Angular: ${data}`;
+        this.title = `PaLM for ${data}`;
         this.titleService.setTitle(this.title);
       }
     });
