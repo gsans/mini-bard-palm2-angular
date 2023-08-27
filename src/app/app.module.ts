@@ -22,12 +22,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { TextComponent } from './text/text.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PredictComponent,
     ChatComponent,
+    TextComponent,
   ],
   imports: [
     BrowserModule,
