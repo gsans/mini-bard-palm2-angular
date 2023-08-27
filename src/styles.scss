@@ -36,3 +36,6 @@ code:not([class*=language-]) {
 }
 
 
+body *:not(mat-icon) {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif !important;
+}
