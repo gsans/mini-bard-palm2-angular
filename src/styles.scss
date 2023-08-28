@@ -28,6 +28,8 @@ code:not([class*=language-]) {
   font-size: .94em;
   padding: 0 6px 2px;
   overflow-wrap: break-word;
+  font-family: 'Source Code Pro';
+  font-weight: 600;
 }
 
 // ngx-markdown sample
@@ -40,6 +42,10 @@ code:not([class*=language-]) {
 }
 
 
-body *:not(mat-icon) {
+body, 
+mat-list-item *:not(mat-icon),
+mat-toolbar *:not(mat-icon),
+nb-chat .header, nb-chat .form *
+{
   font-family: 'Google Sans', Roboto, Arial, sans-serif !important;
 }

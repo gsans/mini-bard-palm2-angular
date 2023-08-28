@@ -49,8 +49,18 @@ nb-layout-column.fix {
 }
 
 ::ng-deep [nbInput].size-medium {
-  font-size: 16px !important;
+  font-size: 14px !important;
   padding: 7px 20px 7px 20px !important;
+  border-radius: 5px !important;
+}
+
+::ng-deep [nbButton].size-medium.icon-start.icon-end.appearance-filled,
+.size-medium.icon-start.icon-end.appearance-filled[nbButtonToggle] {
+  padding: unset;
+}
+
+::ng-deep [nbInput].size-medium::placeholder {
+  font-size: 14px !important;
 }
 
 
@@ -59,6 +69,10 @@ nb-layout-column.fix {
 }
 ::ng-deep nb-chat-form .message-row input {
   height: 60px;
+}
+
+::ng-deep nb-chat-form {
+  padding: 0px !important;
 }
 
 ::ng-deep [nbButton].appearance-filled.status-primary,
@@ -72,6 +86,7 @@ nb-layout-column.fix {
 {
   background-color: #1d262f;
   border-color: #1d262f;
+  display: none;
 }
 
 ::ng-deep [nbInput].status-basic:focus {
