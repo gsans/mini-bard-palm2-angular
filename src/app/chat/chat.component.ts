@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
 import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
 import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
+
+import * as Prism from 'prismjs';
 
 declare global {
   interface Window {
@@ -16,7 +18,7 @@ declare global {
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('bottom') bottom!: ElementRef;
 
   title = 'vertex-ai-palm2-angular';
@@ -28,15 +30,24 @@ export class ChatComponent implements OnInit {
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
   ) { }
 
+  ngAfterViewInit() {
+    const codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(block => {
+      Prism.highlightElement(block);
+    });
+  }
+
   ngOnInit(): void {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
-    // this.messages.push({
-    //   type: 'md',
-    //   customMessageData: 'heyho',
-    //   reply: false,
-    //   date: new Date(),
-    //   sender: '@gerardsans',
-    // });
+    this.messages.push({
+      type: 'md',
+      customMessageData: `
+      \`\`\`javascript
+      var s = "JavaScript syntax highlighting";
+      alert(s);
+      \`\`\``,
+      reply: false,
+    });
   }
 
   handleUserMessage(event: any) {
@@ -51,9 +62,11 @@ export class ChatComponent implements OnInit {
 
   // Helpers
   private async addUserMessage(text: string) {
+    debugger;
+    let txt = text.replaceAll('\\n', '<br>');
     this.messages.push({
       type: 'md',
-      customMessageData: text,
+      customMessageData: txt,
       sender: '@gerardsans',
       date: new Date(),
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",

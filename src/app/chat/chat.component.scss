@@ -2,7 +2,7 @@
   margin-top: 50px;
 }
 .frame ::ng-deep * {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 nb-layout-column.fix {
@@ -70,11 +70,22 @@ nb-layout-column.fix {
 ::ng-deep [nbButton].appearance-filled.status-primary,
 ::ng-deep .appearance-filled.status-primary[nbButtonToggle] 
 {
-  background-color: #222b45;
-  border-color: #222b45;
+  background-color: #1d262f;
+  border-color: #1d262f;
 }
 
 ::ng-deep [nbInput].status-basic:focus {
   background-color: #edf1f7;
   border-color: #edf1f7;
+}
+
+
+markdown ::ng-deep br {
+  display: block;
+}
+
+markdown ::ng-deep a,
+markdown ::ng-deep a:hover,
+markdown ::ng-deep a:focus {
+  color: #ff4081;
 }

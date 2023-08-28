@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http'; 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PredictComponent } from './predict/predict.component';
@@ -21,8 +23,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { MarkdownModule } from 'ngx-markdown';
 import { TextComponent } from './text/text.component';
+import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
+
+// function that returns `MarkedOptions` with renderer override
+export function markedOptionsFactory(): MarkedOptions {
+  const renderer = new MarkedRenderer();
+  const linkRenderer = renderer.link;
+
+  renderer.link = (href, title, text) => {
+    const html = linkRenderer.call(renderer, href, title, text);
+    return html.replace(/^<a /, '<a role="link" tabindex="0" target="_blank" rel="nofollow noopener noreferrer" ');
+  };
+
+  return {
+    renderer,
+  };
+}
 
 @NgModule({
   declarations: [
@@ -33,6 +50,7 @@ import { TextComponent } from './text/text.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
@@ -59,7 +77,13 @@ import { TextComponent } from './text/text.component';
     MatButtonModule,
     MatFormFieldModule,
 
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      loader: HttpClient,
+      markedOptions: {
+        provide: MarkedOptions,
+        useFactory: markedOptionsFactory,
+      },
+    }),
   ],
   bootstrap: [AppComponent]
 })

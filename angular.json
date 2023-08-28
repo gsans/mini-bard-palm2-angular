@@ -90,23 +90,10 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
+              "src/styles.scss"            ],
             "scripts": [
               "node_modules/marked/marked.min.js",
-              "node_modules/prismjs/prism.js",
-              "node_modules/prismjs/components/prism-css.min.js",
-              "node_modules/prismjs/components/prism-bash.min.js",
-              "node_modules/prismjs/components/prism-java.min.js",
-              "node_modules/prismjs/components/prism-json.min.js",
-              "node_modules/prismjs/components/prism-nginx.min.js",
-              "node_modules/prismjs/components/prism-ruby.min.js",
-              "node_modules/prismjs/components/prism-sql.min.js",
-              "node_modules/prismjs/components/prism-vim.min.js",
-              "node_modules/prismjs/components/prism-javascript.min.js",
-              "node_modules/prismjs/components/prism-typescript.min.js",
-              "node_modules/prismjs/components/prism-scss.min.js",
-              "node_modules/prismjs/components/prism-yaml.min.js"
+              "node_modules/prismjs/prism.js"
             ]
           }
         }
