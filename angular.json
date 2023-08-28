@@ -28,7 +28,11 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/marked/marked.min.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/emoji-toolkit/lib/js/joypixels.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,10 +95,7 @@
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"            ],
-            "scripts": [
-              "node_modules/marked/marked.min.js",
-              "node_modules/prismjs/prism.js"
-            ]
+            "scripts": [ ]
           }
         }
       }

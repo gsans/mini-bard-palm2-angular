@@ -1,11 +1,9 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 
 import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
 import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
-
-import * as Prism from 'prismjs';
 
 declare global {
   interface Window {
@@ -18,7 +16,7 @@ declare global {
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
 
   title = 'vertex-ai-palm2-angular';
@@ -29,13 +27,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
   ) { }
-
-  ngAfterViewInit() {
-    const codeBlocks = document.querySelectorAll('pre code');
-    codeBlocks.forEach(block => {
-      Prism.highlightElement(block);
-    });
-  }
 
   ngOnInit(): void {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
