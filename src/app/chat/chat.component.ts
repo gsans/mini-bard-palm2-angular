@@ -6,6 +6,7 @@ import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.serv
 import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
 
 import { KatexOptions } from 'ngx-markdown';
+import { ClipboardButtonComponent } from '../clipboard-button/clipboard-button.component';
 
 declare global {
   interface Window {
@@ -20,6 +21,7 @@ declare global {
 })
 export class ChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
+  readonly clipboardButton = ClipboardButtonComponent;
 
   title = 'vertex-ai-palm2-angular';
   messages = <any>[];

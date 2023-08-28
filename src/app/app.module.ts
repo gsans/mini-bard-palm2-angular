@@ -24,7 +24,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TextComponent } from './text/text.component';
-import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions, MarkedRenderer, ClipboardOptions } from 'ngx-markdown';
+import { ClipboardButtonComponent } from './clipboard-button/clipboard-button.component';
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
@@ -47,6 +48,7 @@ export function markedOptionsFactory(): MarkedOptions {
     PredictComponent,
     ChatComponent,
     TextComponent,
+    ClipboardButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,12 @@ export function markedOptionsFactory(): MarkedOptions {
       markedOptions: {
         provide: MarkedOptions,
         useFactory: markedOptionsFactory,
+      },
+      clipboardOptions: {
+        provide: ClipboardOptions,
+        useValue: {
+          buttonComponent: ClipboardButtonComponent,
+        },
       },
     }),
   ],
