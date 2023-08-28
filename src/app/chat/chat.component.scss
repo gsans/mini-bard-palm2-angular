@@ -1,9 +1,6 @@
 .frame {
   margin-top: 50px;
 }
-.frame ::ng-deep * {
-  font-size: 14px !important;
-}
 
 nb-layout-column.fix {
   padding-bottom: 100px !important;
@@ -103,4 +100,15 @@ markdown ::ng-deep a,
 markdown ::ng-deep a:hover,
 markdown ::ng-deep a:focus {
   color: #ff4081;
+}
+
+::ng-deep .katex * {
+  font-size: 1.2rem !important;
+}
+
+::ng-deep .katex {
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
 }

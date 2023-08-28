@@ -4,7 +4,7 @@
 
       <nb-chat [attr.data-after-content]="'Conversation'">
         <div *nbCustomMessage="'md'; let text">
-          <markdown ngPreserveWhitespaces emoji>
+          <markdown ngPreserveWhitespaces emoji katex [katexOptions]="katexOptions">
             {{ text }}
           </markdown>
         </div>

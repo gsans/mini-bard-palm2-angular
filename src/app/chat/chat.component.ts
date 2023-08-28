@@ -5,6 +5,8 @@ import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module'
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
 import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.types';
 
+import { KatexOptions } from 'ngx-markdown';
+
 declare global {
   interface Window {
     scrollIntoView?: any;
@@ -23,6 +25,10 @@ export class ChatComponent implements OnInit {
   messages = <any>[];
   palmMessages: Array<Message> = [];
   loading = false;
+  katexOptions: KatexOptions = {
+    displayMode: true,
+    throwOnError: false
+  };;
 
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
@@ -36,7 +42,13 @@ export class ChatComponent implements OnInit {
       \`\`\`javascript
       var s = "JavaScript syntax highlighting";
       alert(s);
-      \`\`\``,
+      \`\`\`
+
+      **Emojis**
+      :smile: \\:smile\\:
+      
+      **Katex**
+      \$ x =2 \$`,
       reply: false,
     });
   }
@@ -47,13 +59,12 @@ export class ChatComponent implements OnInit {
 
   private extractMessageResponse(response: MessageResponse): string {
     let answer = response.candidates?.[0]?.content ?? "";
-    if (!answer) throw("Error");
+    if (!answer) throw ("Error");
     return answer;
   }
 
   // Helpers
   private async addUserMessage(text: string) {
-    debugger;
     let txt = text.replaceAll('\\n', '<br>');
     this.messages.push({
       type: 'md',
@@ -71,7 +82,7 @@ export class ChatComponent implements OnInit {
       this.addBotMessage(answer);
     }
     this.loading = false;
-   this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   private addBotMessage(text: string) {
@@ -95,7 +106,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  private scrollToBottom(){
+  private scrollToBottom() {
     requestAnimationFrame(() => {
       this.bottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
     });

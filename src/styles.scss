@@ -12,6 +12,7 @@
 
 html, body { 
   height: 100%;
+  font-size: 14px;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -48,4 +49,23 @@ mat-toolbar *:not(mat-icon),
 nb-chat .header, nb-chat .form *
 {
   font-family: 'Google Sans', Roboto, Arial, sans-serif !important;
+}
+
+h1 { 
+  font-size: 17px; 
+}
+h2 {
+  font-size: 16px;
+}
+h3 {
+  font-size: 15px;
+}
+h4 {
+  font-size: 14px;
+}
+h5 {
+  font-size: 13px;
+}
+h6 {
+  font-size: 12px;
 }
