@@ -1,3 +1,8 @@
+.mat-icon {
+  --primary-color: #1d262f;
+  color: var(--primary-color);
+}
+
 .sidenav {
   width: 250px;
   transition: all 1s linear;
