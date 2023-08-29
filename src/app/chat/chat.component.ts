@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
 
-  title = 'vertex-ai-palm2-angular';
+  title = 'Conversation';
   messages = <any>[];
   palmMessages: Array<Message> = [];
   loading = false;
@@ -54,8 +54,9 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
     this.messages.push({
-    type: 'md',
-    customMessageData: `
+      type: 'md',
+      customMessageData: `
+      **Code blocks**
       \`\`\`javascript
       var s = "JavaScript syntax highlighting";
       alert(s);
@@ -65,7 +66,7 @@ export class ChatComponent implements OnInit {
       :smile: \\:smile\\:
       
       **Katex**
-      \$ x =2 \$
+      \$ E = mc^ 2 \$
       
       **MermaidJS**
       \`\`\`mermaid
@@ -76,67 +77,92 @@ export class ChatComponent implements OnInit {
       John-->>-Alice: I feel great!
       \`\`\`
     `,
-    reply: false,
-  });
+      reply: false,
+    });
   }
 
-handleUserMessage(event: any) {
-  this.addUserMessage(event.message);
-}
+  handleUserMessage(event: any) {
+    this.addUserMessage(event.message);
+  }
 
   private extractMessageResponse(response: MessageResponse): string {
-  let answer = response.candidates?.[0]?.content ?? "";
-  if (!answer) throw ("Error");
-  return answer;
-}
+    let answer = response.candidates?.[0]?.content ?? "";
+    if (!answer) throw ("Error");
+    return answer;
+  }
 
   // Helpers
   private async addUserMessage(text: string) {
-  let txt = text.replaceAll('\\n', '<br>');
-  this.messages.push({
-    type: 'md',
-    customMessageData: txt,
-    sender: '@gerardsans',
-    date: new Date(),
-    avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
-  } as any);
+    let txt = text.replaceAll('\\n', '<br>');
+    this.messages.push({
+      type: 'md',
+      customMessageData: txt,
+      sender: '@gerardsans',
+      date: new Date(),
+      avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
+    } as any);
 
-  this.loading = true;
-  let response = await this.client.generateMessage(text, this.palmMessages);
-  let answer = this.extractMessageResponse(response);
-  if (answer) {
-    this.palmMessages.push({ content: text }); // add user after call
-    this.addBotMessage(answer);
+    this.loading = true;
+    let response = await this.client.generateMessage(text, this.palmMessages);
+    let answer = this.extractMessageResponse(response);
+    if (answer) {
+      this.palmMessages.push({ content: text }); // add user after call
+      this.addBotMessage(answer);
+
+      let newTitle = this.extractTitle(answer);
+      if (newTitle) {
+        this.title = `Conversation: ${newTitle}`;
+      }
+    }
+    this.loading = false;
+    this.scrollToBottom();
   }
-  this.loading = false;
-  this.scrollToBottom();
-}
 
   private addBotMessage(text: string) {
-  this.palmMessages.push({ content: text }); // add robot response
-  this.messages.push({
-    type: 'md',
-    customMessageData: text,
-    reply: false,
-    avatar: "/assets/sparkle_resting.gif",
-  });
-  this.scrollToBottom();
-}
+    this.palmMessages.push({ content: text }); // add robot response
+    this.messages.push({
+      type: 'md',
+      customMessageData: text,
+      reply: false,
+      avatar: "/assets/sparkle_resting.gif",
+    });
+    this.scrollToBottom();
+  }
 
   private addBotMessageLocal(text: string) {
-  this.messages.push({
-    type: 'text',
-    text,
-    sender: 'Bot',
-    reply: true,
-    date: new Date()
-  });
-}
+    this.messages.push({
+      type: 'text',
+      text,
+      sender: 'Bot',
+      reply: true,
+      date: new Date()
+    });
+  }
 
   private scrollToBottom() {
-  requestAnimationFrame(() => {
-    this.bottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  });
-}
+    requestAnimationFrame(() => {
+      this.bottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  private extractTitle(text: string): string | null {
+    debugger;
+    const jsonPattern = /{[^]*?}/; // Regular expression to match a JSON object
+
+    const match = text.match(jsonPattern);
+    if (match) {
+      try {
+        const jsonObject = JSON.parse(match[0]);
+        if (typeof jsonObject === 'object' && jsonObject !== null) {
+          return jsonObject?.title;
+        }
+      } catch (error) {
+        // JSON parsing error
+      }
+    }
+    return null;
+  }
+
+
 }
 

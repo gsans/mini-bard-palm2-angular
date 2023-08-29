@@ -33,10 +33,6 @@ nb-layout-column.fix {
   margin-left: 5px;
 }
 
-::ng-deep nb-chat .header::after {
-  content: "Conversation";
-}
-
 ::ng-deep .no-messages::before {
   content: "No messages yet!";
   visibility: visible;

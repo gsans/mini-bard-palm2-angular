@@ -2,7 +2,11 @@
   <nb-layout>
     <nb-layout-column class="fix">
 
-      <nb-chat [attr.data-after-content]="'Conversation'">
+      <nb-chat>
+        <ng-template nbChatTitle>
+          {{title}}
+        </ng-template>
+
         <div *nbCustomMessage="'md'; let text">
           <markdown ngPreserveWhitespaces emoji 
             mermaid [mermaidOptions]="mermaidOptions"
