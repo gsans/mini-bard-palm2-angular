@@ -22,6 +22,7 @@ declare global {
 export class ChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
+  disabled: boolean = true;
 
   title = 'Conversation';
   messages = <any>[];
@@ -46,6 +47,9 @@ export class ChatComponent implements OnInit {
       .actor-man circle, line { color: #1d262f; fill:#1d262f; stroke:#1d262f; }
     `,
   };
+  large_text_section = ''; /* `**Large text**
+  sajdkjaskjdaskjndkjasjkdn jkankjnaskjnd kasjndkj naskjdakjdnkajndkasnkdnaskjdnkjasndkjankj dsnksjnkja dnkjad jsakd kadsjjadsnkadnkadjnakdjsndskdjaskadjnakjnds adadasjasdkjadnakdjnadsasdndksajsdajkdskajdaskjndaskadsndsanssdanaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankj   dsajsad sdasd
+` */
 
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
@@ -56,22 +60,23 @@ export class ChatComponent implements OnInit {
     this.messages.push({
       type: 'md',
       customMessageData: `
-      **Large text**
-      sajdkjaskjdaskjndkjasjkdn jkankjnaskjnd kasjndkj naskjdakjdnkajndkasnkdnaskjdnkjasndkjankj dsnksjnkja dnkjad jsakd kadsjjadsnkadnkadjnakdjsndskdjaskadjnakjnds adadasjasdkjadnakdjnadsasdndksajsdajkdskajdaskjndaskadsndsanssdanaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankj   dsajsad sdasd
+      ${this.large_text_section}
+      **Markdown for improved readability**
+      This is _funky_.
 
-      **Code blocks**
+      **Code blocks for coding**
       \`\`\`javascript
       var s = "JavaScript syntax highlighting";
       alert(s);
       \`\`\`
 
-      **Emojis**
-      :smile: \\:smile\\:
+      **Emoji shortnames**
+      :wave: \\:wave\\: :volcano: \\:volcano\\: :helicopter: \\:helicopter\\: 
       
-      **Katex**
+      **Katex for Math**
       \$ E = mc^ 2 \$
       
-      **MermaidJS**
+      **MermaidJS for diagrams**
       \`\`\`mermaid
       sequenceDiagram
       Alice->>+John: Hello John, how are you?
@@ -106,8 +111,14 @@ export class ChatComponent implements OnInit {
     } as any);
 
     this.loading = true;
-    let response = await this.client.generateMessage(text, this.palmMessages);
-    let answer = this.extractMessageResponse(response);
+    let response;
+    let answer;
+    if (this.disabled) {
+      answer = 'Test reply!';
+    } else {
+      response = await this.client.generateMessage(text, this.palmMessages);
+      answer = this.extractMessageResponse(response);
+    }
     if (answer) {
       this.palmMessages.push({ content: text }); // add user after call
       this.addBotMessage(answer);
