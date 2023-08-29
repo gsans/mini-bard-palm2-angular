@@ -104,9 +104,10 @@ markdown ::ng-deep a:focus {
 
 ::ng-deep .katex {
   background-color: #fff;
-  padding: 8px;
+  padding: 1px 4px 1px 4px;
   border-radius: 10px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid rgba(208, 208, 208, 0.5);
+  box-shadow: 1px 1px 1px 0px rgba(208, 208, 208, 0.2)
 }
 
 .markdown-clipboard-button {
@@ -114,7 +115,7 @@ markdown ::ng-deep a:focus {
 }
 
 ::ng-deep .mermaid svg {
-  max-width: 250px !important;
+  max-width: 350px !important;
   max-height: 400px !important;
 }
 
