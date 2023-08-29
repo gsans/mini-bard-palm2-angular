@@ -26,6 +26,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { TextComponent } from './text/text.component';
 import { MarkdownModule, MarkedOptions, MarkedRenderer, ClipboardOptions } from 'ngx-markdown';
 import { ClipboardButtonComponent } from './clipboard-button/clipboard-button.component';
+import { ReadComponent } from './read/read.component';
+
+import { AudioService } from './read/audio.service';
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
@@ -49,6 +52,7 @@ export function markedOptionsFactory(): MarkedOptions {
     ChatComponent,
     TextComponent,
     ClipboardButtonComponent,
+    ReadComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +96,9 @@ export function markedOptionsFactory(): MarkedOptions {
         },
       },
     }),
+  ],
+  providers: [
+    AudioService
   ],
   bootstrap: [AppComponent]
 })

@@ -22,6 +22,12 @@
             <div class="option" *ngIf="isExpanded">PaLM for Text</div>
           </button>
         </mat-list-item>
+        <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded" (click)="select('voice')">
+          <button mat-icon-button (click)="select('voice')" [class.active]="selection.voice">
+            <mat-icon>volume_up</mat-icon>
+            <div class="option" *ngIf="isExpanded">Eleven Labs</div>
+          </button>
+        </mat-list-item>
       </mat-nav-list>
 
 <!--       <mat-nav-list>

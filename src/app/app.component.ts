@@ -19,7 +19,8 @@ export class AppComponent {
   selection = {
     chat: true,
     text: false,
-    config: false
+    config: false,
+    voice: false,
   }
 
   toggleState() {
