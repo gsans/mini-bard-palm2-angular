@@ -116,3 +116,12 @@ markdown ::ng-deep a:focus {
 .markdown-clipboard-button {
   background-color: transparent;
 }
+
+::ng-deep .mermaid svg {
+  max-width: 250px !important;
+  max-height: 400px !important;
+}
+
+::ng-deep pre::selection {
+  background: red;
+}

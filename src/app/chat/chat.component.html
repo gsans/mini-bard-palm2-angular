@@ -5,6 +5,7 @@
       <nb-chat [attr.data-after-content]="'Conversation'">
         <div *nbCustomMessage="'md'; let text">
           <markdown ngPreserveWhitespaces emoji 
+            mermaid [mermaidOptions]="mermaidOptions"
             katex [katexOptions]="katexOptions"
             clipboard [clipboardButtonComponent]="clipboardButton"
           >

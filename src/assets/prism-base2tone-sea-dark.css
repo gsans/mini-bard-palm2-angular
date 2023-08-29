@@ -17,7 +17,7 @@ pre[class*="language-"] {
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  background: #1d262f;
+  background: #edf3f6; /* #1d262f; */
   color: #6e9bcf;
   border-radius: 5px;
 }
