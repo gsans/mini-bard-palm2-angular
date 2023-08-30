@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable()
 export class AudioService {
-  ELEVEN_LABS_VOICE_ID = environment.MY_VOICE_ID;
+  ELEVEN_LABS_VOICE_ID = environment.ELEVEN_LABS_VOICE_ID;
   ELEVEN_LABS_API_KEY = environment.ELEVEN_LABS_API_KEY;
 
   public audio: HTMLAudioElement;
