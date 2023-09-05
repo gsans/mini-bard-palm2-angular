@@ -64,6 +64,8 @@ export class ChatComponent implements OnInit {
       **Markdown for improved readability**
       This is _funky_.
 
+      [svg-1](/chat#find-me)
+
       **Code blocks for coding**
       \`\`\`javascript
       var s = "JavaScript syntax highlighting";
@@ -160,7 +162,6 @@ export class ChatComponent implements OnInit {
   }
 
   private extractTitle(text: string): string | null {
-    debugger;
     const jsonPattern = /{[^]*?}/; // Regular expression to match a JSON object
 
     const match = text.match(jsonPattern);
@@ -181,7 +182,6 @@ export class ChatComponent implements OnInit {
 }
 
 window.document.addEventListener('copy', function (event) {
-  debugger;
   const selection = window.getSelection();
   if (selection?.isCollapsed) {
     return;  // default action OK

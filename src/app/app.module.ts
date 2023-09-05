@@ -36,8 +36,14 @@ export function markedOptionsFactory(): MarkedOptions {
   const linkRenderer = renderer.link;
 
   renderer.link = (href, title, text) => {
+    debugger;
+    let target = `target="_blank"`;
+    const isSVG = text.lastIndexOf("svg") >= 0;
+    if (isSVG) {
+      target = ` target="" `;
+    }
     const html = linkRenderer.call(renderer, href, title, text);
-    return html.replace(/^<a /, '<a role="link" tabindex="0" target="_blank" rel="nofollow noopener noreferrer" ');
+    return html.replace(/^<a /, `<a role="link" tabindex="0" ${target} rel="nofollow noopener noreferrer" `);
   };
 
   return {
