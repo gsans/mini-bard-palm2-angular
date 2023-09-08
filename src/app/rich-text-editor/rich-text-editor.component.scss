@@ -1,0 +1,30 @@
+.header {
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0px;
+}
+
+.editor  {
+  padding: 24px 48px 24px 48px;
+}
+
+.quill {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+::ng-deep .ql-container {
+  border: 0 !important;
+}
+
+::ng-deep .ql-editor {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding-left: 0px;
+}
+
+/* ::ng-deep .ql-editor.ql-blank::before {
+  min-width: 500px;
+} */

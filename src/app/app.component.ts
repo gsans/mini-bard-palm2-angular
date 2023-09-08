@@ -50,6 +50,10 @@ export class AppComponent {
       `angular`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/angular.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      `sparkle`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sparkle.svg")
+    );
     
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),

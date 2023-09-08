@@ -1,0 +1,20 @@
+
+
+button {
+  border-radius: 18px;
+  height: 36px;
+  padding: 0 16px 0 16px;
+  width: auto;
+  cursor: default;
+  border: 1px solid transparent;
+}
+
+button.run {
+  background-color: #e0e0e0;
+  color: black;
+  margin-left: 48px;
+}
+
+button.run .mat-icon {
+  margin-right: 5px;
+}

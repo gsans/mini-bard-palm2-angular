@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ContentChange } from 'ngx-quill';
+import { Delta, Quill } from 'quill';
 
 @Component({
   selector: 'app-rich-text-editor',
@@ -6,15 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./rich-text-editor.component.scss']
 })
 export class RichTextEditorComponent {
+  quillInstance!: Quill;
+  @Output() editorEmpty: EventEmitter<boolean> = new EventEmitter<boolean>();
+  isEditorEmpty = true;
+
   quillConfiguration = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ color: [] }, { background: [] }],
-      ['link'],
-      ['clean'],
-    ],
+    toolbar: false,
+  }
+
+  editorCreated(quill: Quill) {
+    this.quillInstance = quill;
+    this.quillInstance.insertText(0, ' ');
+    this.quillInstance?.focus();
+    this.quillInstance.root.dataset['placeholder'] = "test";
+  }
+
+  contentChanged(change: ContentChange) {
+    debugger;
+    const isEmpty = change.text.trim().length === 0; 
+    if (this.isEditorEmpty !== isEmpty) {
+      this.isEditorEmpty = isEmpty;
+      this.editorEmpty.emit(isEmpty);
+    }
   }
 }

@@ -1,36 +1,35 @@
-<div>
-  <mat-sidenav-container autosize="true">
-    <mat-sidenav #snav role="navigation"
-    [@hideAnimation]="state"
-    mode="side" opened="true"
-    fixedInViewport="true">
-      <mat-nav-list>
-        <mat-list-item class="angular" (click)="toggleState()">
-          <button mat-icon-button>
-            <mat-icon svgIcon="angular" style="transform:scale(1.5);"></mat-icon>
-          </button>
-        </mat-list-item>
-        <mat-list-item routerLink="/chat" routerLinkActive="active" [class.expanded]="isExpanded" (click)="select('chat')">
-          <button mat-icon-button (click)="select('chat')" [class.active]="selection.chat">
-            <mat-icon>chat</mat-icon>
-            <div class="option" *ngIf="isExpanded">PaLM for Chat</div>
-          </button>
-        </mat-list-item>  
-        <mat-list-item routerLink="/text" routerLinkActive="active" [class.expanded]="isExpanded" (click)="select('text')">
-          <button mat-icon-button (click)="select('text')" [class.active]="selection.text">
-            <mat-icon>edit</mat-icon>
-            <div class="option" *ngIf="isExpanded">PaLM for Text</div>
-          </button>
-        </mat-list-item>
-        <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded" (click)="select('voice')">
-          <button mat-icon-button (click)="select('voice')" [class.active]="selection.voice">
-            <mat-icon>volume_up</mat-icon>
-            <div class="option" *ngIf="isExpanded">Eleven Labs</div>
-          </button>
-        </mat-list-item>
-      </mat-nav-list>
+<mat-sidenav-container autosize="true" flex>
+  <mat-sidenav #snav role="navigation" [@hideAnimation]="state" mode="side" opened="true" fixedInViewport="true">
+    <mat-nav-list>
+      <mat-list-item class="angular" (click)="toggleState()">
+        <button mat-icon-button>
+          <mat-icon svgIcon="angular" style="transform:scale(1.5);"></mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-list-item routerLink="/chat" routerLinkActive="active" [class.expanded]="isExpanded"
+        (click)="select('chat')">
+        <button mat-icon-button (click)="select('chat')" [class.active]="selection.chat">
+          <mat-icon>chat</mat-icon>
+          <div class="option" *ngIf="isExpanded">PaLM for Chat</div>
+        </button>
+      </mat-list-item>
+      <mat-list-item routerLink="/text" routerLinkActive="active" [class.expanded]="isExpanded"
+        (click)="select('text')">
+        <button mat-icon-button (click)="select('text')" [class.active]="selection.text">
+          <mat-icon>edit</mat-icon>
+          <div class="option" *ngIf="isExpanded">PaLM for Text</div>
+        </button>
+      </mat-list-item>
+      <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded"
+        (click)="select('voice')">
+        <button mat-icon-button (click)="select('voice')" [class.active]="selection.voice">
+          <mat-icon>volume_up</mat-icon>
+          <div class="option" *ngIf="isExpanded">Eleven Labs</div>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
 
-<!--       <mat-nav-list>
+    <!--       <mat-nav-list>
         <mat-list-item routerLink="/config" routerLinkActive="active" [class.expanded]="isExpanded" (click)="select('config')">
           <button mat-icon-button (click)="select('config')" [class.active]="selection.config">
             <mat-icon>settings</mat-icon>
@@ -38,13 +37,13 @@
           </button>
         </mat-list-item>
       </mat-nav-list> -->
-    </mat-sidenav>
+  </mat-sidenav>
 
-    <mat-sidenav-content [@leftAnimation]="state">
-      <mat-toolbar color="custom-theme" class="fixed-toolbar">
-        <button mat-icon-button><mat-icon svgIcon="palm" style="transform:scale(1.2);"></mat-icon></button><h1>{{title}}</h1>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+  <mat-sidenav-content [@leftAnimation]="state" flex>
+    <mat-toolbar color="custom-theme" class="fixed-toolbar">
+      <button mat-icon-button><mat-icon svgIcon="palm" style="transform:scale(1.2);"></mat-icon></button>
+      <h1>{{title}}</h1>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

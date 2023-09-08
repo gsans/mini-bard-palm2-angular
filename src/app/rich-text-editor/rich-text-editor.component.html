@@ -1,6 +1,12 @@
-<quill-editor class="content-editor"
-  [placeholder]="''"
-  [modules]="quillConfiguration"
-> 
-  
-</quill-editor>
+<div class="editor">
+  <div class="header">
+    Write your prompt
+  </div>
+  <div class="quill">
+    <quill-editor #editor class="content-editor" [modules]="quillConfiguration"
+      (onEditorCreated)="editorCreated($event)" 
+      (onContentChanged)="contentChanged($event)" >
+    >
+    </quill-editor>
+  </div>
+</div>

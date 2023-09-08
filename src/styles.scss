@@ -1,36 +1,40 @@
-@use 'themes' as *;
+@use "themes" as *;
 
-@use '@nebular/theme/styles/globals' as *;
+@use "@nebular/theme/styles/globals" as *;
 
 @include nb-install() {
   @include nb-theme-global();
-};
+}
 
 /* You can add global styles to this file, and also import other style files */
 .nb-theme-default {
   --text-basic-color: #1d262f !important;
 }
 
-html, body { 
+html,
+body {
   height: 100%;
   font-size: 14px;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 body::-webkit-scrollbar {
   display: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 @import "assets/prism-base2tone-sea-dark.css"; //"~prismjs/themes/prism.css";
 
-code:not([class*=language-]) {
-  background: rgba(0, 0, 0, .07);
+code:not([class*="language-"]) {
+  background: rgba(0, 0, 0, 0.07);
   border-radius: 3px;
-  font-size: .94em;
+  font-size: 0.94em;
   padding: 0 6px 2px;
   overflow-wrap: break-word;
-  font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
   font-weight: 600;
 }
 
@@ -39,21 +43,21 @@ code:not([class*=language-]) {
   xcolor: blue;
 }
 
-.nb-custom-message-not-reply, .nb-custom-message-reply {
+.nb-custom-message-not-reply,
+.nb-custom-message-reply {
   background-color: #f7f9fc;
 }
 
-
-body, 
+body,
 mat-list-item *:not(mat-icon),
 mat-toolbar *:not(mat-icon),
-nb-chat .header, nb-chat .form *
-{
-  font-family: 'Google Sans', Roboto, Arial, sans-serif !important;
+nb-chat .header,
+nb-chat .form * {
+  font-family: "Google Sans", Roboto, Arial, sans-serif !important;
 }
 
-h1 { 
-  font-size: 17px; 
+h1 {
+  font-size: 17px;
 }
 h2 {
   font-size: 16px;
@@ -71,5 +75,19 @@ h6 {
   font-size: 12px;
 }
 
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.snow.css';
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+
+/* body,
+app-root,
+mat-sidenav-container,
+mat-sidenav-content,
+app-text {
+  height: 100%;
+} */
+
+mat-sidenav-container,
+mat-sidenav-content,
+app-text {
+  height: 560px;
+}
