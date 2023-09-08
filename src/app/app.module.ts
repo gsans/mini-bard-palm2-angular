@@ -29,6 +29,8 @@ import { ClipboardButtonComponent } from './clipboard-button/clipboard-button.co
 import { ReadComponent } from './read/read.component';
 
 import { AudioService } from './read/audio.service';
+import { RichTextEditorModule } from './rich-text-editor/rich-text-editor.module';
+import { QuillModule } from 'ngx-quill';
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
@@ -102,6 +104,9 @@ export function markedOptionsFactory(): MarkedOptions {
         },
       },
     }),
+
+    QuillModule.forRoot(),
+    RichTextEditorModule,
   ],
   providers: [
     AudioService

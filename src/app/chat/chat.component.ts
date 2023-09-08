@@ -64,8 +64,6 @@ export class ChatComponent implements OnInit {
       **Markdown for improved readability**
       This is _funky_.
 
-      [svg-1](/chat#find-me)
-
       **Code blocks for coding**
       \`\`\`javascript
       var s = "JavaScript syntax highlighting";

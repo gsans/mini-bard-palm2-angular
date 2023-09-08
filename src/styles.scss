@@ -5,6 +5,7 @@
 @include nb-install() {
   @include nb-theme-global();
 };
+
 /* You can add global styles to this file, and also import other style files */
 .nb-theme-default {
   --text-basic-color: #1d262f !important;
@@ -69,3 +70,6 @@ h5 {
 h6 {
   font-size: 12px;
 }
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
