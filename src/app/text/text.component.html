@@ -3,7 +3,7 @@
   (speakerClicked)="speakoutPrompt()"
 ></app-rich-text-editor>
 <div class="options">
-  <button mat-button class="run" [disabled]="editorEmpty">
+  <button mat-button class="run" [disabled]="editorEmpty" (click)="run()">
     <mat-icon svgIcon="sparkle" style="transform:scale(1.5);"></mat-icon>
     Run
   </button>

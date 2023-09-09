@@ -18,3 +18,7 @@ button.run {
 button.run .mat-icon {
   margin-right: 5px;
 }
+
+::ng-deep .ql-label {
+  background-color: #e0e0e0;
+}
