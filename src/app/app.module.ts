@@ -38,7 +38,6 @@ export function markedOptionsFactory(): MarkedOptions {
   const linkRenderer = renderer.link;
 
   renderer.link = (href, title, text) => {
-    debugger;
     let target = `target="_blank"`;
     const isSVG = text.lastIndexOf("svg") >= 0;
     if (isSVG) {

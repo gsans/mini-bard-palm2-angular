@@ -11,6 +11,8 @@ export class RichTextEditorComponent {
   quillInstance!: Quill;
   @Output() editorEmpty: EventEmitter<boolean> = new EventEmitter<boolean>();
   isEditorEmpty = true;
+  @Output() speakerClicked = new EventEmitter<void>();
+
 
   quillConfiguration = {
     toolbar: false,
@@ -24,11 +26,14 @@ export class RichTextEditorComponent {
   }
 
   contentChanged(change: ContentChange) {
-    debugger;
     const isEmpty = change.text.trim().length === 0; 
     if (this.isEditorEmpty !== isEmpty) {
       this.isEditorEmpty = isEmpty;
       this.editorEmpty.emit(isEmpty);
     }
+  }
+
+  onSpeakerClick() {
+    this.speakerClicked.emit();
   }
 }

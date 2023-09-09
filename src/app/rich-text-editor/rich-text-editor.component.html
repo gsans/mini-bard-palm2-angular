@@ -1,6 +1,11 @@
 <div class="editor">
   <div class="header">
-    Write your prompt
+    <div class="toolbar">
+      <div>Write your prompt</div>
+      <button mat-icon-button (click)="onSpeakerClick()" [disabled]="isEditorEmpty">
+        <mat-icon>volume_up</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="quill">
     <quill-editor #editor class="content-editor" [modules]="quillConfiguration"

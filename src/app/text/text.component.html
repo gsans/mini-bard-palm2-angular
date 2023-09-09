@@ -1,4 +1,7 @@
-<app-rich-text-editor (editorEmpty)="editorChange($event)"></app-rich-text-editor>
+<app-rich-text-editor 
+  (editorEmpty)="editorChange($event)"
+  (speakerClicked)="speakoutPrompt()"
+></app-rich-text-editor>
 <div class="options">
   <button mat-button class="run" [disabled]="editorEmpty">
     <mat-icon svgIcon="sparkle" style="transform:scale(1.5);"></mat-icon>
