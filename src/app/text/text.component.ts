@@ -4,9 +4,7 @@ import { TEXT_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { TextServiceClient } from '../generative-ai-palm/v1beta2/text.service';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { AudioService } from '../read/audio.service';
-import { DeltaStatic } from 'quill';
-
-const MAX_PHRASES = 1;
+const MAX_PHRASES = 2;
 
 @Component({
   selector: 'app-text',
@@ -16,8 +14,6 @@ const MAX_PHRASES = 1;
 export class TextComponent {
   @ViewChild(RichTextEditorComponent)
   editor!: RichTextEditorComponent;
-
-  title = 'vertex-ai-palm2-angular';
   editorEmpty: boolean = true;
 
   constructor(
@@ -30,13 +26,13 @@ export class TextComponent {
   }
 
   async run() {
-    const prompt = this.extractText(this.editor.quillInstance.getContents()).trim().substring(0, 1024);
+    if (!this.editor) return;
+    const prompt = this.editor.extractPrompt();
     const response = await this.client.generateText(prompt);
-    const text = response?.candidates?.[0].output || '';
-    if (this.editor && text.trim().length>0) {
+    const text = (response?.candidates?.[0].output || '').trim();
+    if (text.length > 0) {
       this.editor.insertAndFormat(text);
     }
-    console.log(text);
   }
 
   clear() {
@@ -44,9 +40,9 @@ export class TextComponent {
   }
 
   speakoutPrompt() {
-    const text = this.extractText(this.editor.quillInstance.getContents()).trim();
-    if (text.length == 0) return;
-    const phrases = text.split('.');
+    const prompt = this.editor.extractPrompt();
+    if (prompt.length == 0) return;
+    const phrases = prompt.split('.');
     const limitedPhrases = phrases.slice(0, MAX_PHRASES).join('.');
     if (limitedPhrases.length > 0) {
       this.audio.playTextToSpeech(limitedPhrases);
@@ -55,13 +51,13 @@ export class TextComponent {
 
   extractText(ops: any) {
     let text = '';
-    ops.forEach((op:any) => {
+    ops.forEach((op: any) => {
       if (op.insert?.label) {
         text += '\n\n' + op.insert.label + '\n\n';
       } else if (op.insert) {
         text += op.insert;
-      }    
-    }); 
+      }
+    });
     return text;
   }
 }

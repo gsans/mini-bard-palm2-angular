@@ -31,6 +31,19 @@ export class RichTextEditorComponent {
     }); */
   }
 
+  extractPrompt() {
+    let text = '';
+    const ops =  this.quillInstance.getContents();
+    ops.forEach((op: any) => {
+      if (op.insert?.label) {
+        text += '\n\n' + op.insert.label + '\n\n';
+      } else if (op.insert) {
+        text += op.insert;
+      }
+    });
+    return text.trim().substring(0, 1024);
+  }
+
   insertAndFormat(text:string) {
     var range = this.quillInstance.getSelection();
     if (range) {
