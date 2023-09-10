@@ -1,24 +1,40 @@
-import { Node } from '@angular/compiler';
 import Quill from 'quill';
-const Clipboard = Quill.import('modules/clipboard')
 const Delta = Quill.import('delta')
 
-class PlainClipboard extends Clipboard {
+class PlainClipboard {
+  constructor(private quill: Quill) {
+    this.quill.root.addEventListener('paste', this.onPaste.bind(this));
+  }
+
   onPaste(e: ClipboardEvent) {
-    e.preventDefault()
-    const quill = Quill.find(e.currentTarget);
-    const range = quill.getSelection()
-    const text = e.clipboardData?.getData('text/plain')
-    const delta = new Delta()
-      .retain(range.index)
-      .delete(range.length)
-      .insert(text)
-    const index = text?.length + range.index
-    const length = 0
-    quill.updateContents(delta, 'silent')
-    quill.setSelection(index, length, 'silent')
-    quill.scrollIntoView()
+    e.preventDefault();
+    const range = this.quill.getSelection() || undefined;
+    const plainText = e.clipboardData?.getData('text/plain');
+    const htmlText = e.clipboardData?.getData('text/html');
+
+    if (!plainText && !htmlText) return;
+
+    // Check if code block formatting is present in the current selection
+    const formats = this.quill.getFormat(range);
+
+    if (formats['code-block']) {
+      // Handle code block content
+      // For example, insert it into a code block blot
+      // Assuming you have a custom code block blot named 'code-block'
+      const delta = new Delta().insert(htmlText || plainText, formats);
+      this.quill.updateContents(delta, 'user');
+    } else {
+      // Handle non-code block content
+      const delta = new Delta()
+        .retain(range?.index || 0)
+        .delete(range?.length || 0)
+        .insert(plainText || htmlText);
+      const index = (plainText?.length || 0) + (range?.index || 0);
+      const length = 0;
+      this.quill.updateContents(delta, 'silent');
+      this.quill.setSelection(index, length, 'silent');
+    }
   }
 }
 
-Quill.register('modules/clipboard', PlainClipboard, true)
+Quill.register('modules/PlainClipboard', PlainClipboard, true);

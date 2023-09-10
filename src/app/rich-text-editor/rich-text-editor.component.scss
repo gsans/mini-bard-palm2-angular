@@ -40,3 +40,96 @@
   right: unset !important;
   color: #aaa !important;
 }
+
+
+::ng-deep .ql-editor h1  {
+  font-size: 16px !important;
+  font-weight: 500;
+}
+
+// Headings
+::ng-deep .ql-editor {
+
+  h1 {
+    font-size: 2em;
+    font-weight: 500;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    font-weight: 500; 
+  }
+
+  h3 {
+    font-size: 1.25em;
+    font-weight: 500;
+  }
+
+}
+
+// Lists  
+::ng-deep .ql-editor {
+
+  ul, ol {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+}
+
+// Links
+::ng-deep .ql-editor {
+
+  a {
+    color: #3f51b5;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none; 
+    }
+  }
+
+}
+
+// Code
+::ng-deep .ql-editor {
+
+  code {
+    background: #eee;
+    padding: 3px 5px;
+    border-radius: 4px;
+  }
+  
+  pre {
+    background: #333;
+    color: white;
+    padding: 10px;
+  }
+  
+}
+
+::ng-deep .ql-snow .ql-editor pre.ql-syntax {
+  font-family: 'Source Code Pro Extralight', Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace !important;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 1.375;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  hyphens: none;
+  background: #edf3f6;
+  color: #6e9bcf;
+  border-radius: 5px;
+  -webkit-font-smoothing: antialiased !important;
+
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+}

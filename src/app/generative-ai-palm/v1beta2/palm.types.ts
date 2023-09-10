@@ -184,7 +184,7 @@ export function createTextRequest(
   text: string,
   temperature: number = 0,
   candidateCount: number = 1,
-  maxOutputTokens: number = 100,
+  maxOutputTokens: number = 1024,
   topP: number = 0.70,
   topK: number = 40,
   safetySettings?: SafetySetting[],
