@@ -4,7 +4,7 @@ import { TEXT_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { TextServiceClient } from '../generative-ai-palm/v1beta2/text.service';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { AudioService } from '../read/audio.service';
-const MAX_PHRASES = 2;
+const MAX_PHRASES = 10;
 
 @Component({
   selector: 'app-text',
