@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { MakerSuiteCredentials } from '../types';
-import { createTextRequest, TextRequest, TextResponse } from './palm.types';
+import { createTextRequest, TextRequest, TextResponse, HarmCategory, SafetySetting } from './palm.types';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,20 @@ export class TextServiceClient {
 
   async generateText(text: string, model: string = "text-bison-001") {
     let endpoint = this.buildEndpointUrlApiKey(model);
-    let prompt: TextRequest = createTextRequest(model, text);
+    let prompt: TextRequest = createTextRequest(model, text, undefined, undefined, undefined, undefined, undefined, 
+      [ { "category": HarmCategory.HARM_CATEGORY_DEROGATORY,
+        "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+        { "category": HarmCategory.HARM_CATEGORY_TOXICITY, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+        { "category": HarmCategory.HARM_CATEGORY_VIOLENCE, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+        { "category": HarmCategory.HARM_CATEGORY_SEXUAL, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE },
+        { "category": HarmCategory.HARM_CATEGORY_MEDICAL, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+        { "category": HarmCategory.HARM_CATEGORY_DANGEROUS, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }]
+      , undefined);
 
     return firstValueFrom(
       this.http.post<TextResponse>(endpoint, prompt)
