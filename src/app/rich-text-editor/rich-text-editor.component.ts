@@ -4,6 +4,7 @@ import { Quill } from 'quill';
 import './quill-label.blot';
 import './quill-text-only.clipboard';
 import './quill-markdown.module';
+import { promptIdeas as PROMPTS } from './prompt-ideas'
 
 @Component({
   selector: 'app-rich-text-editor',
@@ -16,15 +17,7 @@ export class RichTextEditorComponent {
   isEditorEmpty = true;
   @Output() speakerClicked = new EventEmitter<void>();
   lastIdea = "";
-  ideasArray = [
-    `Explain string theory to me like I'm nine`, 
-    `Categorize an apple as fruit or vegetable`, 
-    `Paraphrase "It looks like it's about to rain"`, 
-    `Create JSON from characters in a popular board game`, 
-    `Write a story about a magic backpack`,
-    `Find the nouns in this sentence: "The rain in Spain falls mainly on the plain"`,
-    `Write a JavaScript function and explain it to me`
-  ];
+  ideasArray = PROMPTS;
   usedIndices: number[] = [];
   timeoutId: any | undefined;
 
@@ -34,7 +27,7 @@ export class RichTextEditorComponent {
       ignoreTags: [],
       tags: { },
     },
-    PlainClipboard: true
+    PlainClipboard: false
     //clipboard: true,
   }
 

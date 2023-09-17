@@ -7,7 +7,9 @@ class PlainClipboard {
   }
 
   onPaste(e: ClipboardEvent) {
+    debugger;
     e.preventDefault();
+    const originalCursor = this.quill.getSelection()?.index || 0;
     const range = this.quill.getSelection() || undefined;
     const plainText = e.clipboardData?.getData('text/plain');
     const htmlText = e.clipboardData?.getData('text/html');
@@ -21,12 +23,12 @@ class PlainClipboard {
       // Handle code block content
       // For example, insert it into a code block blot
       // Assuming you have a custom code block blot named 'code-block'
-      const delta = new Delta().insert(htmlText || plainText, formats);
+      const delta = new Delta().retain(range?.index || originalCursor).insert(htmlText || plainText, formats);
       this.quill.updateContents(delta, 'user');
     } else {
       // Handle non-code block content
       const delta = new Delta()
-        .retain(range?.index || 0)
+        .retain(range?.index || originalCursor)
         .delete(range?.length || 0)
         .insert(plainText || htmlText);
       const index = (plainText?.length || 0) + (range?.index || 0);
