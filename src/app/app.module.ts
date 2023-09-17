@@ -31,12 +31,12 @@ import { ReadComponent } from './read/read.component';
 import { AudioService } from './read/audio.service';
 import { RichTextEditorModule } from './rich-text-editor/rich-text-editor.module';
 import { QuillModule } from 'ngx-quill';
+import { ProcessCodeBlocksPipe } from './chat/process-code-block.pipe';
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
   const renderer = new MarkedRenderer();
   const linkRenderer = renderer.link;
-
   renderer.link = (href, title, text) => {
     let target = `target="_blank"`;
     const isSVG = text.lastIndexOf("svg") >= 0;
@@ -60,6 +60,7 @@ export function markedOptionsFactory(): MarkedOptions {
     TextComponent,
     ClipboardButtonComponent,
     ReadComponent,
+    ProcessCodeBlocksPipe
   ],
   imports: [
     BrowserModule,

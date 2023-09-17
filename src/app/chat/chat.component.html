@@ -8,12 +8,10 @@
         </ng-template>
 
         <div *nbCustomMessage="'md'; let text">
-          <markdown ngPreserveWhitespaces emoji 
-            mermaid [mermaidOptions]="mermaidOptions"
-            katex [katexOptions]="katexOptions"
-            clipboard [clipboardButtonComponent]="clipboardButton"
-          >
-            {{ text }}
+            <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
+              clipboard [clipboardButtonComponent]="clipboardButton"
+            >
+            {{ text | processCodeBlocks }}
           </markdown>
         </div>
         

@@ -17,12 +17,12 @@ declare global {
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
-  disabled: boolean = true;
+  disabled: boolean = false;
 
   title = 'Conversation';
   messages = <any>[];
@@ -37,14 +37,15 @@ export class ChatComponent implements OnInit {
     logLevel: MermaidAPI.LogLevel.Info,
     theme: MermaidAPI.Theme.Default,
     themeCSS: `
-      path.arrowMarkerPath { fill: #7eb6f6; stroke:#7eb6f6; } 
-      .node rect { fill: #1d262f; stroke:#1d262f; }
-      .flowchart-link { stroke: #7eb6f6; fill: none; }
+      path.arrowMarkerPath { fill: #1d262f; stroke:#1d262f; } 
+      .node rect { fill: white; stroke:#1d262f; }
+      .flowchart-link { stroke: #1d262f; fill: none; }
+      .entityBox { fill: white; stroke:#1d262f; }
       .nodeLabel { color: #1d262f; }
-      .node polygon { fill: #1d262f; stroke:#1d262f; }
+      .node polygon { fill: white; stroke:#1d262f; }
       .actor { fill: white; stroke:#1d262f; }
       text.actor>tspan { color: #1d262f; fill:#1d262f; }
-      .actor-man circle, line { color: #1d262f; fill:#1d262f; stroke:#1d262f; }
+      .actor-man circle, line { color: #1d262f; fill:white; stroke:#1d262f; }
     `,
   };
   large_text_section = ''; /* `**Large text**
@@ -65,10 +66,10 @@ export class ChatComponent implements OnInit {
       This is _funky_.
 
       **Code blocks for coding**
-      \`\`\`javascript
-      var s = "JavaScript syntax highlighting";
-      alert(s);
-      \`\`\`
+\`\`\`javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+\`\`\`
 
       **Emoji shortnames**
       :wave: \\:wave\\: :volcano: \\:volcano\\: :helicopter: \\:helicopter\\: 
@@ -84,7 +85,8 @@ export class ChatComponent implements OnInit {
       John-->>-Alice: Hi Alice, I can hear you!
       John-->>-Alice: I feel great!
       \`\`\`
-    `,
+
+    ` ,
       reply: false,
     });
   }
@@ -111,6 +113,11 @@ export class ChatComponent implements OnInit {
     } as any);
 
     this.loading = true;
+    //disable after timeout
+    setTimeout(()=> {
+      this.loading = false; //silent recovery
+    }, 5000);
+
     let response;
     let answer;
     if (this.disabled) {
@@ -123,10 +130,10 @@ export class ChatComponent implements OnInit {
       this.palmMessages.push({ content: text }); // add user after call
       this.addBotMessage(answer);
 
-      let newTitle = this.extractTitle(answer);
-      if (newTitle) {
-        this.title = `Conversation: ${newTitle}`;
-      }
+      // let newTitle = this.extractTitle(answer);
+      // if (newTitle) {
+      //   this.title = `Conversation: ${newTitle}`;
+      // }
     }
     this.loading = false;
     this.scrollToBottom();

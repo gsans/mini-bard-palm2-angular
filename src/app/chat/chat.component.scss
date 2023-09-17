@@ -27,7 +27,7 @@ nb-layout-column.fix {
   background-color: #f7f9fc;
   width: calc(100% + 40px);
   margin-left: 5px;
-  word-break: break-all;
+  color: black !important;
 }
 
 ::ng-deep .no-messages::before {
@@ -95,6 +95,15 @@ markdown ::ng-deep a:focus {
   color: #ff4081;
 }
 
+::ng-deep .nb-custom-message markdown pre {
+  max-width: 470px !important;
+  overflow: scroll !important;
+}
+::ng-deep .nb-custom-message {
+  max-width: 500px !important;
+}
+
+
 ::ng-deep .katex * {
   font-size: 1.2rem !important;
 }
@@ -118,4 +127,10 @@ markdown ::ng-deep a:focus {
 
 ::ng-deep pre::selection {
   background: red;
+}
+
+::ng-deep markdown code[class*="language-"], 
+::ng-deep markdown pre[class*="language-"] {
+  font-size: 12px;
+  font-weight: 600;
 }
