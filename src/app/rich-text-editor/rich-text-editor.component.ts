@@ -73,7 +73,7 @@ export class RichTextEditorComponent {
         this.switchIdea();
       }
       this.timeoutId = undefined;
-    }, 5000);
+    }, 3000);
   }
 
   @HostListener('keydown.tab', ['$event'])
