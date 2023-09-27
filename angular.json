@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vertex-ai-palm2-angular": {
+    "mini-bard-palm2-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vertex-ai-palm2-angular",
+            "outputPath": "dist/mini-bard-palm2-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "vertex-ai-palm2-angular:build:production"
+              "browserTarget": "mini-bard-palm2-angular:build:production"
             },
             "development": {
-              "browserTarget": "vertex-ai-palm2-angular:build:development"
+              "browserTarget": "mini-bard-palm2-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vertex-ai-palm2-angular:build"
+            "browserTarget": "mini-bard-palm2-angular:build"
           }
         },
         "test": {
