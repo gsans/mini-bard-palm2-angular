@@ -6,13 +6,15 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { hideAnimation, leftAnimation } from './hide.animation';
 
+import { OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [hideAnimation, leftAnimation]
 })
-export class AppComponent {
+export class AppComponent implements AfterContentChecked {
   title: string = "";
   isExpanded: boolean = false;
   state = this.isExpanded ? 'opened' : 'closed';
@@ -39,7 +41,8 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute, 
     private titleService: Title,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private changeDetector: ChangeDetectorRef
   ) {
     
     this.matIconRegistry.addSvgIcon( 
@@ -76,6 +79,10 @@ export class AppComponent {
         this.titleService.setTitle(this.title);
       }
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 }
 
