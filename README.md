@@ -1,5 +1,8 @@
 # Mini-Bard Angular client using Palm2 API (via API key and MakerSuite)
 
+<img src="https://i.imgur.com/umXJQzS.png" alt="PaLM2 for Text" width="50%">
+<img src="https://i.imgur.com/RaW7LSi.png" alt="PaLM2 for Chat" width="50%">
+
 ### Features
 - Support for PaLM2 and VertexAI APIs
 - PaLM2 API (generateText and generateMessage)
