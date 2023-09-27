@@ -19,8 +19,9 @@ export class DiscussServiceClient {
   }
 
   async generateMessage(text: string, messages: Message[], model: string = "chat-bison-001") {
+    const context = "Keep your answers brief and to a single paragraph. Use markdown formatting, Katex for formulas and MermaidJS for diagrams. Try to use at least one or more of these special formatting options when providing your answers."
     let endpoint = this.buildEndpointUrl(model);
-    let prompt: MessageRequest = createMessage(model, text, messages);
+    let prompt: MessageRequest = createMessage(model, text, messages, 0.5, 1, 0.70, 40, context);
 
     return firstValueFrom(
       this.http.post<MessageResponse>(endpoint, prompt)
