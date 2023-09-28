@@ -7,8 +7,13 @@
           {{title}}
         </ng-template>
 
-        <div *nbCustomMessage="'md'; let text">
-            <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
+        <div *nbCustomMessage="'md'; let text" class="custom-message">
+          <span *ngIf="showReply(text)" class="btn-reply">
+            <button mat-icon-button (click)="retry(text)">
+              <mat-icon>replay</mat-icon>
+            </button>
+          </span>
+          <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
               clipboard [clipboardButtonComponent]="clipboardButton"
             >
             {{ text | processCodeBlocks }}

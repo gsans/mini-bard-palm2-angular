@@ -183,6 +183,22 @@ alert(s);
     return null;
   }
 
+  retry(text: string) {
+    //debugger
+    if (this.isUserMessage(text)) {
+      this.addUserMessage(text); /* retry exact prompt */
+    }
+  }
+  isUserMessage(text: string)  {
+    //find original message
+    const message = this.messages.find( (msg: any) => msg.customMessageData === text);
+    return (message && message.sender /* user message */);
+  }
+
+  showReply(text: string) {
+    // only if it is a user prompt (it has a sender)
+    return this.messages.find((msg: any) => msg.customMessageData === text && msg.sender);
+  }
 
 }
 

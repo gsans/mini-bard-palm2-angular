@@ -134,3 +134,20 @@ markdown ::ng-deep a:focus {
   font-size: 12px;
   font-weight: 600;
 }
+
+::ng-deep .btn-reply {
+  display: none;
+  float: right;
+  position: relative;
+  top: -10px;
+  transform: scale(0.75);
+}
+
+::ng-deep .btn-reply button {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+::ng-deep .nb-custom-message:hover .custom-message .btn-reply {
+  display: block;
+}
