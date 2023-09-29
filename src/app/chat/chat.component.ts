@@ -66,9 +66,15 @@ export class ChatComponent implements OnInit {
       This is _funky_.
 
       **Code blocks for coding**
-\`\`\`javascript
+\`\`\`ts
 var s = "JavaScript syntax highlighting";
 alert(s);
+\`\`\`
+
+\`\`\`
+<div class= "cdk-visually-hidden cdk-focus-trap-anchor" aria-hidden="true">
+  Empty
+</div>
 \`\`\`
 
       **Emoji shortnames**

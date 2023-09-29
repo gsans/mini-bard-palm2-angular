@@ -133,6 +133,20 @@ markdown ::ng-deep a:focus {
 ::ng-deep markdown pre[class*="language-"] {
   font-size: 12px;
   font-weight: 600;
+  border-radius: 0px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::ng-deep markdown code[class*="language-"]::-webkit-scrollbar,
+::ng-deep markdown pre[class*="language-"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+::ng-deep markdown code[class*="language-"],
+::ng-deep markdown pre[class*="language-"] {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 ::ng-deep .btn-reply {
@@ -150,4 +164,20 @@ markdown ::ng-deep a:focus {
 
 ::ng-deep .nb-custom-message:hover .custom-message .btn-reply {
   display: block;
+}
+
+::ng-deep .code-header {
+  background-color: #dde8ee;
+  border: 2px solid #dde8ee;
+  border-radius: 5px 5px 0px 0px;
+  padding-left: 10px;
+  top: 6px;
+  position: relative;
+  font-family: 'Source Code Pro', Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+::ng-deep code[class*="language-"], pre[class*="language-"] {
+  border-radius: 0px !important;
 }
