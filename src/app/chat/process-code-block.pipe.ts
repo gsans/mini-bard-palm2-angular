@@ -102,6 +102,7 @@ ${nbsp}
       "cue": "CUE",
       "dataweave": "DataWeave",
       "dax": "DAX",
+      "diff": "Diff",
       "django": "Django/Jinja2",
       "jinja2": "Django/Jinja2",
       "dns-zone-file": "DNS zone file",
@@ -306,6 +307,6 @@ ${nbsp}
       "yml": "YAML",
       "yang": "YANG"
     };
-    return `${Languages[entry]}`;
+    return `${Languages[entry] || "Plain text (language not registered)"}`;
   }
 }
