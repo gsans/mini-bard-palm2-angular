@@ -15,7 +15,7 @@ pre[class*="language-"] {
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  background: #edf3f6;
+  background: #fff;
   color: #57718e
 }
 
@@ -24,15 +24,7 @@ pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
   text-shadow: none;
-  background: #f9fbfa
-}
-
-pre[class*="language-"]::-moz-selection,
-pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection,
-code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #f9fbfa
+  background: #B4D5FE
 }
 
 pre[class*="language-"]::selection,
@@ -40,7 +32,7 @@ pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
   text-shadow: none;
-  background: #f9fbfa
+  background: #B4D5FE
 }
 
 pre[class*="language-"] {
