@@ -11,7 +11,7 @@ export class ProcessCodeBlocksPipe implements PipeTransform {
         // replace whitespace with equivalent &nbsp; https://en.wikipedia.org/wiki/Whitespace_character#Unicode
         return whitespace.replace(/\s/g, `\u{00A0}`);  
       });
-      const displayLanguage = this.prettyPrintLanguage(language);
+      const displayLanguage = this.prettyPrintLanguage(language, nbsp);
       if (language === 'mermaid') {
         return `<div class="mermaid">${code}</div>`
       } else {
@@ -26,8 +26,12 @@ ${nbsp}
     return processedMarkdown;
   }
 
-  private prettyPrintLanguage(language: string) {
-    const entry = language.toLowerCase() || "none";
+  private prettyPrintLanguage(language: string, code: string) {
+    let entry = language.toLowerCase() || "none";
+
+    if (entry == "none") {
+      entry = this.autoSelect(code);
+    }
     // table needs to match angular.json prismjs imports
     // as a convenience all are included here
     var Languages: Record<string, string> = {
@@ -278,7 +282,8 @@ ${nbsp}
       "trickle": "trickle",
       "troy": "troy",
       "trig": "TriG",
-      "ts": "TypeScript",
+      "ts": "TypeScript", // alias
+      "typescript": "TypeScript", // alias
       "tsconfig": "TSConfig",
       "uscript": "UnrealScript",
       "uc": "UnrealScript",
@@ -308,5 +313,25 @@ ${nbsp}
       "yang": "YANG"
     };
     return `${Languages[entry] || "Plain text (language not registered)"}`;
+  }
+
+  autoSelect(code: string): string {
+    debugger;
+    let language = "none";
+    // Is it TypeScript? (poor-man version)
+    const typeScript = ["any", "void", "number", "boolean", "string", "object", "never", "enum"];
+    if (typeScript.some(substring => code.includes(substring))){
+      return "ts";
+    }
+    // Is it JavaScript? (poor-man version)
+    const javaScript = [
+      "as", "in", "of", "if", "for", "while", "finally", "var", "new", "function", "do", "return", "void", "else", "break", "catch", "instanceof", "with", "throw", "case", "default", "try", "switch", "continue", "typeof", "delete", "let", "yield", "const", "class", "debugger", "async", "await", "static", "import", "from", "export", "extends",
+      "true", "false", "null", "undefined", "NaN", "Infinity"
+    ]
+    if (javaScript.some(substring => code.includes(substring))) {
+      return "js";
+    }    
+    // Leave as default: none
+    return language;
   }
 }
