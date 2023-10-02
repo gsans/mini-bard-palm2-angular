@@ -3,7 +3,7 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: 'Source Code Pro', Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
   font-size: 14px;
   line-height: 1.375;
   direction: ltr;
@@ -17,9 +17,8 @@ pre[class*="language-"] {
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  background: #edf3f6; /* #1d262f; */
-  color: #6e9bcf;
-  border-radius: 5px;
+  background: #1d262f;
+  color: #6e9bcf
 }
 
 pre[class*="language-"]::-moz-selection,
@@ -61,7 +60,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #b0becf
+  color: #4a5f78
 }
 
 .token.punctuation {
@@ -75,7 +74,7 @@ pre[class*="language-"] {
 .token.tag,
 .token.operator,
 .token.number {
-  color: #61689e
+  color: #0aa370
 }
 
 .token.property,
@@ -111,7 +110,7 @@ code.language-scss,
 .token.statement,
 .token.regex,
 .token.atrule {
-  color: #17cf91
+  color: #47ebb4
 }
 
 .token.placeholder,
