@@ -44,6 +44,8 @@
       <button mat-icon-button><mat-icon svgIcon="palm" style="transform:scale(1.2);"></mat-icon></button>
       <h1>{{title}}</h1>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <main id="main-content" #mainContent>
+      <router-outlet></router-outlet>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

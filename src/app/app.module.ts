@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http'; 
@@ -32,6 +32,8 @@ import { AudioService } from './read/audio.service';
 import { RichTextEditorModule } from './rich-text-editor/rich-text-editor.module';
 import { QuillModule } from 'ngx-quill';
 import { ProcessCodeBlocksPipe } from './chat/process-code-block.pipe';
+import { RouterScrollServiceImpl } from './router-scroll.service';
+export const ROUTER_SCROLL_SERVICE = new InjectionToken<any>('RouterScrollServiceImpl');
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
@@ -109,7 +111,11 @@ export function markedOptionsFactory(): MarkedOptions {
     RichTextEditorModule,
   ],
   providers: [
-    AudioService
+    AudioService,
+    {
+      provide: ROUTER_SCROLL_SERVICE,
+      useClass: RouterScrollServiceImpl,
+    },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map } from "rxjs/operators";
@@ -7,6 +7,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { hideAnimation, leftAnimation } from './hide.animation';
 
 import { OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { RouterScrollService } from './router-scroll.service';
+import { ROUTER_SCROLL_SERVICE } from './app.module';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,7 @@ import { OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   animations: [hideAnimation, leftAnimation]
 })
-export class AppComponent implements AfterContentChecked {
+export class AppComponent implements AfterContentChecked, AfterViewInit {
   title: string = "";
   isExpanded: boolean = false;
   state = this.isExpanded ? 'opened' : 'closed';
@@ -24,6 +26,8 @@ export class AppComponent implements AfterContentChecked {
     config: false,
     voice: false,
   }
+  @ViewChild("mainContent")
+  private mainContentElement!: ElementRef<HTMLElement>;
 
   toggleState() {
     this.isExpanded = !this.isExpanded;
@@ -42,7 +46,9 @@ export class AppComponent implements AfterContentChecked {
     private titleService: Title,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    @Inject(ROUTER_SCROLL_SERVICE)
+    private readonly routerScrollService: RouterScrollService,
   ) {
     
     this.matIconRegistry.addSvgIcon( 
@@ -83,6 +89,16 @@ export class AppComponent implements AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
+  }
+
+  ngAfterViewInit() {
+    if (this.mainContentElement) {
+      this.routerScrollService.setCustomViewportToScroll(this.mainContentElement.nativeElement);
+    } else {
+      console.error(
+        "The main content element could not be found. Was it renamed? It is required here to ensure that scrolling works as expected!",
+      );
+    }
   }
 }
 
