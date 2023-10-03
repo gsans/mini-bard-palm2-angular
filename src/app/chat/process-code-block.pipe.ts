@@ -316,10 +316,12 @@ ${nbsp}
   }
 
   autoSelect(code: string): string {
-    debugger;
     let language = "none";
     // Is it TypeScript? (poor-man version)
-    const typeScript = ["any", "void", "number", "boolean", "string", "object", "never", "enum"];
+    const typeScript = [
+      "any", "void", "number", "boolean", "string", "object", "never", "enum",
+      "@Component", "@Directive", "@Injectable", "@angular"
+    ];
     if (typeScript.some(substring => code.includes(substring))){
       return "ts";
     }
