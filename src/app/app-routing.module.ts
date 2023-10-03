@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { TextComponent } from './text/text.component';
 import { ReadComponent } from './read/read.component';
+import { CustomRouteReuseStrategy } from './reuse-strategy.routing';
 
 const routes: Routes = [
   { path: 'chat', component: ChatComponent, data: { title: 'Chat' } },
@@ -13,6 +14,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{
+    provide: RouteReuseStrategy,
+    useClass: CustomRouteReuseStrategy,
+  },]
 })
 export class AppRoutingModule { }
