@@ -31,8 +31,9 @@ nb-layout-column.fix {
 }
 
 ::ng-deep .no-messages::before {
-  content: "No messages yet!";
+  content: ""; /* "No messages yet!"; */
   visibility: visible;
+  display: block;
 }
 ::ng-deep .no-messages {
   visibility: collapse;

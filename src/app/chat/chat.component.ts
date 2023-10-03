@@ -58,7 +58,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
-    this.messages.push({
+    /*  this.messages.push({
       type: 'md',
       customMessageData: `
       ${this.large_text_section}
@@ -94,7 +94,7 @@ alert(s);
 
     ` ,
       reply: false,
-    });
+    }); */
   }
 
   handleUserMessage(event: any) {
@@ -142,7 +142,7 @@ alert(s);
       // }
     }
     this.loading = false;
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   private addBotMessage(text: string) {
@@ -153,7 +153,7 @@ alert(s);
       reply: false,
       avatar: "/assets/sparkle_resting.gif",
     });
-    this.scrollToBottom();
+    //this.scrollToBottom();
   }
 
   private addBotMessageLocal(text: string) {
