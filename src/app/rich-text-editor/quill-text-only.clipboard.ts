@@ -7,7 +7,6 @@ class PlainClipboard {
   }
 
   onPaste(e: ClipboardEvent) {
-    debugger;
     e.preventDefault();
     const originalCursor = this.quill.getSelection()?.index || 0;
     const range = this.quill.getSelection() || undefined;

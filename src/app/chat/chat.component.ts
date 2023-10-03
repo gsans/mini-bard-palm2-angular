@@ -190,7 +190,6 @@ alert(s);
   }
 
   retry(text: string) {
-    //debugger
     if (this.isUserMessage(text)) {
       this.addUserMessage(text); /* retry exact prompt */
     }
