@@ -6,9 +6,8 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { hideAnimation, leftAnimation } from './hide.animation';
 
-import { OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { RouterScrollService } from './router-scroll.service';
-import { ROUTER_SCROLL_SERVICE } from './app.module';
 
 @Component({
   selector: 'app-root',
@@ -47,8 +46,7 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private changeDetector: ChangeDetectorRef,
-    @Inject(ROUTER_SCROLL_SERVICE)
-    private readonly routerScrollService: RouterScrollService,
+    private routerScrollService: RouterScrollService,
   ) {
     
     this.matIconRegistry.addSvgIcon( 
@@ -94,10 +92,6 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
   ngAfterViewInit() {
     if (this.mainContentElement) {
       this.routerScrollService.setCustomViewportToScroll(this.mainContentElement.nativeElement);
-    } else {
-      console.error(
-        "The main content element could not be found. Was it renamed? It is required here to ensure that scrolling works as expected!",
-      );
     }
   }
 }

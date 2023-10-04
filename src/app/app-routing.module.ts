@@ -4,11 +4,10 @@ import { ChatComponent } from './chat/chat.component';
 import { TextComponent } from './text/text.component';
 import { ReadComponent } from './read/read.component';
 import { CustomRouteReuseStrategy } from './reuse-strategy.routing';
-import { RouteScrollBehaviour } from './router-scroll.service';
 
 const routes: Routes = [
-  { path: 'chat', component: ChatComponent, data: { title: 'Chat', scrollBehavior: RouteScrollBehaviour.KEEP_POSITION } },
-  { path: 'text', component: TextComponent, data: { title: 'Text', scrollBehavior: RouteScrollBehaviour.KEEP_POSITION } },
+  { path: 'chat', component: ChatComponent, data: { title: 'Chat', scroll: true } },
+  { path: 'text', component: TextComponent, data: { title: 'Text', scroll: true } },
   { path: 'voice', component: ReadComponent, data: { title: 'Voice' } },
   { path: '', redirectTo: '/chat', pathMatch: 'full' }
 ];
