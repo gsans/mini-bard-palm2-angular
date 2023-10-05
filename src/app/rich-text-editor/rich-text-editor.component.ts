@@ -5,6 +5,7 @@ import './quill-label.blot';
 import './quill-text-only.clipboard';
 import './quill-markdown.module';
 import { promptIdeas as PROMPTS } from './prompt-ideas'
+import QuillMarkdown from 'quilljs-markdown';
 
 @Component({
   selector: 'app-rich-text-editor',
@@ -13,6 +14,7 @@ import { promptIdeas as PROMPTS } from './prompt-ideas'
 })
 export class RichTextEditorComponent {
   quillInstance!: Quill;
+  quillMarkDown!: any;
   @Output() editorEmpty: EventEmitter<boolean> = new EventEmitter<boolean>();
   isEditorEmpty = true;
   @Output() speakerClicked = new EventEmitter<void>();
@@ -23,10 +25,10 @@ export class RichTextEditorComponent {
 
   quillConfiguration = {
     toolbar: false,
-    QuillMarkdown: { 
+/*     QuillMarkdown: { 
       ignoreTags: [],
       tags: { },
-    },
+    }, */
     PlainClipboard: false
     //clipboard: true,
   }
@@ -35,6 +37,8 @@ export class RichTextEditorComponent {
     this.quillInstance = quill;
     this.quillInstance.focus();
     this.switchIdea();
+
+    this.quillMarkDown = new QuillMarkdown(quill);
 
 /*     this.quillInstance.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
       var plaintext = node.innerText
@@ -97,6 +101,29 @@ export class RichTextEditorComponent {
       }
     });
     return text.trim().substring(0, 8196);
+  }
+
+  insertAndFormatMarkdown(text: string) {
+    text = `\n${text} \n`; 
+    var range = this.quillInstance.getSelection();
+    if (range) {
+      if (range.length > 0) return; // range selected ignore
+      const index = range.index;
+      const length = text.length;
+      const format = {
+        'background-color': 'rgb(0, 0, 255)'
+      };
+
+      this.quillInstance.insertText(index, text, 'user');
+      this.quillInstance.update('user');
+
+      this.quillInstance.setSelection(index, length-1, 'user');
+      this.quillInstance.formatText(index, length-1, {
+        'background-color': 'rgb(200, 200, 200)'
+      });
+      this.quillInstance.update('user');
+      this.quillInstance.insertText(index + length, '\n');
+    }
   }
 
   insertAndFormat(text:string) {

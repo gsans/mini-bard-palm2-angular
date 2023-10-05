@@ -29,6 +29,7 @@ body::-webkit-scrollbar {
 @import "assets/prism-base2tone-sea-light.original.css"; 
 //@import "~prismjs/themes/prism.css";
 //@import "~prismjs/themes/prism-okaidia.css";
+@import "quilljs-markdown/dist/quilljs-markdown-common-style.css";
 
 code:not([class*="language-"]) {
   background: rgba(0, 0, 0, 0.07);

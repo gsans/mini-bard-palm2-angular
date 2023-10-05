@@ -31,7 +31,7 @@ export class TextComponent {
     const response = await this.client.generateText(prompt);
     const text = (response?.candidates?.[0].output || '').trim();
     if (text.length > 0) {
-      this.editor.insertAndFormat(text);
+      this.editor.insertAndFormatMarkdown(text);
     }
   }
 
