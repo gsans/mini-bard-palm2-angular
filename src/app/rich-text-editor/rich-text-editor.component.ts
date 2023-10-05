@@ -104,7 +104,12 @@ export class RichTextEditorComponent {
   }
 
   insertAndFormatMarkdown(text: string) {
-    text = `\n${text} \n`; 
+    //remove language from markdown fences
+    /* const processedMarkdown = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, language, code) => {
+      return `\n\`\`\`\n${code}\`\`\`\n`;
+    }); */
+
+    text = `\n${text}\n`; 
     var range = this.quillInstance.getSelection();
     if (range) {
       if (range.length > 0) return; // range selected ignore
@@ -114,15 +119,16 @@ export class RichTextEditorComponent {
         'background-color': 'rgb(0, 0, 255)'
       };
 
-      this.quillInstance.insertText(index, text, 'user');
-      this.quillInstance.update('user');
+      this.quillInstance.insertText(index, text, 'api');
+      this.quillInstance.update('api');
 
-      this.quillInstance.setSelection(index, length-1, 'user');
       this.quillInstance.formatText(index, length-1, {
         'background-color': 'rgb(200, 200, 200)'
       });
-      this.quillInstance.update('user');
+      this.quillInstance.update('api');
+
       this.quillInstance.insertText(index + length, '\n');
+      this.quillInstance.setSelection(index + length, 0, 'api');
     }
   }
 
