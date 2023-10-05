@@ -20,7 +20,7 @@ export class TextServiceClient {
 
   async generateText(text: string, model: string = "text-bison-001") {
     let endpoint = this.buildEndpointUrlApiKey(model);
-    text = text + ". Be very brief in your response so it can be read out loud.";
+    text = text + ". Be very brief in your response so they can be read out loud. Don't use Markdown tables and code fences.";
     let prompt: TextRequest = createTextRequest(model, text, undefined, undefined, undefined, undefined, undefined, 
       [ { "category": HarmCategory.HARM_CATEGORY_DEROGATORY,
         "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
