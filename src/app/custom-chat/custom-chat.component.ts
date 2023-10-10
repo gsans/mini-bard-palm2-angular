@@ -61,7 +61,7 @@ export class CustomChatComponent implements OnInit {
 
   ngOnInit(): void {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
-    this.messages.push({
+    /* this.messages.push({
       type: 'md',
       text: `
       ${this.large_text_section}
@@ -98,7 +98,7 @@ alert(s);
     ` ,
       reply: false,
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
-    }); 
+    }); */
   }
 
   handleUserMessage() {
