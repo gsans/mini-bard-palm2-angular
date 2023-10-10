@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http'; 
@@ -7,14 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PredictComponent } from './predict/predict.component';
 
-import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule, NbButtonModule, NbIconModule } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PalmModule } from './generative-ai-palm/palm.module';
 import { VertexModule } from './generative-ai-vertex/vertex.module';
 import { environment } from '../environments/environment.development';
-import { ChatComponent } from './chat/chat.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -31,8 +28,13 @@ import { ReadComponent } from './read/read.component';
 import { AudioService } from './read/audio.service';
 import { RichTextEditorModule } from './rich-text-editor/rich-text-editor.module';
 import { QuillModule } from 'ngx-quill';
-import { ProcessCodeBlocksPipe } from './chat/process-code-block.pipe';
+import { ProcessCodeBlocksPipe } from './custom-chat/process-code-block.pipe';
 import { RouterScrollService } from './router-scroll.service';
+import { CustomChatComponent } from './custom-chat/custom-chat.component';
+
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
@@ -57,23 +59,16 @@ export function markedOptionsFactory(): MarkedOptions {
   declarations: [
     AppComponent,
     PredictComponent,
-    ChatComponent,
     TextComponent,
     ClipboardButtonComponent,
     ReadComponent,
-    ProcessCodeBlocksPipe
+    ProcessCodeBlocksPipe,
+    CustomChatComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule,
-    NbChatModule,
-    NbSpinnerModule,
-    NbButtonModule,
-    NbIconModule,
 
     BrowserAnimationsModule,
     // VertexModule.forRoot({
@@ -90,7 +85,9 @@ export function markedOptionsFactory(): MarkedOptions {
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
+    MatInputModule,
     MatFormFieldModule,
+    TextFieldModule,
 
     MarkdownModule.forRoot({
       loader: HttpClient,
@@ -108,6 +105,7 @@ export function markedOptionsFactory(): MarkedOptions {
 
     QuillModule.forRoot(),
     RichTextEditorModule,
+    FormsModule,
   ],
   providers: [
     AudioService,

@@ -15,11 +15,11 @@ declare global {
 }
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: 'app-custom-chat',
+  templateUrl: './custom-chat.component.html',
+  styleUrls: ['./custom-chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class CustomChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
   disabled: boolean = false;
@@ -37,20 +37,23 @@ export class ChatComponent implements OnInit {
     logLevel: MermaidAPI.LogLevel.Info,
     theme: MermaidAPI.Theme.Default,
     themeCSS: `
-      path.arrowMarkerPath { fill: #1d262f; stroke:#1d262f; } 
-      .node rect { fill: white; stroke:#1d262f; }
-      .flowchart-link { stroke: #1d262f; fill: none; }
-      .entityBox { fill: white; stroke:#1d262f; }
-      .nodeLabel { color: #1d262f; }
-      .node polygon { fill: white; stroke:#1d262f; }
-      .actor { fill: white; stroke:#1d262f; }
-      text.actor>tspan { color: #1d262f; fill:#1d262f; }
-      .actor-man circle, line { color: #1d262f; fill:white; stroke:#1d262f; }
-    `,
+        path.arrowMarkerPath { fill: #1d262f; stroke:#1d262f; } 
+        .node rect { fill: white; stroke:#1d262f; }
+        .flowchart-link { stroke: #1d262f; fill: none; }
+        .entityBox { fill: white; stroke:#1d262f; }
+        .nodeLabel { color: #1d262f; }
+        .node polygon { fill: white; stroke:#1d262f; }
+        .actor { fill: white; stroke:#1d262f; }
+        text.actor>tspan { color: #1d262f; fill:#1d262f; }
+        .actor-man circle, line { color: #1d262f; fill:white; stroke:#1d262f; }
+      `,
   };
   large_text_section = ''; /* `**Large text**
-  sajdkjaskjdaskjndkjasjkdn jkankjnaskjnd kasjndkj naskjdakjdnkajndkasnkdnaskjdnkjasndkjankj dsnksjnkja dnkjad jsakd kadsjjadsnkadnkadjnakdjsndskdjaskadjnakjnds adadasjasdkjadnakdjnadsasdndksajsdajkdskajdaskjndaskadsndsanssdanaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankj   dsajsad sdasd
-` */
+    sajdkjaskjdaskjndkjasjkdn jkankjnaskjnd kasjndkj naskjdakjdnkajndkasnkdnaskjdnkjasndkjankj dsnksjnkja dnkjad jsakd kadsjjadsnkadnkadjnakdjsndskdjaskadjnakjnds adadasjasdkjadnakdjnadsasdndksajsdajkdskajdaskjndaskadsndsanssdanaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankjnaskjdakjdnkajndkasnkdnaskjdnkjasndkjankj   dsajsad sdasd
+  ` */
+  model = {
+    prompt: "",
+  };
 
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
@@ -60,7 +63,7 @@ export class ChatComponent implements OnInit {
     //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
     this.messages.push({
       type: 'md',
-      customMessageData: `
+      text: `
       ${this.large_text_section}
       **Markdown for improved readability**
       This is _funky_.
@@ -79,10 +82,10 @@ alert(s);
 
       **Emoji shortnames**
       :wave: \\:wave\\: :volcano: \\:volcano\\: :helicopter: \\:helicopter\\: 
-      
+    
       **Katex for Math**
       \$ E = mc^ 2 \$
-      
+    
       **MermaidJS for diagrams**
       \`\`\`mermaid
       sequenceDiagram
@@ -95,11 +98,14 @@ alert(s);
     ` ,
       reply: false,
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
-    });
+    }); 
   }
 
-  handleUserMessage(event: any) {
-    this.addUserMessage(event.message);
+  handleUserMessage() {
+    this.addUserMessage(this.model.prompt);
+    setTimeout(()=>{
+      this.model.prompt = ''; // reset input
+    });
   }
 
   private extractMessageResponse(response: MessageResponse): string {
@@ -110,10 +116,24 @@ alert(s);
 
   // Helpers
   private async addUserMessage(text: string) {
-    let txt = text.replaceAll('\\n', '<br>');
+    //let txt = text.replaceAll('\n', '\\n');
+    
+    // Split the text into code and non-code sections
+    let sections = text.split(/(```[^`]+```)/);
+
+    // Process non-code sections and replace new lines with <br>
+    for (let i = 0; i < sections.length; i++) {
+      if (i % 2 === 0) { // Non-code sections
+        sections[i] = sections[i].replace(/\n/g, "<br>");
+      }
+    }
+
+    // Join the sections back together
+    let txt = sections.join('');
+
     this.messages.push({
       type: 'md',
-      customMessageData: txt,
+      text: txt,
       sender: '@gerardsans',
       date: new Date(),
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
@@ -121,7 +141,7 @@ alert(s);
 
     this.loading = true;
     //disable after timeout
-    setTimeout(()=> {
+    setTimeout(() => {
       this.loading = false; //silent recovery
     }, 5000);
 
@@ -150,7 +170,8 @@ alert(s);
     this.palmMessages.push({ content: text }); // add robot response
     this.messages.push({
       type: 'md',
-      customMessageData: text,
+      text: text,
+      sender: 'Bot',
       reply: false,
       avatar: "/assets/sparkle_resting.gif",
     });
@@ -195,17 +216,16 @@ alert(s);
       this.addUserMessage(text); /* retry exact prompt */
     }
   }
-  isUserMessage(text: string)  {
+  isUserMessage(text: string) {
     //find original message
-    const message = this.messages.find( (msg: any) => msg.customMessageData === text);
+    const message = this.messages.find((message: any) => message.text === text);
     return (message && message.sender /* user message */);
   }
 
   showReply(text: string) {
     // only if it is a user prompt (it has a sender)
-    return this.messages.find((msg: any) => msg.customMessageData === text && msg.sender);
+    return this.messages.find((message: any) => message.text === text && message.sender);
   }
-
 }
 
 window.document.addEventListener('copy', function (event) {

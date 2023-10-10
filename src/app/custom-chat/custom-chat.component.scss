@@ -1,0 +1,191 @@
+.container {
+  background-color: #edf1f7;
+  height: 800px;
+}
+
+.container .column {
+  box-shadow: 0 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
+}
+
+.container .chat {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  padding-bottom: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 31.5px;
+  min-width: 400px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header, .messages, .form {
+  background-color: white;
+}
+
+.header {
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 13.125px;
+  font-weight: 600;
+
+  padding-bottom: 14px;
+  padding-left: 17.5px;
+  padding-right: 17.5px;
+  padding-top: 14px;
+
+  border-bottom-color: rgb(237, 241, 247);
+  border-bottom-style: solid;
+  border-bottom-width: 0.555556px;
+  border-top-left-radius: 3.5px;
+  border-top-right-radius: 3.5px;
+}
+
+.message-row {
+  padding: 10px;
+}
+
+.custom-control {
+  background-color: rgb(247, 249, 252);
+  border-color: rgb(228, 233, 242);
+  border-radius: 5px ;
+  width: 100%;
+
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+}
+
+
+.avatar {
+  display: block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #c5cee0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  line-height: 2.5rem;
+  font-size: 0.875rem;
+  color: white;
+  background-color: transparent;
+}
+
+.avatar.bot {
+  background-size: 80%;
+}
+
+.message-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.message-content {
+  background-color: #f7f9fc;
+  width: calc(100% - 40px);
+  margin-left: 5px;
+  color: black;
+  border-radius: 0.5rem;
+  margin-left: 10px;
+  padding: 0px 15px;
+}
+
+.messages {
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+::ng-deep .code-header {
+  background-color: #dde8ee;
+  border: 2px solid #dde8ee;
+  border-radius: 5px 5px 0px 0px;
+  padding-left: 10px;
+  top: 6px;
+  position: relative;
+  font-family: 'Source Code Pro', Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+::ng-deep .katex * {
+  font-size: 1.2rem !important;
+}
+
+::ng-deep .katex {
+  background-color: #fff;
+  padding: 1px 4px 1px 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(208, 208, 208, 0.5);
+  box-shadow: 1px 1px 1px 0px rgba(208, 208, 208, 0.2)
+}
+
+
+.message-content .btn-reply {
+  display: none;
+  float: right;
+  position: relative;
+  transform: scale(0.75);
+}
+
+.message-content .btn-reply button {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.message-content:hover .btn-reply {
+  display: block;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+::ng-deep mat-label {
+  font-size: 14px !important;
+}
+
+input.mdc-text-field__input {
+  border-bottom-color: red;
+}
+input.mdc-text-field__input:focus {
+  border-bottom-color: yellow;
+}
+
+::ng-deep markdown code[class*="language-"], 
+::ng-deep markdown pre[class*="language-"] {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 0px;
+}
+
+::ng-deep mat-form-field .mdc-text-field--focused {
+  background-color: aliceblue;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::ng-deep markdown code[class*="language-"]::-webkit-scrollbar,
+::ng-deep markdown pre[class*="language-"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+::ng-deep markdown code[class*="language-"],
+::ng-deep markdown pre[class*="language-"] {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+::ng-deep .mermaid svg {
+  max-width: 350px !important;
+  max-height: 400px !important;
+}
+
