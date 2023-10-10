@@ -63,3 +63,10 @@ mat-list-item.active button:hover
 mat-sidenav-content {
   margin-top: 64px;
 }
+
+mat-list-item .option {
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  text-align: left;
+}

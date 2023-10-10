@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map } from "rxjs/operators";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { hideAnimation, leftAnimation } from './hide.animation';
+import { hideAnimation, leftAnimation, optionAnimation } from './hide.animation';
 
 import { ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { RouterScrollService } from './router-scroll.service';
@@ -13,7 +13,7 @@ import { RouterScrollService } from './router-scroll.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [hideAnimation, leftAnimation]
+  animations: [hideAnimation, leftAnimation, optionAnimation]
 })
 export class AppComponent implements AfterContentChecked, AfterViewInit {
   title: string = "";

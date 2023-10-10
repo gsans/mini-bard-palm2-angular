@@ -10,14 +10,14 @@
         (click)="select('chat')">
         <button mat-icon-button (click)="select('chat')" [class.active]="selection.chat">
           <mat-icon>chat</mat-icon>
-          <div class="option" *ngIf="isExpanded">PaLM for Chat</div>
+          <div [@option]="state" class="option">PaLM for Chat</div>
         </button>
       </mat-list-item>
       <mat-list-item routerLink="/text" routerLinkActive="active" [class.expanded]="isExpanded"
         (click)="select('text')">
         <button mat-icon-button (click)="select('text')" [class.active]="selection.text">
           <mat-icon>edit</mat-icon>
-          <div class="option" *ngIf="isExpanded">PaLM for Text</div>
+          <div [@option]="state" class="option">PaLM for Text</div>
         </button>
       </mat-list-item>
 <!--       <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded"
