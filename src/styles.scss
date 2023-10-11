@@ -2,11 +2,11 @@ html,
 body {
   height: 100%;
   font-size: 14px;
-}
-body {
   margin: 0;
+  min-height: 100%;
   font-family: "Google Sans", Roboto, Arial, sans-serif;
 }
+
 body::-webkit-scrollbar {
   display: none;
 }
@@ -25,11 +25,6 @@ code:not([class*="language-"]) {
   overflow-wrap: break-word;
   font-family: "Source Code Pro";
   font-weight: 600;
-}
-
-// ngx-markdown sample
-.post-preview ::ng-deep h1 {
-  xcolor: blue;
 }
 
 body,
@@ -75,3 +70,9 @@ app-text {
 } */
 
 /* @import "~quilljs-markdown/dist/quilljs-markdown-common-style.css"; */
+
+.mat-sidenav-container,
+.mat-sidenav-content, 
+.main-content {
+  height: 100%;
+}

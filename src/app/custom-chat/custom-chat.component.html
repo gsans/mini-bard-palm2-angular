@@ -1,32 +1,31 @@
-<div>
-  <div class="container">
-    <div class="chat">
-      <div class="column">
-        <div class="header">{{title}}</div>
+<div class="root">
+  <div class="container chat column">
+    <!-- <div class="header">{{title}}</div> -->
 
-        <div class="messages">
-          <ng-container *ngFor="let message of messages">
-            <div class="message-container">
-              <div class="avatar" 
-                [class.bot] = "message.sender == 'Bot'"
-                [ngStyle]="{'background-image': 'url(' + message.avatar + ')'}">
-              </div>
-              <div class="message-content">
-                <span *ngIf="showReply(message.text)" class="btn-reply">
-                  <button mat-icon-button (click)="retry(message.text)">
-                    <mat-icon>replay</mat-icon>
-                  </button>
-                </span>
-                <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
-                  clipboard [clipboardButtonComponent]="clipboardButton">
-                  {{ message.text | processCodeBlocks }}
-                </markdown>
-              </div>
-            </div>
-          </ng-container>
+    <div class="messages">
+      <ng-container *ngFor="let message of messages">
+        <div class="message-container">
+          <div class="avatar" 
+            [class.bot] = "message.sender == 'Bot'"
+            [ngStyle]="{'background-image': 'url(' + message.avatar + ')'}">
+          </div>
+          <div class="message-content">
+            <span *ngIf="showReply(message.text)" class="btn-reply">
+              <button mat-icon-button (click)="retry(message.text)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </span>
+            <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
+              clipboard [clipboardButtonComponent]="clipboardButton">
+              {{ message.text | processCodeBlocks }}
+            </markdown>
+          </div>
         </div>
+      </ng-container>
+      <div #bottom></div>
+    </div>
 
-        <div class="form">
+    <div class="form">
           <div class="message-row">
               <mat-form-field>
                 <mat-label>Enter your prompt here</mat-label>
@@ -39,10 +38,6 @@
                   ></textarea>
               </mat-form-field>
           </div>
-        </div>
-      </div>
     </div>
   </div>
-
-  <div #bottom></div>
 </div>

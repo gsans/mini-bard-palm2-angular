@@ -1,4 +1,4 @@
-<mat-sidenav-container autosize="true" flex>
+<mat-sidenav-container autosize="true" flex class="mat-sidenav-container">
   <mat-sidenav #snav role="navigation" [@hideAnimation]="state" mode="side" opened="true" fixedInViewport="true">
     <mat-nav-list>
       <mat-list-item class="angular" (click)="toggleState()">
@@ -39,12 +39,12 @@
       </mat-nav-list> -->
   </mat-sidenav>
 
-  <mat-sidenav-content [@leftAnimation]="state" flex>
+  <mat-sidenav-content [@leftAnimation]="state" flex class="mat-sidenav-content">
     <mat-toolbar color="custom-theme" class="fixed-toolbar">
       <button mat-icon-button><mat-icon svgIcon="palm" style="transform:scale(1.2);"></mat-icon></button>
       <h1>{{title}}</h1>
     </mat-toolbar>
-    <main id="main-content" #mainContent>
+    <main id="main-content" #mainContent class="main-content">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
