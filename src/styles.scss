@@ -5,9 +5,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
 }
-
 body::-webkit-scrollbar {
   display: none;
 }
@@ -35,9 +34,7 @@ code:not([class*="language-"]) {
 
 body,
 mat-list-item *:not(mat-icon),
-mat-toolbar *:not(mat-icon),
-nb-chat .header,
-nb-chat .form * {
+mat-toolbar *:not(mat-icon) {
   font-family: "Google Sans", Roboto, Arial, sans-serif !important;
 }
 
