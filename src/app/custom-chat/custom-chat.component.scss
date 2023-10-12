@@ -129,8 +129,9 @@
 .message-content .btn-reply {
   display: none;
   float: right;
-  position: relative;
   transform: scale(0.75);
+  position: absolute;
+  right: 20px;
 }
 
 .message-content .btn-reply button {
