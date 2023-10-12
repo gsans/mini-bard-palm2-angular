@@ -15,6 +15,7 @@ export class TextComponent {
   @ViewChild(RichTextEditorComponent)
   editor!: RichTextEditorComponent;
   editorEmpty: boolean = true;
+  playing: boolean = false;
 
   constructor(
     @Inject(TEXT_SERVICE_CLIENT_TOKEN) public client: TextServiceClient,
@@ -40,12 +41,16 @@ export class TextComponent {
   }
 
   speakoutPrompt() {
+    if (this.audio.isAudioStreamingPlaying()) {
+      this.audio.pause();
+      return;
+    }
     const prompt = this.editor.extractPrompt();
     if (prompt.length == 0) return;
     const phrases = prompt.split('.');
     const limitedPhrases = phrases.slice(0, MAX_PHRASES).join('.');
     if (limitedPhrases.length > 0) {
-      this.audio.playTextToSpeech(limitedPhrases);
+      this.audio.playStreamAudio(limitedPhrases);
     }
   }
 

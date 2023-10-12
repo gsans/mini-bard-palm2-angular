@@ -22,6 +22,7 @@ export class RichTextEditorComponent {
   ideasArray = PROMPTS;
   usedIndices: number[] = [];
   timeoutId: any | undefined;
+  playing: boolean = false;
 
   quillConfiguration = {
     toolbar: false,

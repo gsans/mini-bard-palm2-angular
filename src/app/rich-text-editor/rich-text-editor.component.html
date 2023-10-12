@@ -2,8 +2,8 @@
   <div class="header">
     <div class="toolbar">
       <div>Write your prompt</div>
-      <button mat-icon-button (click)="onSpeakerClick()" [disabled]="isEditorEmpty">
-        <mat-icon>volume_up</mat-icon>
+      <button mat-icon-button (click)="onSpeakerClick(); playing = !playing" [disabled]="isEditorEmpty">
+        <mat-icon>{{playing ? 'stop' : 'volume_up'}}</mat-icon>
       </button>
     </div>
   </div>
