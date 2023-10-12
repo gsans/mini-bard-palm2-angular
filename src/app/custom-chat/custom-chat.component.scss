@@ -5,9 +5,6 @@
   flex-direction: column;
   position: relative;
   height: calc(100% - 65px);
-  padding-left: 15%;
-  padding-right: 15%;
-  padding-top: 20px;
   min-width: 400px;
   -webkit-font-smoothing: antialiased;
 }
@@ -96,7 +93,6 @@
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  border-radius: 5px 5px 0px 0px;
 }
 
 ::ng-deep .code-header {
