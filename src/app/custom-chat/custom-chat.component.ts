@@ -102,7 +102,13 @@ alert(s);
     }); 
   }
 
-  handleUserMessage() {
+  handleUserMessage(event: any) {
+    // ignore empty prompts
+    if (this.model.prompt.trim().length == 0) {
+      event.preventDefault();
+      return;
+    }
+
     this.addUserMessage(this.model.prompt);
     setTimeout(()=>{
       this.model.prompt = ''; // reset input
