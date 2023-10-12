@@ -21,6 +21,7 @@ declare global {
 })
 export class CustomChatComponent implements OnInit {
   @ViewChild('bottom') bottom!: ElementRef;
+  @ViewChild('scroll') scroll!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
   disabled: boolean = false;
 
@@ -138,7 +139,7 @@ alert(s);
       date: new Date(),
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     } as any);
-    //this.scrollToBottom();
+    this.scrollToBottom();
 
     this.loading = true;
     //disable after timeout
@@ -191,7 +192,8 @@ alert(s);
 
   private scrollToBottom() {
     requestAnimationFrame(() => {
-      this.bottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      const top = this.bottom.nativeElement.offsetTop;
+      this.scroll.nativeElement.scrollTop = top;
     });
   }
 

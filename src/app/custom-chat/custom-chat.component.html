@@ -2,7 +2,7 @@
   <div class="container chat column">
     <!-- <div class="header">{{title}}</div> -->
 
-    <div class="messages">
+    <div class="messages" #scroll>
       <ng-container *ngFor="let message of messages">
         <div class="message-container">
           <div class="avatar" 

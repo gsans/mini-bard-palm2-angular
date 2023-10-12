@@ -12,7 +12,9 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.header, .messages, .form {
+.header,
+.messages,
+.form {
   background-color: white;
 }
 
@@ -40,7 +42,7 @@
 .custom-control {
   background-color: rgb(247, 249, 252);
   border-color: rgb(228, 233, 242);
-  border-radius: 5px ;
+  border-radius: 5px;
   width: 100%;
 
   padding-bottom: 7px;
@@ -48,7 +50,6 @@
   padding-right: 20px;
   padding-top: 7px;
 }
-
 
 .avatar {
   display: block;
@@ -105,7 +106,10 @@
   padding-left: 10px;
   top: 6px;
   position: relative;
-  font-family: 'Source Code Pro', Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Andale Mono WT",
+    "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
+    "Nimbus Mono L", "Courier New", Courier, monospace;
   font-size: 12px;
   font-weight: 600;
 }
@@ -119,9 +123,8 @@
   padding: 1px 4px 1px 4px;
   border-radius: 10px;
   border: 1px solid rgba(208, 208, 208, 0.5);
-  box-shadow: 1px 1px 1px 0px rgba(208, 208, 208, 0.2)
+  box-shadow: 1px 1px 1px 0px rgba(208, 208, 208, 0.2);
 }
-
 
 .message-content .btn-reply {
   display: none;
@@ -154,7 +157,7 @@ input.mdc-text-field__input:focus {
   border-bottom-color: yellow;
 }
 
-::ng-deep markdown code[class*="language-"], 
+::ng-deep markdown code[class*="language-"],
 ::ng-deep markdown pre[class*="language-"] {
   font-size: 12px;
   font-weight: 600;
@@ -174,8 +177,8 @@ input.mdc-text-field__input:focus {
 /* Hide scrollbar for IE, Edge and Firefox */
 ::ng-deep markdown code[class*="language-"],
 ::ng-deep markdown pre[class*="language-"] {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 ::ng-deep .mermaid svg {
@@ -189,21 +192,25 @@ input.mdc-text-field__input:focus {
   caret-color: black !important;
 }
 
-
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label, 
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-floating-label,
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-floating-label--float-above {
   color: inherit !important;
 }
 
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
-    border-bottom-color: inherit !important;
-    border-width: 1px;
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-line-ripple::after {
+  border-bottom-color: inherit !important;
+  border-width: 1px;
 }
 
 ::ng-deep .mat-mdc-form-field-focus-overlay {
-    background-color: #a3a3a3 !important; 
+  background-color: #a3a3a3 !important;
 }
-
 
 .header {
   position: relative;
@@ -224,5 +231,4 @@ input.mdc-text-field__input:focus {
 
 .root {
   height: 100%;
-  overflow: hidden;
 }
