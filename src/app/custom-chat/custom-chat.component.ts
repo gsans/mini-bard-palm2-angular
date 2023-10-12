@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { environment } from '../../environments/environment.development';
 
 import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
@@ -7,6 +6,7 @@ import { Message, MessageResponse } from '../generative-ai-palm/v1beta2/palm.typ
 
 import { KatexOptions, MermaidAPI } from 'ngx-markdown';
 import { ClipboardButtonComponent } from '../clipboard-button/clipboard-button.component';
+import * as uuid from 'uuid';
 
 declare global {
   interface Window {
@@ -61,9 +61,8 @@ export class CustomChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.addBotMessageLocal(`Human presence detected ⚠️. How can I help you? `);
     this.messages.push({
-      type: 'md',
+      id: uuid.v4(),
       text: `
       ${this.large_text_section}
       **Markdown for improved readability**
@@ -97,7 +96,7 @@ alert(s);
       \`\`\`
 
     ` ,
-      reply: false,
+      sender: '@gerardsans',
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     }); 
   }
@@ -139,10 +138,9 @@ alert(s);
     let txt = sections.join('');
 
     this.messages.push({
-      type: 'md',
+      id: uuid.v4(),
       text: txt,
       sender: '@gerardsans',
-      date: new Date(),
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     } as any);
     this.scrollToBottom();
@@ -177,10 +175,9 @@ alert(s);
   private addBotMessage(text: string) {
     this.palmMessages.push({ content: text }); // add robot response
     this.messages.push({
-      type: 'md',
+      id: uuid.v4(),
       text: text,
       sender: 'Bot',
-      reply: false,
       avatar: "/assets/sparkle_resting.gif",
     });
     //this.scrollToBottom();
@@ -188,11 +185,9 @@ alert(s);
 
   private addBotMessageLocal(text: string) {
     this.messages.push({
-      type: 'text',
+      id: uuid.v4(),
       text,
       sender: 'Bot',
-      reply: true,
-      date: new Date()
     });
   }
 
@@ -234,6 +229,14 @@ alert(s);
   showReply(text: string) {
     // only if it is a user prompt (it has a sender)
     return this.messages.find((message: any) => message.text === text && message.sender);
+  }
+
+  trackByFn(i: number, element: any) {
+    return element.id;
+  }
+
+  delete(id: string) {
+    this.messages = this.messages.filter((message: any) => message.id !== id);
   }
 }
 

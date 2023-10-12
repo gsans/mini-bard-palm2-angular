@@ -3,7 +3,7 @@
     <!-- <div class="header">{{title}}</div> -->
 
     <div class="messages" #scroll>
-      <ng-container *ngFor="let message of messages">
+      <ng-container *ngFor="let message of messages; trackBy: trackByFn">
         <div class="message-container">
           <div class="avatar" 
             [class.bot] = "message.sender == 'Bot'"
@@ -13,6 +13,9 @@
             <span *ngIf="showReply(message.text)" class="btn-reply">
               <button mat-icon-button (click)="retry(message.text)">
                 <mat-icon>replay</mat-icon>
+              </button>
+              <button mat-icon-button (click)="delete(message.id)">
+                <mat-icon>delete</mat-icon>
               </button>
             </span>
             <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
