@@ -125,12 +125,12 @@
 .message-content .btn-reply {
   display: none;
   float: right;
-  transform: scale(0.75);
+  transform: scale(0.6);
   position: absolute;
-  right: 20px;
+  right: 1px;
   background-color: rgba(255,255,255,1);
   border-radius: 50px;
-  padding: 4px;
+  padding: 2px;
   box-shadow: 1px 1px 5px whitesmoke;
   z-index: 1;
 }
@@ -181,6 +181,10 @@ input.mdc-text-field__input:focus {
 ::ng-deep markdown pre[class*="language-"] {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+::ng-deep .mermaid {
+  text-align: center;
 }
 
 ::ng-deep .mermaid svg {

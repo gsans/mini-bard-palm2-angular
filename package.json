@@ -24,7 +24,7 @@
     "emoji-toolkit": "^7.0.1",
     "katex": "^0.16.9",
     "marked": "^4.3.0",
-    "mermaid": "^9.4.3",
+    "mermaid": "^10.5.0",
     "ngx-markdown": "^16.0.0",
     "ngx-quill": "^22.1.0",
     "prismjs": "^1.29.0",

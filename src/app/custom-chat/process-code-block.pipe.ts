@@ -13,7 +13,8 @@ export class ProcessCodeBlocksPipe implements PipeTransform {
       });
       const displayLanguage = this.prettyPrintLanguage(language, nbsp);
       if (language === 'mermaid') {
-        return `<div class="mermaid">${code}</div>`
+        console.log(nbsp);
+        return `<div class="mermaid">${nbsp}</div>`
       } else {
         return `<div class="code-header">${displayLanguage}</div>
 
