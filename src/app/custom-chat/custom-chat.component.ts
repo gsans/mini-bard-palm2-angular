@@ -201,22 +201,25 @@ alert(s);
 
           \`\`\`mermaid
           mindmap
-          root((mindmap))
-            Origins
-              Long history
-              ::icon(fa fa-edit)
-              Popularisation
-                British popular psychology author Tony Buzan
-            Research
-              On effectivness<br/>and features
-              On Automatic creation
-                Uses
-                    Creative techniques
-                    Strategic planning
-                    Argument mapping
-            Tools
-              Pen and paper
-              Mermaid
+          {{Google Generative AI}}
+            VertexAI
+            ::icon(fa fa-cloud)
+             (Text)
+             ::icon(fa fa-file-alt)
+             (Code)
+             ::icon(fa fa-code)
+             (Audio)
+             ::icon(fa fa-volume-up)
+             (Images)
+             ::icon(fa fa-image)
+            MakerSuite
+            ::icon(fa fa-edit)
+             [PaLM for Text]
+             ::icon(fa fa-file-alt)
+             [PaLM for Chat]
+             ::icon(fa fa-comments)
+             [Embeddings] 
+             ::icon(fa fa-tasks)
           \`\`\`
           
           \`\`\`mermaid

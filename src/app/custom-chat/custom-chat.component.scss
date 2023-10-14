@@ -314,6 +314,9 @@ input.mdc-text-field__input:focus {
     fill: #1d262f !important; 
     stroke:#1d262f !important;
   }
+  .mindmap-nodes .section-root text {
+    fill: black !important;
+  }
 
   path.arrowMarkerPath { fill: #1d262f; stroke:#1d262f; } 
   .node rect { fill: white; stroke:#1d262f; }
