@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
 export class RouterScrollService {
 
   private routerSubscription: Subscription | null;
-  private scrollPositions: { [route: string]: any } = {};
+  private scrollTopArray: { [route: string]: any } = {};
   private customViewport: HTMLElement | null = null;
 
   constructor(
@@ -21,15 +21,25 @@ export class RouterScrollService {
       if (event instanceof NavigationStart) {
         // Save scroll position for current route. Eg: { path: 'chat', data: { scroll: true } }
         if (this.activatedRoute.firstChild?.routeConfig?.data?.['scroll']) {
-          this.scrollPositions[this.router.url] = this.viewportScroller.getScrollPosition();
+          const viewportSelector = this.activatedRoute.firstChild?.routeConfig?.data?.['viewportSelector'];
+          if (viewportSelector) {
+            document.querySelectorAll(viewportSelector).forEach(elem => {
+              this.scrollTopArray[this.router.url] = elem.scrollTop;
+            })
+          }
         }
       } else if (event instanceof NavigationEnd) {
-        // Restore scroll position if available
-        const scrollPosition = this.scrollPositions[event.url];
-        if (scrollPosition) {
-          setTimeout(() => { // run during next tick
-            this.viewportScroller.scrollToPosition(scrollPosition);
-          }, 0);
+        const viewportSelector = this.activatedRoute.firstChild?.routeConfig?.data?.['viewportSelector'];
+        if (viewportSelector) {
+          // Restore scroll position if available
+          const scrollTop = this.scrollTopArray[event.url];
+          if (scrollTop) {
+            setTimeout(() => { // run during next tick
+              document.querySelectorAll(viewportSelector).forEach(elem => {
+                elem.scrollTop = scrollTop;
+              })
+            });
+          }
         }
       }
     });

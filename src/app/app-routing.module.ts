@@ -6,8 +6,8 @@ import { ReadComponent } from './read/read.component';
 import { CustomRouteReuseStrategy } from './reuse-strategy.routing';
 
 const routes: Routes = [
-  { path: 'chat', component: CustomChatComponent, data: { title: 'Chat', scroll: true } },
-  { path: 'text', component: TextComponent, data: { title: 'Text', scroll: true } },
+  { path: 'chat', component: CustomChatComponent, data: { title: 'Chat', scroll: true, viewportSelector: '.messages' } },
+  { path: 'text', component: TextComponent, data: { title: 'Text' } },
   { path: 'voice', component: ReadComponent, data: { title: 'Voice' } },
   { path: '', redirectTo: '/chat', pathMatch: 'full' }
 ];
