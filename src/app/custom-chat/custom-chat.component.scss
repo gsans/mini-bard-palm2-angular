@@ -84,6 +84,7 @@
   margin-left: 10px;
   padding: 0px 15px;
   overflow: auto;
+  padding-bottom: 20px;
 }
 
 .messages {
@@ -185,11 +186,66 @@ input.mdc-text-field__input:focus {
 
 ::ng-deep .mermaid {
   text-align: center;
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  margin-top: 10px;
+  max-width: 500px;
+  overflow: auto;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+::ng-deep .mermaid::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+::ng-deep .mermaid {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+::ng-deep .mermaid::before {
+  content: "Mermaid diagram";
+  text-align: left;
+  display: block;
+  background-color: #dde8ee;
+  border: 2px solid #dde8ee;
+  border-radius: 5px 5px 0px 0px;
+  padding-left: 10px;
+  position: relative;
+  font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Andale Mono WT",
+    "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
+    "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  height: 15px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 ::ng-deep .mermaid svg {
-  max-width: 350px !important;
-  max-height: 400px !important;
+  xmax-width: 350px !important;
+  max-height: 200px !important;
+}
+
+::ng-deep svg[aria-roledescription="pie"],
+::ng-deep svg[aria-roledescription="quadrantChart"] {
+  max-width: unset !important;
+  max-height: 200px !important;
+}
+
+::ng-deep svg[aria-roledescription="mindmap"] {
+  max-width: unset !important;
+  max-height: 320px !important;
+}
+
+::ng-deep svg[aria-roledescription="gantt"] {
+  max-width: unset !important;
+  max-height: 150px !important;
+}
+
+::ng-deep svg[aria-roledescription="gitGraph"] {
+  max-width: unset !important;
+  max-height: 130px !important;
 }
 
 ::ng-deep mat-form-field .mdc-text-field--filled .mdc-floating-label,
@@ -237,4 +293,35 @@ input.mdc-text-field__input:focus {
 
 .root {
   height: 100%;
+}
+
+/* mermaid 10.5 */
+
+::ng-deep .mermaid svg {
+
+  /*
+  text *, text, .nodeLabel, .edgeLabel {
+    font-family: "Source Code Pro", "trebuchet ms",verdana,arial,sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+  } */
+
+  rect.actor, rect.label-container, rect.title-state, rect.er, rect.task, polygon {
+    fill: white !important; 
+    stroke:#1d262f !important;
+  }
+  line {
+    fill: #1d262f !important; 
+    stroke:#1d262f !important;
+  }
+
+  path.arrowMarkerPath { fill: #1d262f; stroke:#1d262f; } 
+  .node rect { fill: white; stroke:#1d262f; }
+  .flowchart-link { stroke: #1d262f; fill: none; }
+  .entityBox { fill: white; stroke:#1d262f; }
+  .nodeLabel { color: #1d262f; }
+  .node polygon { fill: white; stroke:#1d262f; }
+  .actor { fill: white; stroke:#1d262f; }
+  text.actor>tspan { color: #1d262f; fill:#1d262f; }
+  .actor-man circle, line { color: #1d262f; fill:white; stroke:#1d262f; }
 }

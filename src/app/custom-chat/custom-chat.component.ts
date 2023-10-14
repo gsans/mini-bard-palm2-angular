@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 
 import { DISCUSS_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
 import { DiscussServiceClient } from '../generative-ai-palm/v1beta2/discuss.service';
@@ -19,7 +19,7 @@ declare global {
   templateUrl: './custom-chat.component.html',
   styleUrls: ['./custom-chat.component.scss']
 })
-export class CustomChatComponent implements OnInit {
+export class CustomChatComponent implements OnInit, AfterViewChecked {
   @ViewChild('bottom') bottom!: ElementRef;
   @ViewChild('scroll') scroll!: ElementRef;
   readonly clipboardButton = ClipboardButtonComponent;
@@ -61,7 +61,7 @@ export class CustomChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.messages.push({
+    /* this.messages.push({
       id: uuid.v4(),
       text: `
       ${this.large_text_section}
@@ -96,6 +96,140 @@ alert(s);
       \`\`\`
 
     ` ,
+      sender: '@gerardsans',
+      avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
+    }); */
+
+    this.messages.push({
+      id: uuid.v4(),
+      text: `
+          **MermaidJS for diagrams**
+          \`\`\`mermaid
+          sequenceDiagram
+          %%{ title: 'testing' }%%
+          Alice->>+John: Hello John, how are you?
+          Alice->>+John: John, can you hear me?
+          John-->>-Alice: Hi Alice, I can hear you!
+          John-->>-Alice: I feel great!
+          \`\`\`
+
+          \`\`\`mermaid
+          flowchart TD
+          %%{ title: 'testing' }%%
+          A[Christmas] -->|Get money| B(Go shopping)
+          B --> C{Let me think}
+          C -->|One| D[Laptop]
+          C -->|Two| E[iPhone]
+          C -->|Three| F[fa:fa-car Car]
+          \`\`\`
+
+          \`\`\`mermaid
+          classDiagram
+          Animal <|-- Duck
+          Animal <|-- Fish
+          Animal <|-- Zebra
+          Animal : +int age
+          Animal : +String gender
+          Animal: +isMammal()
+          Animal: +mate()
+          class Duck{
+            +String beakColor
+            +swim()
+            +quack()
+          }
+          class Fish{
+            -int sizeInFeet
+            -canEat()
+          }
+          class Zebra{
+            +bool is_wild
+            +run()
+          }
+          \`\`\`
+
+          \`\`\`mermaid
+          stateDiagram-v2
+          [*] --> Still
+          Still --> [*]
+          Still --> Moving
+          Moving --> Still
+          Moving --> Crash
+          Crash --> [*]
+          \`\`\`
+
+          \`\`\`mermaid
+          erDiagram
+          CUSTOMER }|..|{ DELIVERY-ADDRESS : has
+          CUSTOMER ||--o{ ORDER : places
+          CUSTOMER ||--o{ INVOICE : "liable for"
+          DELIVERY-ADDRESS ||--o{ ORDER : receives
+          INVOICE ||--|{ ORDER : covers
+          \`\`\`
+
+          \`\`\`mermaid
+          gantt
+          title A Gantt Diagram
+          dateFormat  YYYY-MM-DD
+          section Section
+          A task           :a1, 2014-01-01, 30d
+          Another task     :after a1  , 20d
+          section Another
+          Task in sec      :2014-01-12  , 12d
+          another task      : 24d
+          \`\`\`
+
+          \`\`\`mermaid
+          gitGraph
+          commit
+          commit
+          branch develop
+          checkout develop
+          commit
+          commit
+          checkout main
+          merge develop
+          commit
+          commit
+          \`\`\`
+
+          \`\`\`mermaid
+          pie title Pets adopted by volunteers
+          "Dogs" : 386
+          "Cats" : 85
+          "Rats" : 15
+          \`\`\`
+
+          \`\`\`mermaid
+          mindmap
+          root((mindmap))
+            Origins
+              Long history
+              ::icon(fa fa-edit)
+              Popularisation
+                British popular psychology author Tony Buzan
+            Research
+              On effectivness<br/>and features
+              On Automatic creation
+                Uses
+                    Creative techniques
+                    Strategic planning
+                    Argument mapping
+            Tools
+              Pen and paper
+              Mermaid
+          \`\`\`
+          
+          \`\`\`mermaid
+          quadrantChart
+          Campaign A: [0.3, 0.6]
+          Campaign B: [0.45, 0.23]
+          Campaign C: [0.57, 0.69]
+          Campaign D: [0.78, 0.34]
+          Campaign E: [0.40, 0.34]
+          Campaign F: [0.35, 0.78]
+          \`\`\`
+
+        ` ,
       sender: '@gerardsans',
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
     }); 
@@ -237,6 +371,14 @@ alert(s);
 
   delete(id: string) {
     this.messages = this.messages.filter((message: any) => message.id !== id);
+  }
+
+  ngAfterViewChecked() {
+    //fix odd issue with mermaidjs icons: class="node-icon-0 fa&nbspfa-edit"
+    document.querySelectorAll("[class^=node-icon-]").forEach(elem => {
+      let classSanitised = elem.className.replace(/\s/g, ' ');
+      elem.className = classSanitised; 
+    })
   }
 }
 
