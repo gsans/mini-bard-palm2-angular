@@ -328,3 +328,10 @@ input.mdc-text-field__input:focus {
   text.actor>tspan { color: #1d262f; fill:#1d262f; }
   .actor-man circle, line { color: #1d262f; fill:white; stroke:#1d262f; }
 }
+
+.text {
+  display: none;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+}

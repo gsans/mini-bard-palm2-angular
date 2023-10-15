@@ -11,6 +11,12 @@
           </div>
           <div class="message-content">
             <span *ngIf="showReply(message.text)" class="btn-reply">
+              <button mat-icon-button (click)="navigator.clipboard.writeText(message.text)">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+              <button mat-icon-button (click)="message.isRaw = !message.isRaw">
+                <mat-icon>{{!message.isRaw?'code':'visibility'}}</mat-icon>
+              </button>
               <button mat-icon-button (click)="retry(message.text)">
                 <mat-icon>replay</mat-icon>
               </button>
@@ -18,7 +24,11 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </span>
-            <markdown ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
+            <div class="text" [ngStyle]=" { 'display': message.isRaw ? 'block' : 'none' }">
+              <pre ngPreserveWhitespaces>{{ message.text }}</pre>
+            </div>
+            <markdown [ngStyle]=" { 'display': message.isRaw ? 'none' : 'block' }"
+              ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
               clipboard [clipboardButtonComponent]="clipboardButton">
               {{ message.text | processCodeBlocks }}
             </markdown>

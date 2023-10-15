@@ -13,6 +13,7 @@ declare global {
     scrollIntoView?: any;
   }
 }
+declare var navigator: any;
 
 @Component({
   selector: 'app-custom-chat',
@@ -55,6 +56,7 @@ export class CustomChatComponent implements OnInit, AfterViewChecked {
   model = {
     prompt: "",
   };
+  navigator : any = window.navigator;
 
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient

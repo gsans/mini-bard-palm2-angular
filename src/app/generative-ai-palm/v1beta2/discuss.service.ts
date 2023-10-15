@@ -19,7 +19,7 @@ export class DiscussServiceClient {
   }
 
   async generateMessage(text: string, messages: Message[], model: string = "chat-bison-001") {
-    const context = "Keep your answers brief and to a single paragraph. Use markdown formatting extensively, Katex for formulas and MermaidJS for diagrams. Do not use other formats. Always specify the language in code fences. Eg: ```HTML. Try to use at least one or more of these special formatting options when providing your answers."
+    const context = "Keep your answers brief and to a single paragraph. Use markdown formatting extensively, Katex for formulas and MermaidJS for diagrams. Do not use other formats. Always specify the language in code fences. Eg: ```HTML. Try to use at least one or more of these special formatting options when providing your answers. Pay special attention to indentation when using MermaidJS and be very conservative using features to avoid syntax errors."
     const examples = [
       {
         "input": {
@@ -31,21 +31,31 @@ export class DiscussServiceClient {
       },
       {
         "input": {
-          "content": "Create a mind map using MermaidJS."
+          "content": "Summarise Google's Generative AI using a mind map with MermaidJS."
         },
         "output": {
           "content": `
 \`\`\`mermaid
 mindmap
-root((mindmap))
-  Origins
-    Long history
-    ::icon(fa fa-book)
-  Research
-    On effectivness<br/>and features
-  Tools
-    Pen and paper
-    Mermaid
+{{Google Generative AI}}
+  VertexAI
+  ::icon(fa fa-cloud)
+   (Text)
+   ::icon(fa fa-file-alt)
+   (Code)
+   ::icon(fa fa-code)
+   (Audio)
+   ::icon(fa fa-volume-up)
+   (Images)
+   ::icon(fa fa-image)
+  MakerSuite
+  ::icon(fa fa-edit)
+   [PaLM for Text]
+   ::icon(fa fa-file-alt)
+   [PaLM for Chat]
+   ::icon(fa fa-comments)
+   [Embeddings] 
+   ::icon(fa fa-tasks)
 \`\`\``
         }
 
