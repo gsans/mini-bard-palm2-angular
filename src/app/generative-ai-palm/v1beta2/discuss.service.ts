@@ -18,7 +18,11 @@ export class DiscussServiceClient {
     this.apiKey = config.apiKey;
   }
 
+  public MAX_PAYLOAD_BYTES: number = 20000;
+
   async generateMessage(text: string, messages: Message[], model: string = "chat-bison-001") {
+    const byteSize = (str: string) => new TextEncoder().encode(str).length;
+    
     const context = "Keep your answers brief and to a single paragraph. Use markdown formatting extensively, Katex for formulas and MermaidJS for diagrams. Do not use other formats. Always specify the language in code fences. Eg: ```HTML. Try to use at least one or more of these special formatting options when providing your answers. Pay special attention to indentation when using MermaidJS and be very conservative using features to avoid syntax errors."
     const examples = [
       {
@@ -61,9 +65,15 @@ mindmap
 
       }
     ];
+    // calculate offset
+    //let dryTestPrompt: MessageRequest = createMessage(model, text, messages, 0.5, 1, 0.70, 40, context, examples);
+    //let bytesOffset: number = byteSize(JSON.stringify(dryTestPrompt));
+
+
     let endpoint = this.buildEndpointUrl(model);
     let prompt: MessageRequest = createMessage(model, text, messages, 0.5, 1, 0.70, 40, context, examples);
 
+    console.log("Payload remaining before reaching maxBytes", byteSize(JSON.stringify(prompt)) - byteSize(text));
     return firstValueFrom(
       this.http.post<MessageResponse>(endpoint, prompt)
     );
@@ -78,5 +88,27 @@ mindmap
     url += "?key=" + this.apiKey;    // api key
 
     return url;
+  }
+
+  TrimToFit(text: string, maxSize: number = this.MAX_PAYLOAD_BYTES): string {
+    if (maxSize > this.MAX_PAYLOAD_BYTES) {
+      maxSize = this.MAX_PAYLOAD_BYTES;
+    }
+    const marker = "...";
+
+    const byteEncoder = new TextEncoder();
+    const byteDecoder = new TextDecoder();
+
+    const inputBytes = byteEncoder.encode(text);
+
+    if (inputBytes.length <= maxSize) {
+      return text;
+    }
+
+    const remainingBytes = maxSize - byteEncoder.encode(marker).length;
+    const trimmedBytes = inputBytes.slice(0, remainingBytes);
+    console.log("Warning. Message was trimmed to fit max capacity: ", maxSize);
+
+    return byteDecoder.decode(trimmedBytes) + marker;
   }
 }

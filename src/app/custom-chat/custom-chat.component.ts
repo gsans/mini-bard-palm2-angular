@@ -15,6 +15,14 @@ declare global {
 }
 declare var navigator: any;
 
+interface ChatMessage {
+  id: string,
+  text: string,
+  sender: string,
+  avatar: string,
+  isRaw?: boolean,
+}
+
 @Component({
   selector: 'app-custom-chat',
   templateUrl: './custom-chat.component.html',
@@ -27,8 +35,7 @@ export class CustomChatComponent implements OnInit, AfterViewChecked {
   disabled: boolean = false;
 
   title = 'Conversation';
-  messages = <any>[];
-  palmMessages: Array<Message> = [];
+  messages: Array<ChatMessage> = [];
   loading = false;
   katexOptions: KatexOptions = {
     displayMode: true,
@@ -56,7 +63,8 @@ export class CustomChatComponent implements OnInit, AfterViewChecked {
   model = {
     prompt: "",
   };
-  navigator : any = window.navigator;
+  navigator: any = window.navigator;
+  MAX_SIZE_BYTES: number = 20000 - 2700; //request payload approximation 2229 TODO: expose these from the client
 
   constructor(
     @Inject(DISCUSS_SERVICE_CLIENT_TOKEN) private client: DiscussServiceClient
@@ -108,7 +116,6 @@ alert(s);
           **MermaidJS for diagrams**
           \`\`\`mermaid
           sequenceDiagram
-          %%{ title: 'testing' }%%
           Alice->>+John: Hello John, how are you?
           Alice->>+John: John, can you hear me?
           John-->>-Alice: Hi Alice, I can hear you!
@@ -117,7 +124,6 @@ alert(s);
 
           \`\`\`mermaid
           flowchart TD
-          %%{ title: 'testing' }%%
           A[Christmas] -->|Get money| B(Go shopping)
           B --> C{Let me think}
           C -->|One| D[Laptop]
@@ -237,7 +243,7 @@ alert(s);
         ` ,
       sender: '@gerardsans',
       avatar: "https://pbs.twimg.com/profile_images/1688607716653105152/iL4c9mUH_400x400.jpg",
-    }); 
+    });
   }
 
   handleUserMessage(event: any) {
@@ -248,7 +254,7 @@ alert(s);
     }
 
     this.addUserMessage(this.model.prompt);
-    setTimeout(()=>{
+    setTimeout(() => {
       this.model.prompt = ''; // reset input
     });
   }
@@ -262,7 +268,7 @@ alert(s);
   // Helpers
   private async addUserMessage(text: string) {
     //let txt = text.replaceAll('\n', '\\n');
-    
+
     // Split the text into code and non-code sections
     let sections = text.split(/(```[^`]+```)/);
 
@@ -295,11 +301,10 @@ alert(s);
     if (this.disabled) {
       answer = 'Test reply!';
     } else {
-      response = await this.client.generateMessage(text, this.palmMessages);
+      response = await this.client.generateMessage(this.TrimToFit(text), this.buildPalmMessages());
       answer = this.extractMessageResponse(response);
     }
     if (answer) {
-      this.palmMessages.push({ content: text }); // add user after call
       this.addBotMessage(answer);
 
       // let newTitle = this.extractTitle(answer);
@@ -312,7 +317,6 @@ alert(s);
   }
 
   private addBotMessage(text: string) {
-    this.palmMessages.push({ content: text }); // add robot response
     this.messages.push({
       id: uuid.v4(),
       text: text,
@@ -327,6 +331,7 @@ alert(s);
       id: uuid.v4(),
       text,
       sender: 'Bot',
+      avatar: "/assets/sparkle_resting.gif",
     });
   }
 
@@ -382,9 +387,59 @@ alert(s);
     //fix odd issue with mermaidjs icons: class="node-icon-0 fa&nbspfa-edit"
     document.querySelectorAll("[class^=node-icon-]").forEach(elem => {
       let classSanitised = elem.className.replace(/\s/g, ' ');
-      elem.className = classSanitised; 
+      elem.className = classSanitised;
     })
   }
+
+  buildPalmMessages(): Array<Message> {
+    debugger;
+    const byteSize = (str: string) => new TextEncoder().encode(str).length;
+    let totalBytes = 0;
+    let palmMessages: Array<Message> = [];
+    
+    // Keep most recent messages (reversed order)
+    const reversedMessages = this.messages.slice().reverse();
+    reversedMessages.forEach((message: ChatMessage) => {
+      totalBytes += byteSize(message.text);
+      if (totalBytes <= this.MAX_SIZE_BYTES) {
+        palmMessages.push({ content: message.text });
+      } else {
+        if (palmMessages.length === 0) {
+          //  single message overflowing max length (ignore)
+          //palmMessages.push({ content: this.TrimToFit(message.text) });
+        } else {
+          //  past message that we can further trim to fit max size (automatically making room)
+          //   instead of just discarding it altogether
+          palmMessages.push({ content: this.TrimToFit(message.text, Math.abs(this.MAX_SIZE_BYTES - totalBytes) ) });
+        }
+      } 
+    });
+    return palmMessages.reverse();
+  }
+
+  TrimToFit(text: string, maxSize: number = this.MAX_SIZE_BYTES): string {
+    if (maxSize > this.MAX_SIZE_BYTES) { 
+      maxSize = this.MAX_SIZE_BYTES;
+    }
+    const marker = "...";
+
+    const byteEncoder = new TextEncoder();
+    const byteDecoder = new TextDecoder();
+
+    const inputBytes = byteEncoder.encode(text);
+
+    if (inputBytes.length <= maxSize) {
+      return text;
+    }
+
+    const remainingBytes = maxSize - byteEncoder.encode(marker).length;
+    const trimmedBytes = inputBytes.slice(0, remainingBytes);
+    console.log("Warning. Message was trimmed to fit max capacity: ", maxSize);
+
+    return byteDecoder.decode(trimmedBytes) + marker;
+  }
+
+
 }
 
 window.document.addEventListener('copy', function (event) {
