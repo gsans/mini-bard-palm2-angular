@@ -71,15 +71,15 @@ export function markedOptionsFactory(): MarkedOptions {
     AppRoutingModule,
 
     BrowserAnimationsModule,
-    // VertexModule.forRoot({
-    //   projectId: environment.PROJECT_ID,
-    //   accessToken: environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN,
-    //   version: "v1" // options: v1beta1, v1
-    // })
+    VertexModule.forRoot({
+       projectId: environment.PROJECT_ID,
+       accessToken: environment.GCLOUD_AUTH_PRINT_ACCESS_TOKEN,
+       version: "v1" // options: v1beta1, v1
+    }),
     PalmModule.forRoot({
       apiKey: environment.API_KEY,
       version: "v1beta2" // options: v1beta2
-    }),
+    }), 
     MatIconModule,
     MatListModule,
     MatSidenavModule,

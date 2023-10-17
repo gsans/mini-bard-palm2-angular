@@ -23,6 +23,35 @@ export function createPrompt(
   return request;
 }  
 
+export function createPromptStreaming(
+  prompt: string = "What is the largest number with a name?",
+  temperature: number = 0,
+  maxOutputTokens: number = 100,
+  topP: number = 0.70,
+  topK: number = 40
+): any {
+  const request: any = {
+    "inputs": [
+      {
+        "struct_val": {
+          "prompt": {
+            "string_val": [ `${prompt}`]
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "struct_val": {
+        "temperature": { "float_val": temperature },
+        "maxOutputTokens": { "int_val": maxOutputTokens },
+        "topK": { "int_val": topK },
+        "topP": { "float_val": topP }
+      }
+    }
+  }
+  return request;
+}  
+
 // Text API
 export interface TextRequest {
   instances: TextInstance[];

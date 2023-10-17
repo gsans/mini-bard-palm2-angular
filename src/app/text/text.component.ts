@@ -1,7 +1,9 @@
 import { Component, Inject, ViewChild } from '@angular/core';
-//import { PREDICTION_SERVICE_CLIENT_TOKEN } from '../generative-ai-vertex/vertex.module';
-import { TEXT_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
-import { TextServiceClient } from '../generative-ai-palm/v1beta2/text.service';
+import { PREDICTION_SERVICE_CLIENT_TOKEN } from '../generative-ai-vertex/vertex.module';
+import { PredictionServiceClient } from '../generative-ai-vertex/v1/prediction.service';
+import { TextResponse } from '../generative-ai-vertex/v1/vertex.types';
+//import { TEXT_SERVICE_CLIENT_TOKEN } from '../generative-ai-palm/palm.module';
+//import { TextServiceClient } from '../generative-ai-palm/v1beta2/text.service';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { AudioService } from '../read/audio.service';
 const MAX_PHRASES = 10;
@@ -18,7 +20,8 @@ export class TextComponent {
   playing: boolean = false;
 
   constructor(
-    @Inject(TEXT_SERVICE_CLIENT_TOKEN) public client: TextServiceClient,
+    //@Inject(TEXT_SERVICE_CLIENT_TOKEN) public client: TextServiceClient,
+    @Inject(PREDICTION_SERVICE_CLIENT_TOKEN) public client: PredictionServiceClient,
     private audio: AudioService
   ) { }
 
@@ -29,11 +32,30 @@ export class TextComponent {
   async run() {
     if (!this.editor) return;
     const prompt = this.editor.extractPrompt();
-    const response = await this.client.generateText(prompt);
-    const text = (response?.candidates?.[0].output || '').trim();
-    if (text.length > 0) {
-      this.editor.insertAndFormatMarkdown(text);
-    }
+
+    // PaLM
+    //const response = await this.client.generateText(prompt);
+    //const text = (response?.candidates?.[0].output || '').trim();
+
+    // Vertex AI
+    //const response: TextResponse = await this.client.predict(prompt);
+    //const text = (response?.predictions?.[0].content).trim();
+    // if (text.length > 0) {
+    //   this.editor.insertAndFormatMarkdown(text);
+    // }
+
+    // Vertex AI Stream
+    this.client.streamingPredict(prompt).subscribe({
+      next: (response: any) => {
+        console.log('stream-chunk');
+        response.forEach( (element: any) => {
+          const text = (element.outputs?.[0].structVal?.content?.stringVal?.[0]).trim();
+          this.editor.insertStream(text);
+        });
+      },
+      complete: () => { console.log('stream-end'); },
+      error: (error) => { console.log(error); }
+    })
   }
 
   clear() {

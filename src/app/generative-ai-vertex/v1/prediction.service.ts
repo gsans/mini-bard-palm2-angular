@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { GoogleCloudCredentials } from '../types';
-import { createPrompt, TextRequest, TextResponse } from './vertex.types';
+import { createPrompt, TextRequest, TextResponse, createPromptStreaming } from './vertex.types';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -30,6 +30,14 @@ export class PredictionServiceClient {
     );
   }
 
+  streamingPredict(text: string, model: string = "text-bison") {
+    let endpoint = this.buildEndpointUrlStreaming(model);
+    let prompt: any = createPromptStreaming(text);
+    let headers = this.getAuthHeadersStreaming();
+
+    return this.http.post(endpoint, prompt, { headers });
+  }
+
   private buildEndpointUrl(model: string) {
 
     let url = this.baseUrl;               // base url
@@ -43,8 +51,27 @@ export class PredictionServiceClient {
     return url;
   }
 
+  private buildEndpointUrlStreaming(model: string) {
+
+    let url = this.baseUrl;               // base url
+    url += this.version;                  // api version
+    url += "/projects/" + this.projectID; // project id
+    url += "/locations/us-central1";      // google cloud region
+    url += "/publishers/google";          // publisher
+    url += "/models/" + model;            // model
+    url += ":serverStreamingPredict";     // action
+
+    return url;
+  }
+
   private getAuthHeaders() {
     return new HttpHeaders()
       .set('Authorization', `Bearer ${this.accessToken}`);
+  }
+
+  private getAuthHeadersStreaming() {
+    return new HttpHeaders()
+      .set('Authorization', `Bearer ${this.accessToken}`);
+      //.set('Transfer-Encoding', 'chunked');
   }
 }
