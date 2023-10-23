@@ -36,6 +36,9 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 // function that returns `MarkedOptions` with renderer override
 export function markedOptionsFactory(): MarkedOptions {
   const renderer = new MarkedRenderer();
@@ -88,6 +91,7 @@ export function markedOptionsFactory(): MarkedOptions {
     MatInputModule,
     MatFormFieldModule,
     TextFieldModule,
+    MatProgressSpinnerModule,
 
     MarkdownModule.forRoot({
       loader: HttpClient,

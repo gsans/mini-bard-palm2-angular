@@ -292,9 +292,9 @@ alert(s);
 
     this.loading = true;
     //disable after timeout
-    setTimeout(() => {
-      this.loading = false; //silent recovery
-    }, 5000);
+    // setTimeout(() => {
+    //   this.loading = false; //silent recovery
+    // }, 10000);
 
     let response;
     let answer;
@@ -302,6 +302,7 @@ alert(s);
       answer = 'Test reply!';
     } else {
       response = await this.client.generateMessage(this.TrimToFit(text), this.buildPalmMessages());
+      this.loading = false;
       answer = this.extractMessageResponse(response);
     }
     if (answer) {
@@ -312,7 +313,6 @@ alert(s);
       //   this.title = `Conversation: ${newTitle}`;
       // }
     }
-    this.loading = false;
     //this.scrollToBottom();
   }
 

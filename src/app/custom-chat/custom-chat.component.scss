@@ -335,3 +335,15 @@ input.mdc-text-field__input:focus {
   font-size: 10px;
   font-weight: 400;
 }
+
+.message-content.loading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 35px;
+  padding-left: 15px;
+  padding-bottom: 0px;
+}
+.loading .text {
+  display: block;
+}

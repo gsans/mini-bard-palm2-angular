@@ -34,24 +34,31 @@
             </markdown>
           </div>
         </div>
+        <div class="message-container" *ngIf="loading">
+          <div class="message-content loading">
+            <div class="text">
+              <mat-spinner [diameter]="20"></mat-spinner>
+            </div>
+          </div>
+        </div>
       </ng-container>
       <div #bottom></div>
     </div>
 
     <div class="form">
-          <div class="message-row">
-              <mat-form-field>
-                <mat-label>Enter your prompt here</mat-label>
-                <textarea matInput appearance="outline"
-                  [style.fontSize.px]="14"
-                  cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="1"
-                  cdkAutosizeMaxRows="5"
-                  [(ngModel)]="model.prompt"
-                  (keydown.enter)="handleUserMessage($event)"
-                  ></textarea>
-              </mat-form-field>
-          </div>
+      <div class="message-row">
+        <mat-form-field>
+          <mat-label>Enter your prompt here</mat-label>
+          <textarea matInput appearance="outline"
+            [style.fontSize.px]="14"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            [(ngModel)]="model.prompt"
+            (keydown.enter)="handleUserMessage($event)"
+            ></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </div>
