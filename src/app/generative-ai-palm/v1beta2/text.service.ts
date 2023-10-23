@@ -23,17 +23,17 @@ export class TextServiceClient {
     text = text + ". Be very brief in your response so they can be read out loud. Don't use Markdown tables and code fences.";
     let prompt: TextRequest = createTextRequest(model, text, undefined, undefined, undefined, undefined, undefined, 
       [ { "category": HarmCategory.HARM_CATEGORY_DEROGATORY,
-        "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+        "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE }, 
         { "category": HarmCategory.HARM_CATEGORY_TOXICITY, 
-          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE }, 
         { "category": HarmCategory.HARM_CATEGORY_VIOLENCE, 
-          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE }, 
         { "category": HarmCategory.HARM_CATEGORY_SEXUAL, 
-          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE },
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE },
         { "category": HarmCategory.HARM_CATEGORY_MEDICAL, 
-          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }, 
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE }, 
         { "category": HarmCategory.HARM_CATEGORY_DANGEROUS, 
-          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_NONE }]
+          "threshold": SafetySetting.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE }]
       , undefined);
 
     return firstValueFrom(

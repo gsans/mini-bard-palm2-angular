@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { ContentChange } from 'ngx-quill';
 import { Quill } from 'quill';
 import './quill-label.blot';
+import './quill-warning.blot';
 import './quill-text-only.clipboard';
 import './quill-markdown.module';
 import { promptIdeas as PROMPTS } from './prompt-ideas'
@@ -104,7 +105,7 @@ export class RichTextEditorComponent {
     return text.trim().substring(0, 8196);
   }
 
-  insertAndFormatMarkdown(text: string) {
+  insertAndFormatMarkdown(text: string, error: boolean = false) {
     //remove language from markdown fences
     /* const processedMarkdown = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, language, code) => {
       return `\n\`\`\`\n${code}\`\`\`\n`;
@@ -123,9 +124,15 @@ export class RichTextEditorComponent {
       this.quillInstance.insertText(index, text, 'api');
       this.quillInstance.update('api');
 
-      this.quillInstance.formatText(index, length-1, {
-        'background-color': 'rgb(200, 200, 200)'
-      });
+      if (error) {
+        this.quillInstance.formatText(index, length - 1, {
+          'background-color': 'rgb(200, 0, 0)'
+        });
+      } else {
+        this.quillInstance.formatText(index, length - 1, {
+          'background-color': 'rgb(200, 200, 200)'
+        });
+      }
       this.quillInstance.update('api');
 
       this.quillInstance.insertText(index + length, '\n');
@@ -143,15 +150,20 @@ export class RichTextEditorComponent {
     }
   }
 
-  insertAndFormat(text:string) {
+  insertAndFormat(text: string, error: boolean = false) {
     var range = this.quillInstance.getSelection();
     if (range) {
       if (range.length > 0) return; // range selected ignore
       const index = range.index;
       const length = text.length;
 
-      this.quillInstance.insertEmbed(index, 'label', text, 'user');
-      this.quillInstance.update('user');
+      if (error) {
+        this.quillInstance.insertEmbed(index, 'warning', text, 'user');
+        this.quillInstance.update('user');
+      } else {
+        this.quillInstance.insertEmbed(index, 'label', text, 'user');
+        this.quillInstance.update('user');
+      }
 
       /* this.quillInstance.setText(text);
       this.quillInstance.formatText(index, length, {                   // unbolds 'hello' and set its color to blue
