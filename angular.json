@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "quill", "regenerator-runtime"
+            ],
             "outputPath": "dist/mini-bard-palm2-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -115,5 +118,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
