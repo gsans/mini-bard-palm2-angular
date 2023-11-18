@@ -36,7 +36,6 @@ export class TextComponent {
 
     // PaLM
     const response = await this.client.generateText(prompt);
-    debugger;
     if (response.filters && response.filters.length > 0){
       this.logBlockedResponse(prompt, response);
       this.editor.insertAndFormat("Response was blocked. Try changing your prompt to avoid any derogatory, toxic, sexual, violent, dangerous or medical related content.", true);

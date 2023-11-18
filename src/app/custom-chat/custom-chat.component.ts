@@ -392,7 +392,6 @@ alert(s);
   }
 
   buildPalmMessages(): Array<Message> {
-    debugger;
     const byteSize = (str: string) => new TextEncoder().encode(str).length;
     let totalBytes = 0;
     let palmMessages: Array<Message> = [];
