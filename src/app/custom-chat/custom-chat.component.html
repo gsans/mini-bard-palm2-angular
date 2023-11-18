@@ -34,14 +34,14 @@
             </markdown>
           </div>
         </div>
-        <div class="message-container" *ngIf="loading">
-          <div class="message-content loading">
-            <div class="text">
-              <mat-spinner [diameter]="20"></mat-spinner>
-            </div>
+      </ng-container>
+      <div class="message-container" *ngIf="loading">
+        <div class="message-content loading">
+          <div class="text">
+            <mat-spinner [diameter]="20"></mat-spinner>
           </div>
         </div>
-      </ng-container>
+      </div>
       <div #bottom></div>
     </div>
 
