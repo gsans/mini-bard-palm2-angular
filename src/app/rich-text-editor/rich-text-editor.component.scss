@@ -16,6 +16,7 @@
 
 ::ng-deep .ql-container {
   border: 0 !important;
+  width: 100%;
 }
 
 ::ng-deep .ql-editor {
@@ -23,6 +24,7 @@
   font-size: 15px;
   font-weight: 400;
   padding-left: 0px;
+  width: 100%;
 
   p {
     font-size: 15px !important;
@@ -136,4 +138,8 @@
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
+}
+
+.content-editor {
+  width: 100%;
 }
