@@ -89,10 +89,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "mini-bard-palm2-angular:build:production"
+              "buildTarget": "mini-bard-palm2-angular:build:production"
             },
             "development": {
-              "browserTarget": "mini-bard-palm2-angular:build:development"
+              "buildTarget": "mini-bard-palm2-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +100,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mini-bard-palm2-angular:build"
+            "buildTarget": "mini-bard-palm2-angular:build"
           }
         },
         "test": {

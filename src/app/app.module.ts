@@ -21,7 +21,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TextComponent } from './text/text.component';
-import { MarkdownModule, MarkedOptions, MarkedRenderer, ClipboardOptions } from 'ngx-markdown';
+
+import { MarkdownModule, MARKED_OPTIONS, MarkedOptions, MarkedRenderer, CLIPBOARD_OPTIONS } from 'ngx-markdown';
 import { ClipboardButtonComponent } from './clipboard-button/clipboard-button.component';
 import { ReadComponent } from './read/read.component';
 
@@ -96,11 +97,11 @@ export function markedOptionsFactory(): MarkedOptions {
     MarkdownModule.forRoot({
       loader: HttpClient,
       markedOptions: {
-        provide: MarkedOptions,
+        provide: MARKED_OPTIONS,
         useFactory: markedOptionsFactory,
       },
       clipboardOptions: {
-        provide: ClipboardOptions,
+        provide: CLIPBOARD_OPTIONS,
         useValue: {
           buttonComponent: ClipboardButtonComponent,
         },
