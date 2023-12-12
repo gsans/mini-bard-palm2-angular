@@ -35,7 +35,11 @@ export class PredictionServiceClient {
     let prompt: any = createPromptStreaming(text);
     let headers = this.getAuthHeadersStreaming();
 
-    return this.http.post(endpoint, prompt, { headers });
+    return this.http.post(endpoint, prompt, { headers, ... {
+      observe: "events",
+      responseType: "text",
+      reportProgress: true,
+    } });
   }
 
   private buildEndpointUrl(model: string) {

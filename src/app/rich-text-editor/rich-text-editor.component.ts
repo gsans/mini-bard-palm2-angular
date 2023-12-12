@@ -140,14 +140,22 @@ export class RichTextEditorComponent {
     }
   }
 
-  insertStream(text: string) {
-    var range = this.quillInstance.getSelection();
-    if (range) {
-      if (range.length > 0) return; // range selected ignore
-      const index = range.index;
-      this.quillInstance.insertText(index, text, 'api');
-      this.quillInstance.update('api');
-    }
+  getRange() {
+    return this.quillInstance.getSelection();
+  }
+
+  insertStream(text: string, range: any) {
+    // remove everything
+    let l = this.quillInstance.getLength(); 
+    this.quillInstance.deleteText(range.index, l)
+
+    // select initial range
+    this.quillInstance.setSelection(range);
+    const index = range.index || 0;
+    const length = text.length;
+
+    this.quillInstance.insertEmbed(index, 'label', text, 'api');
+    this.quillInstance.update('api');
   }
 
   insertAndFormat(text: string, error: boolean = false) {

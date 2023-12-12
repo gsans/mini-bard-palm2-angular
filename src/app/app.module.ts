@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http'; 
+import { HttpClientModule, HttpClient, provideHttpClient, withFetch } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -113,6 +113,7 @@ export function markedOptionsFactory(): MarkedOptions {
     FormsModule,
   ],
   providers: [
+    provideHttpClient(withFetch()),
     AudioService,
     RouterScrollService,
   ],

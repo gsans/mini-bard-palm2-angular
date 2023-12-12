@@ -35,7 +35,7 @@ export function createPromptStreaming(
       {
         "struct_val": {
           "prompt": {
-            "string_val": [ `${prompt}`]
+            "string_val": [`${prompt}`]
           }
         }
       }
