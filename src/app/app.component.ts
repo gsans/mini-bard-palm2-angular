@@ -50,8 +50,8 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
   ) {
     
     this.matIconRegistry.addSvgIcon( 
-      `palm`, 
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/palm.svg")
+      `gemini`, 
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/gemini.svg")
     );
     this.matIconRegistry.addSvgIcon(
       `angular`,
@@ -79,7 +79,7 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
       })
     ).subscribe((data: any) => {
       if (data) {
-        this.title = `PaLM for ${data}`;
+        this.title = `Gemini for ${data}`;
         this.titleService.setTitle(this.title);
       }
     });

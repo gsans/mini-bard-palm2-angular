@@ -8,7 +8,10 @@ import { TextResponse } from '../generative-ai-vertex/v1/vertex.types';
 import { RichTextEditorComponent } from '../rich-text-editor/rich-text-editor.component';
 import { AudioService } from '../read/audio.service';
 import { HttpEvent, HttpEventType, HttpDownloadProgressEvent } from '@angular/common/http';
-import { Subject, switchMap } from 'rxjs';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { environment } from '../../environments/environment.development';
+
+
 const MAX_PHRASES = 10;
 
 @Component({
@@ -54,17 +57,28 @@ export class TextComponent {
     // }
 
     // Vertex AI Stream
-    let state: any = {
-      range: undefined,
-      text: ''
-    };
-    this.client.streamingPredict(prompt).subscribe({
-      next: (event: HttpEvent<string>) => { 
-        state = this.handleStreamEvent(event, state);
-      },
-      complete: () => { console.log('stream-end'); },
-      error: (error) => { console.log(error); }
-    })
+    // let state: any = {
+    //   range: undefined,
+    //   text: ''
+    // };
+    // this.client.streamingPredict(prompt).subscribe({
+    //   next: (event: HttpEvent<string>) => { 
+    //     state = this.handleStreamEvent(event, state);
+    //   },
+    //   complete: () => { console.log('stream-end'); },
+    //   error: (error) => { console.log(error); }
+    // })
+
+    // Gemini Client
+    const genAI = new GoogleGenerativeAI(environment.API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    if (text.length > 0) {
+      this.editor.insertAndFormatMarkdown(text);
+    }
   }
 
   private showTextEditor(text: string) {

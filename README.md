@@ -1,28 +1,22 @@
-# Mini-Bard Angular client using Palm2 API (via API key and MakerSuite)
-
-<img src="https://i.imgur.com/umXJQzS.png" alt="PaLM2 for Text" width="90%">
-<img src="https://i.imgur.com/RaW7LSi.png" alt="PaLM2 for Chat" width="90%">
+# Mini-Bard Angular client using Gemini API (via API key and Google AI Studio)
 
 ### Features
-- Support for PaLM2 and VertexAI APIs
-- PaLM2 API (generateText and generateMessage)
-- Demonstration of PaLM for Text with text-to-speech (ElevenLabs)
-- Demonstration of PaLM for Chat with Rich Media support (markdown, code, emojis, formulas and diagrams)
+- Support for Google AI and VertexAI APIs
+- Gemini API (generateText and generateMessage)
+- Demonstration of Gemini for Text with text-to-speech (ElevenLabs)
+- Demonstration of Gemini for Chat with Rich Media support (markdown, code, emojis, formulas and diagrams)
 
 ### Libraries
 - Angular Material
-- PaLM for Text:
+- Gemini for Text:
   - ngx-quill - Angular QuillJS wrapper, a Rich Text Editor
   - QuillJS. Custom non-editable block (embed blot) to handle model responses.
   - ElevenLabs API - High quality natural voices
-- PaLM for Chat:
-  - Nebular Chat UI Angular UI Component
+- Gemini for Chat:
   - ngx-markdown - Markdown renderer with support for multiple extensions (code fences and highlighting, emojis, Katex mathematic formulas, MermaidJS diagrams and more)
 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.9.
-
-> Note: Angular version downgrade to v.15 required by Nebular Chat UI Angular UI Component used in PaLM for Chat.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Project Set-up
 Run this Angular CLI command to get the local environment setup:
@@ -46,18 +40,18 @@ export const environment = {
 };
 ```
 
-This project includes clients to both **VertexAI** and **PalM2 APIs**.
+This project includes clients to both **VertexAI** and **Gemini APIs**.
 
-### Setup for PaLM2 REST API access via API key (MakerSuite)
+### Setup for Gemini API access via API key (Google AI Studio)
 
-Get an [API key from MakerSuite](https://makersuite.google.com/app/apikey), then configure it here. 
+Get an [API key from Google AI Studio](https://makersuite.google.com/app/apikey), then configure it here. 
 
-> Note that access is restricted to the US (v1beta2). Use a VPN to overcome this limitation while outside the US. 
+> Note that access is restricted to the US. Use a VPN to overcome this limitation while outside the US. 
 
 ```ts
 // src/environments/environment.development.ts
 export const environment = {
-  API_KEY: "<<YOUR-API-KEY-FROM-MAKER-SUITE>>",
+  API_KEY: "<<YOUR-API-KEY-FROM-GOOGLE-AI-STUDIO>>",
 };
 ```
 

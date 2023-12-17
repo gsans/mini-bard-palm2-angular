@@ -54,9 +54,9 @@ mindmap
    ::icon(fa fa-image)
   MakerSuite
   ::icon(fa fa-edit)
-   [PaLM for Text]
+   [Gemini for Text]
    ::icon(fa fa-file-alt)
-   [PaLM for Chat]
+   [Gemini for Chat]
    ::icon(fa fa-comments)
    [Embeddings] 
    ::icon(fa fa-tasks)
