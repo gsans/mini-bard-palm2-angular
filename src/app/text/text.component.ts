@@ -71,9 +71,15 @@ export class TextComponent {
 
     // Gemini Client
     const genAI = new GoogleGenerativeAI(environment.API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const generationConfig = {
+      maxOutputTokens: 100,
+    };
+    const model = genAI.getGenerativeModel({ model: "gemini-pro", generationConfig });
   
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent([ 
+      "Reply using a maximum of a 100 characters.",
+      prompt
+    ]);
     const response = await result.response;
     const text = response.text();
     if (text.length > 0) {
