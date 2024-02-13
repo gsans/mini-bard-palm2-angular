@@ -41,8 +41,6 @@ export class AudioService {
     const ttsURL = `https://api.elevenlabs.io/v1/text-to-speech/${this.ELEVEN_LABS_VOICE_ID}`;
 
     const headers = {
-      accept: 'audio/mpeg',
-      'content-type': 'application/json',
       'xi-api-key': this.ELEVEN_LABS_API_KEY,
     };
 
@@ -66,7 +64,7 @@ export class AudioService {
         },
         error: (error) => {
           console.error('Error:', error);
-        }
+        },
       });
   }
 
@@ -84,20 +82,20 @@ export class AudioService {
     const streamingURL = `https://api.elevenlabs.io/v1/text-to-speech/${this.ELEVEN_LABS_VOICE_ID}/stream?optimize_streaming_latency=3`;
 
     const headers = {
-      'content-type': 'application/json',
       'xi-api-key': this.ELEVEN_LABS_API_KEY,
     };
 
     console.log('Call made: ' + Date.now());
     const request = {
       text,
-      "model_id": "eleven_multilingual_v2",
-      "voice_settings": { //defaults specific to voiceId
-        "stability": 0.5,
-        "similarity_boost": 0.75,
-        "style": 0,
-        "use_speaker_boost": true
-      }
+      model_id: 'eleven_multilingual_v2',
+      voice_settings: {
+        //defaults specific to voiceId
+        stability: 0.5,
+        similarity_boost: 0.75,
+        style: 0,
+        use_speaker_boost: true,
+      },
     };
     this.http
       .post(streamingURL, request, { headers, responseType: 'arraybuffer' })
@@ -108,16 +106,15 @@ export class AudioService {
         },
         error: (error) => {
           console.error('Error:', error);
-        }
+        },
       });
   }
 
   private async playAudioStream(audioData: ArrayBuffer) {
     //todo: add error handling
-    if (this.isAudioStreamingPlaying()) { 
+    if (this.isAudioStreamingPlaying()) {
       return;
-    }
-    else {
+    } else {
       this.audioContext = new AudioContext();
       this.source = this.audioContext.createBufferSource();
     }
@@ -148,19 +145,22 @@ export class AudioService {
     }
   }
 
-  public isAudioPlaying(){
-    return (this.audio
-      && this.audio.currentTime > 0
-      && !this.audio.paused
-      && !this.audio.ended
-      && this.audio.readyState > 2);
+  public isAudioPlaying() {
+    return (
+      this.audio &&
+      this.audio.currentTime > 0 &&
+      !this.audio.paused &&
+      !this.audio.ended &&
+      this.audio.readyState > 2
+    );
   }
 
   public isAudioStreamingPlaying() {
-    return (this.source
-      && this.audioContext
-      && this.audioContext.state == 'running' 
-      && this.streamPlaying
+    return (
+      this.source &&
+      this.audioContext &&
+      this.audioContext.state == 'running' &&
+      this.streamPlaying
     );
   }
 }
