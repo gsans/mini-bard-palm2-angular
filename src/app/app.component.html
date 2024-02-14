@@ -6,6 +6,13 @@
           <mat-icon svgIcon="angular" style="transform:scale(1.2);"></mat-icon>
         </button>
       </mat-list-item>
+      <mat-list-item routerLink="/text" routerLinkActive="active" [class.expanded]="isExpanded"
+      (click)="select('text')">
+        <button mat-icon-button (click)="select('text')" [class.active]="selection.text">
+          <mat-icon>edit</mat-icon>
+          <div [@option]="state" class="option">Gemini for Text</div>
+        </button>
+      </mat-list-item>
       <mat-list-item routerLink="/chat" routerLinkActive="active" [class.expanded]="isExpanded"
         (click)="select('chat')">
         <button mat-icon-button (click)="select('chat')" [class.active]="selection.chat">
@@ -13,14 +20,14 @@
           <div [@option]="state" class="option">Gemini for Chat</div>
         </button>
       </mat-list-item>
-      <mat-list-item routerLink="/text" routerLinkActive="active" [class.expanded]="isExpanded"
-        (click)="select('text')">
-        <button mat-icon-button (click)="select('text')" [class.active]="selection.text">
-          <mat-icon>edit</mat-icon>
-          <div [@option]="state" class="option">Gemini for Text</div>
+      <mat-list-item routerLink="/visual" routerLinkActive="active" [class.expanded]="isExpanded"
+      (click)="select('visual')">
+        <button mat-icon-button (click)="select('visual')" [class.active]="selection.visual">
+          <mat-icon>image</mat-icon>
+          <div [@option]="state" class="option">Gemini for Images</div>
         </button>
       </mat-list-item>
-<!--       <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded"
+      <!-- <mat-list-item routerLink="/voice" routerLinkActive="active" [class.expanded]="isExpanded"
         (click)="select('voice')">
         <button mat-icon-button (click)="select('voice')" [class.active]="selection.voice">
           <mat-icon>volume_up</mat-icon>

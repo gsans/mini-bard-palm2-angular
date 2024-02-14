@@ -21,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { TextComponent } from './text/text.component';
+import { VisualComponent } from './visual/visual.component';
 
 import { MarkdownModule, MARKED_OPTIONS, MarkedOptions, MarkedRenderer, CLIPBOARD_OPTIONS } from 'ngx-markdown';
 import { ClipboardButtonComponent } from './clipboard-button/clipboard-button.component';
@@ -68,6 +69,7 @@ export function markedOptionsFactory(): MarkedOptions {
     ReadComponent,
     ProcessCodeBlocksPipe,
     CustomChatComponent,
+    VisualComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +95,7 @@ export function markedOptionsFactory(): MarkedOptions {
     MatFormFieldModule,
     TextFieldModule,
     MatProgressSpinnerModule,
+    FormsModule,
 
     MarkdownModule.forRoot({
       loader: HttpClient,

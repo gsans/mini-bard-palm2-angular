@@ -20,8 +20,9 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
   isExpanded: boolean = false;
   state = this.isExpanded ? 'opened' : 'closed';
   selection = {
-    chat: true,
-    text: false,
+    text: true,
+    chat: false,
+    visual: false,
     config: false,
     voice: false,
   }
@@ -36,6 +37,7 @@ export class AppComponent implements AfterContentChecked, AfterViewInit {
   select(option:string) {
     this.selection.chat = option == "chat";
     this.selection.text = option == "text";
+    this.selection.text = option == "visual";
     this.selection.text = option == "config";
   }
 

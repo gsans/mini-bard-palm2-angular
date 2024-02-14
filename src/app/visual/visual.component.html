@@ -1,0 +1,52 @@
+<div>
+  <main>
+    <div class="header">Explore visual features</div>
+    <form (submit)="generateRecipe()">
+      <div class="image-picker">
+        <label class="image-choice">
+          <input
+            type="radio"
+            name="chosen-image"
+            value="assets/baked_goods_1.jpeg"
+            [(ngModel)]="selectedImage"
+          />
+          <img src="assets/baked_goods_1.jpeg" />
+        </label>
+        <label class="image-choice">
+          <input
+            type="radio"
+            name="chosen-image"
+            value="assets/baked_goods_2.jpeg"
+            [(ngModel)]="selectedImage"
+          />
+          <img src="assets/baked_goods_2.jpeg" />
+        </label>
+        <label class="image-choice">
+          <input
+            type="radio"
+            name="chosen-image"
+            value="assets/baked_goods_3.jpeg"
+            [(ngModel)]="selectedImage"
+          />
+          <img src="assets/baked_goods_3.jpeg" />
+        </label>
+      </div>
+      <div class="prompt-box">
+        <label>
+          <input
+            name="prompt"
+            placeholder="Enter prompt here"
+            type="text"
+            [(ngModel)]="prompt"
+          />
+        </label>
+        <button type="submit">Go</button>
+      </div>
+    </form>
+    <div class="output">
+      <markdown [data]="generatedRecipe"
+        ngPreserveWhitespaces emoji mermaid [mermaidOptions]="mermaidOptions" katex [katexOptions]="katexOptions"
+        clipboard [clipboardButtonComponent]="clipboardButton"></markdown>
+    </div>
+  </main>
+</div>
