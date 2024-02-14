@@ -1,10 +1,11 @@
-# Mini-Bard Angular client using Gemini API (via API key and Google AI Studio)
+# Mini-Gemini Chatbot Angular client using Gemini API (via API key and Google AI Studio)
 
 ### Features
 - Support for Google AI and VertexAI APIs
-- Gemini API (generateContent and sendMessage)
+- Gemini API (generateContent, startChat and sendMessage)
 - Demonstration of Gemini for Text with text-to-speech (ElevenLabs)
 - Demonstration of Gemini for Chat with Rich Media support (markdown, code, emojis, formulas and diagrams)
+- Demonstration of Gemini for Images with Rich Media support (markdown, code, emojis, formulas and diagrams)
 
 ### Libraries
 - Angular Material
@@ -13,6 +14,8 @@
   - QuillJS. Custom non-editable block (embed blot) to handle model responses.
   - ElevenLabs API - High quality natural voices
 - Gemini for Chat:
+  - ngx-markdown - Markdown renderer with support for multiple extensions (code fences and highlighting, emojis, Katex mathematic formulas, MermaidJS diagrams and more)
+- Gemini for Images:
   - ngx-markdown - Markdown renderer with support for multiple extensions (code fences and highlighting, emojis, Katex mathematic formulas, MermaidJS diagrams and more)
 
 
