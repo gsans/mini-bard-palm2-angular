@@ -50,6 +50,7 @@ ${nbsp}
       "css": "CSS",
       "clike": "C-like",
       "js": "JavaScript",
+      "javascript": "JavaScript",
       "abap": "ABAP",
       "abnf": "ABNF",
       "al": "AL",
